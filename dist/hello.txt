@@ -1,1 +1,4 @@
-this is where the distributed program goes. i think.
+this is where the actual source code of the program goes. i think.
+
+it lets us put junk in the root directory.
+
