@@ -31,8 +31,11 @@ jobs:
 #      run: npm install
 #    - name: Run build task
 #      run: npm run build --if-present
-    - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v2.1.6
+
+# THIS IS SO SSH-DEPLOY IS DISABLED. 
+#    - name: Deploy to Server
+#      uses: easingthemes/ssh-deploy@v2.1.6
+
       env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           ARGS: "-rltgoDzvO --delete"
