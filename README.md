@@ -9,3 +9,10 @@ and
 and
 
 HTML/CSS/Javascript
+
+Backend instruction:
+1. npm install express sequelize sqlite3 body-parser cors --save
+2. node server.js
+![image](https://user-images.githubusercontent.com/69673783/113281638-5221bf00-9342-11eb-8d0d-4f2883ee5fb3.png)
+3.http://localhost:8080/
+![image](https://user-images.githubusercontent.com/69673783/113281683-65cd2580-9342-11eb-8ccf-88ad27b1777f.png)
