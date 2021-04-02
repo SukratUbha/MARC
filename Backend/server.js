@@ -21,7 +21,7 @@ db.sequelize.sync();
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to bezkoder application.\n where the birds come out to fly. SQUARK!" });
 });
 
 // set port, listen for requests
