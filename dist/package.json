@@ -1,0 +1,29 @@
+{
+  "name": "marc",
+  "version": "1.0.0",
+  "description": "node.js rest apis with express, sequelize & SQL",
+  "main": "(index.js) server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "sequelize",
+    "sqlite",
+    "rest",
+    "api"
+  ],
+  "author": "steve",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.2",
+    "sqlite": "^4.0.19",
+    "sqlite3": "^5.0.2"
+  }
+}
