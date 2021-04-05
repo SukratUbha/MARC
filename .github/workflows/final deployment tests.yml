@@ -1,5 +1,7 @@
 # MARC unit tests and integration tests. 
-
+# ---------------------------
+# This is executed BY GITHUB. NOT ON OUR LOCAL MACHINES
+# ---------------------------
 defaults:
   run:
     working-directory: ./dist # we have a dist directory. our nodejs program isn't in the root of the project. ./dist is where package.json can be found.
