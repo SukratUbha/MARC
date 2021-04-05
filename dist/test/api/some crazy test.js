@@ -6,3 +6,8 @@ describe('Array', function() {
     });
   });
 });
+
+
+
+
+// https://mochajs.org/#synchronous-code

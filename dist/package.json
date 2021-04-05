@@ -4,7 +4,7 @@
   "description": "node.js rest apis with express, sequelize & SQL",
   "main": "(index.js) server.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --recursive",
     "build": "echo \"Nothing to be done for build stage\" && exit 0"
   },
   "keywords": [
