@@ -15,6 +15,9 @@ Just a subdirectory that contains our code in nice modular bits.
 app/assets:
 Where pictures & things go.
 
+app/persistence:  (invisible in github)
+The database file lives here :) 
+
 test:
 The testing framework, mocha, looks for this directory. It finds .js files in here and executes
 them as tests when you run 'npm test'. So does GitHub when we push to main, cos it calls 'npm test' !!
