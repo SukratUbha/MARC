@@ -2,15 +2,16 @@
 # Marker Allocation Reconciliation Configurator 
 A web-based tool for organizing markers (by Team 6) for Compsci 399.
 
-Built using
+## Built using
++ Node.js
++ Express web application server + framework
 
-and
++ Squelize ORM
++ SQLite in file-back-end mode
 
-and
++ HTML/CSS/Javascript
 
-HTML/CSS/Javascript
-
-Backend instruction:
+## Backend Installation Instructions:
 1. Change directory to /dist (this is important)
 
 2. npm install express sequelize sqlite3 body-parser cors --save
