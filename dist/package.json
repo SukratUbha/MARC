@@ -4,8 +4,8 @@
   "description": "node.js rest apis with express, sequelize & SQL",
   "main": "(index.js) server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified. After this should type && exit 1\" && exit 0",
-    "build":"echo \"Nothing to be done for build stage\" && exit 0"
+    "test": "mocha",
+    "build": "echo \"Nothing to be done for build stage\" && exit 0"
   },
   "keywords": [
     "nodejs",
@@ -24,5 +24,8 @@
     "sequelize": "^6.6.2",
     "sqlite": "^4.0.19",
     "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "mocha": "^8.3.2"
   }
 }
