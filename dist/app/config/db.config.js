@@ -1,4 +1,7 @@
-//database info
+/* database info
+Not required now, but keeping the file here as an example
+of a config file, since we may use config files in the future.
+
 module.exports = {
     HOST: "localhost",
     USER: "root",
@@ -12,3 +15,4 @@ module.exports = {
       idle: 10000
     }
   };
+*/
