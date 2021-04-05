@@ -65,7 +65,7 @@ console.log('static assets path is ' + dir )
 // May need to toggle TLS/SSL off when in dev mode, but TLS in production mode.
 // https://dev.to/omergulen/step-by-step-node-express-ssl-certificate-run-https-server-from-scratch-in-5-steps-5b87
 
-const PORT = process.cwd() == "/marc/MARC" ? 80 : 8080;
+const PORT = process.cwd() == "/marc/MARC/dist" ? 80 : 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
   
