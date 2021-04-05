@@ -3,8 +3,8 @@ const dbConfig = require("../config/db.config.js");
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: '/app/database/database.sqlite'
+  dialect: "sqlite",
+  storage: "./dist/app/database/marcdatabase.sqlite"
 });
 
 const db = {};
