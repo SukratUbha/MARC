@@ -4,7 +4,7 @@ A web-based tool for organizing markers (by Team 6) for Compsci 399.
 
 ## Built using
 + Node.js
-+ Express web application server + framework
++ Express web application framework
 
 + Squelize ORM
 + SQLite in file-back-end mode
@@ -26,7 +26,7 @@ A web-based tool for organizing markers (by Team 6) for Compsci 399.
 
 ## To start the server
 
-`npm start` will load the Express web application server. Then visit http://localhost:8080/
+`npm start` will load the Node.js http application server. Then visit http://localhost:8080/
 
 ![image](https://user-images.githubusercontent.com/80251770/113612930-91cf0a80-96a4-11eb-9be5-8dd564c60d33.png)
 ![image](https://user-images.githubusercontent.com/69673783/113281683-65cd2580-9342-11eb-8ccf-88ad27b1777f.png)
