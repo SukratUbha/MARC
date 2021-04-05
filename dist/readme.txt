@@ -24,4 +24,5 @@ package-lock.json:
 package-lock.json is mentioned in the gitignore file too. Depencencies have depencencies.
 This file locks their versions in place. I have made git ignore it to make our life easy.
 
-
+assets:
+where pictures & things go.
