@@ -16,9 +16,8 @@ A web-based tool for organizing markers (by Team 6) for Compsci 399.
 
 ## Backend Installation Instructions:
 1  `git clone https://github.com/uoa-compsci-399/MARC.git`
+
 2. `cd dist` *(changes directory to /dist. This is important. Our Nodejs program lives here, not the root of the repo)* 
-
-
 3. `npm install express sequelize sqlite3 body-parser cors --save`
 4. `npm install --save-dev mocha`
 5. `node server.js`
