@@ -4,7 +4,7 @@ A web-based tool for organizing markers (by Team 6) for Compsci 399.
 
 ## Built using
 + Node.js
-+ Express web application server + framework
++ Express web application framework
 
 + Squelize ORM
 + SQLite in file-back-end mode
@@ -16,22 +16,29 @@ A web-based tool for organizing markers (by Team 6) for Compsci 399.
 
 ## Backend Installation Instructions:
 
-1  `git clone https://github.com/uoa-compsci-399/MARC.git`
+`git clone https://github.com/uoa-compsci-399/MARC.git`
 
-2. `cd dist` *(changes directory to /dist. This is important. Our Nodejs program lives here, not the root of the repo)* 
+`cd MARC/dist` *(changes directory to /dist. This is important. Our Nodejs program lives there, not the root of the repo)* 
 
-3. `npm install express sequelize sqlite3 body-parser cors --save`
+`npm install` *This will install dependencies.  (express sequelize sqlite3 body-parser cors)*
 
-4. `npm install --save-dev mocha`
+![image](https://user-images.githubusercontent.com/80251770/113613893-efb02200-96a5-11eb-84a1-e9af5a4a9db8.png)
 
-5. `node server.js`
-![image](https://user-images.githubusercontent.com/69673783/113281638-5221bf00-9342-11eb-8d0d-4f2883ee5fb3.png)
+## To start the server
 
-6. Visit http://localhost:8080/
+`npm start` will load the Node.js http application server. Then visit http://localhost:8080/
+
+![image](https://user-images.githubusercontent.com/80251770/113612930-91cf0a80-96a4-11eb-9be5-8dd564c60d33.png)
 ![image](https://user-images.githubusercontent.com/69673783/113281683-65cd2580-9342-11eb-8ccf-88ad27b1777f.png)
-
 
 ## Directory contents
 + Our app actually lives in /dist so we can throw in unrelated files elsewhere.
 + .github/workflows contains a config file that instructs GitHub to do our CI/CD tests.
 + Check the readme.txt in /dist
+
+## Dependencies
+Npm knows which dependencies to install because the *package.json* file already has the dependencies registered. They were registered by doing the following:
+
+`npm install express sequelize sqlite3 body-parser cors --save
+npm install --save-dev mocha`
+
