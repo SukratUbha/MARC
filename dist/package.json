@@ -4,7 +4,8 @@
   "description": "node.js rest apis with express, sequelize & SQL",
   "main": "(index.js) server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified. After this should type && exit 1\" && exit 0",
+    "build":"echo \"Nothing to be done for build stage\" && exit 0"
   },
   "keywords": [
     "nodejs",
