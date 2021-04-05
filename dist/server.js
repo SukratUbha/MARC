@@ -36,7 +36,7 @@ app.get(
         "/",        //endpoint
         (req,res)=>{
             //provide an arrow function which takes request & reply objects.
-          res.send("<html><body background='/static/starface.gif'><div width='100%' align='middle'><font color='black' style='bold'><h1>Welcome to MARC.</h1><br><img src='/static/marc_wave_animation.gif'/><br><h3>Click <a href='/api'>HERE</a> to visit the API endpoint.</h3></font></div></body></html>")
+          res.send("<html><body background='/static/starface.gif'><div width='100%' align='middle'><font color='black' style='bold'><h1>Welcome to MARC.</h1><br><img src='/static/marc_wave_animation.gif'/><br><h3>Click <a href='/api'>HERE</a> to visit the API endpoint.</h3><img src='/static/tim-and-eric-mind-blown.gif' /></font></div></body></html>")
         }
 
 );
