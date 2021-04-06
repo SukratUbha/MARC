@@ -37,7 +37,7 @@ db.sequelize.sync();
 
 // Simple route
 app.get("/api", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application.\n where the birds come out to fly. SQUARK!" });
+  res.json({ message: "Welcome to MARC application.\n where the birds come out to fly. SQUARK!" });
 });
 
 
