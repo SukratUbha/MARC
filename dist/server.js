@@ -6,7 +6,7 @@ const app = express();
 var pathResolver = require('path');   //gets us our global package application path. 
 const appDir = pathResolver.join(__dirname, 'app/');    //This global application path. 
 const PORT = isInProduction() ? 80 : 8080;
-var assetsDir =pathResolver.join(appDir+"/static")
+var assetsDir =pathResolver.join(appDir+"/assets")
 
 //Are we on the production server? (Affects CORS, SSL Cert & TCP port)
 function isInProduction(){
@@ -36,7 +36,14 @@ app.get("/api", (req, res) => {
 app.get("/submit", (req, res) => {
   res.json({ message: "Sukrat working on submission form..." });
 });
-
+//Dish up a static HTML file at an endpoint
+app.get("/boss", (req,res)=>{
+  res.sendFile(
+    appDir+"/markerSubmission/submission.html",               //res.sendFile needs a file to dish up on this url
+    ()=>{console.log("an error occured when sending file")}   //res.sendFile needs to be provided with an anonymous function to execute if theres an error
+    );
+  }
+);
 // Another simple route
 app.get(
         "/",        //endpoint
@@ -71,6 +78,7 @@ server = app.listen(PORT, () => {
   console.log(` Server Mode: ${isInProduction() ? "Production Mode" : "Development mode"}`)
   console.log(`      appDir: ${appDir}` );
   console.log(`Assets dir  : ${assetsDir}`)
+  if (!isInProduction()  ) {console.log(`Visit http://localhost:${PORT}`)};
   console.log("\n")
   db.appDir
 });
