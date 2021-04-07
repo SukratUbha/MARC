@@ -1,3 +1,4 @@
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -9,37 +10,26 @@ function isInProduction(){
   return process.cwd() == "/marc/MARC/dist";  //MARC is installed in this directory on the production server.
 }
 
-
-
 //CORS
 var corsOptions = {
   origin: isInProduction() ? "http://marc.thewholecake.co.nz" : "http://localhost:8080"
 };
 app.use(cors(corsOptions));
 
-
-
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 //Database
 const db = require("./app/models");
 //const { Server } = require("http");
 db.sequelize.sync();
 
-
-
-
-
-
 // Simple route
 app.get("/api", (req, res) => {
   res.json({ message: "Welcome to MARC application.\n where the birds come out to fly. SQUARK!" });
 });
-
 
 // Another simple route
 app.get(
@@ -51,20 +41,10 @@ app.get(
 
 );
 
-
 // Routing for static images/assets
 var dir = pathResolver.join(__dirname, 'app/assets');
 app.use("/static",express.static(dir));  // url, filesystem dir. remember the / on the FRONT of the url
 console.log('static assets path is ' + dir )
-
-
-
-
-
-
-
-
-
 
 /////////////////////////////////////////////////////////////
 // Set port, listen for requests
@@ -75,9 +55,11 @@ console.log('static assets path is ' + dir )
 // May need to toggle TLS/SSL off when in dev mode, but TLS in production mode.
 // https://dev.to/omergulen/step-by-step-node-express-ssl-certificate-run-https-server-from-scratch-in-5-steps-5b87
 
+
 const PORT = isInProduction() ? 80 : 8080;
-app.listen(PORT, () => {
+server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
   
 });
-// const PORT = process.env.PORT || 8080;
+
+module.exports = server;
