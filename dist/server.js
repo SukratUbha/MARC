@@ -4,6 +4,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 var pathResolver = require('path');   //gets us our global package application path. 
+const appDir = pathResolver.join(__dirname, 'app/');    //This global application path. 
+const PORT = isInProduction() ? 80 : 8080;
+var assetsDir =pathResolver.join(appDir+"/static")
 
 //Are we on the production server? (Affects CORS, SSL Cert & TCP port)
 function isInProduction(){
@@ -22,7 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Database
-const db = require("./app/models");
+const db = require(pathResolver.join(appDir,"models")); //load this directory (it's index.js)
 //const { Server } = require("http");
 db.sequelize.sync();
 
@@ -45,9 +48,13 @@ app.get(
 );
 
 // Routing for static images/assets
-var dir = pathResolver.join(__dirname, 'app/assets');
-app.use("/static",express.static(dir));  // url, filesystem dir. remember the / on the FRONT of the url
-console.log('static assets path is ' + dir )
+
+app.use("/static",express.static(assetsDir));  // url, filesystem dir. remember the / on the FRONT of the url
+//console.log('static assets path is ' + assetsDir )
+
+
+
+
 
 /////////////////////////////////////////////////////////////
 // Set port, listen for requests
@@ -58,11 +65,13 @@ console.log('static assets path is ' + dir )
 // May need to toggle TLS/SSL off when in dev mode, but TLS in production mode.
 // https://dev.to/omergulen/step-by-step-node-express-ssl-certificate-run-https-server-from-scratch-in-5-steps-5b87
 
-
-const PORT = isInProduction() ? 80 : 8080;
 server = app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-  
+  console.log(`Server is running:`);
+  console.log(` Server Port: ${PORT}`)
+  console.log(` Server Mode: ${isInProduction() ? "Production Mode" : "Development mode"}`)
+  console.log(`      appDir: ${appDir}` );
+  console.log(`Assets dir  : ${assetsDir}`)
+  console.log("\n")
+  db.appDir
 });
-
 module.exports = server;
