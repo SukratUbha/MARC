@@ -39,6 +39,9 @@ db.sequelize.sync();
 app.get("/api", (req, res) => {
   res.json({ message: "Welcome to MARC application.\n where the birds come out to fly. SQUARK!" });
 });
+app.get("/submit", (req, res) => {
+  res.json({ message: "Sukrat working on submission form..." });
+});
 
 
 // Another simple route
@@ -46,7 +49,7 @@ app.get(
         "/",        //endpoint
         (req,res)=>{
             //provide an arrow function which takes request & reply objects.
-          res.send("<html><body background='/static/starface.gif'><div width='100%' align='middle'><font color='black' style='bold'><h1>Welcome to MARC.</h1><br><img src='/static/marc_wave_animation.gif'/><br><h3>Click <a href='/api'>HERE</a> to visit the API endpoint.</h3><img src='/static/tim-and-eric-mind-blown.gif' /></font></div></body></html>")
+          res.send("<html><body background='/static/starface.gif'><div width='100%' align='middle'><font color='black' style='bold'><h1>Welcome to MARC.</h1><br><img src='/static/marc_wave_animation.gif'/><br><h3>Click <a href='/api'>HERE</a> to visit the API endpoint.</h3><h3> and click <a href= '/submit'>here</a> to submit marker form.</h3><img src='/static/tim-and-eric-mind-blown.gif' /></font></div></body></html>")
         }
 
 );
