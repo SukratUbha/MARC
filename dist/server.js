@@ -4,14 +4,19 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 var pathResolver = require('path');   //gets us our global package application path. 
-const appDir = pathResolver.join(__dirname, 'app/');    //This global application path. 
+const { LOADIPHLPAPI } = require("dns");
+global.appDir = pathResolver.join(__dirname, 'app/');    //This global application path. 
 const PORT = isInProduction() ? 80 : 8080;
-var assetsDir =pathResolver.join(appDir+"/assets")
+const assetsDir =pathResolver.join(appDir+"/assets")
+
+
 
 //Are we on the production server? (Affects CORS, SSL Cert & TCP port)
 function isInProduction(){
   return process.cwd() == "/marc/MARC/dist";  //MARC is installed in this directory on the production server.
 }
+
+
 
 //CORS
 var corsOptions = {
@@ -19,23 +24,44 @@ var corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// parse requests of content-type - application/json
-app.use(bodyParser.json());
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(bodyParser.json());                         // parse requests of content-type - application/json
+app.use(bodyParser.urlencoded({ extended: true })); // parse requests of content-type - application/x-www-form-urlencoded
+
+
 
 //Database
 const db = require(pathResolver.join(appDir,"models")); //load this directory (it's index.js)
 //const { Server } = require("http");
 db.sequelize.sync();
 
-// Simple route
-app.get("/api", (req, res) => {
-  res.json({ message: "Welcome to MARC application.\n where the birds come out to fly. SQUARK!" });
-});
+// Routing for static images/assets
+app.use("/static",express.static(assetsDir));  // url, filesystem dir. remember the / on the FRONT of the url
+
+
+
+
+// API 
+
+const api = require("./app/api")(app); 
+// Loads in /api/index.js & constructs API endpoints
+// require() is equivalent of 'include', so external .js files can 
+// supply functions to the application.
+// require() statement has corresponding 'module.exports' statement in
+// the .js file where we return functions that we want our app to have.
+// we provide require() (and modules.export) with 'app' so the functions in the .js file
+// can call app.get and all the other stuff API endpoints need.
+
+// Also see global variable used to provide filesystem path to API functions.
+// TODO: investigate passing database to api functions.
+
+                 
+
 app.get("/submit", (req, res) => {
   res.json({ message: "Sukrat working on submission form..." });
 });
+
+
 //Dish up a static HTML file at an endpoint
 app.get("/boss", (req,res)=>{
   res.sendFile(
@@ -44,6 +70,7 @@ app.get("/boss", (req,res)=>{
     );
   }
 );
+
 // Another simple route
 app.get(
         "/",        //endpoint
@@ -53,13 +80,6 @@ app.get(
         }
 
 );
-
-// Routing for static images/assets
-
-app.use("/static",express.static(assetsDir));  // url, filesystem dir. remember the / on the FRONT of the url
-//console.log('static assets path is ' + assetsDir )
-
-
 
 
 
