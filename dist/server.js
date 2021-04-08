@@ -47,9 +47,9 @@ const api = require("./app/api")(app);
 // Loads in /api/index.js & constructs API endpoints
 // require() is equivalent of 'include', so external .js files can 
 // supply functions to the application.
-// require() statement has corresponding 'module.exports' statement in
+// The require() statement has corresponding 'module.exports' statement in
 // the .js file where we return functions that we want our app to have.
-// we provide require() (and modules.export) with 'app' so the functions in the .js file
+// We provide require() (and modules.export) with 'app' so the functions in the .js file
 // can call app.get and all the other stuff API endpoints need.
 
 // Also see global variable used to provide filesystem path to API functions.
