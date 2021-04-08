@@ -1,3 +1,4 @@
+// Sequelize Model represents tutorials table in SQLite database.
 module.exports = (sequelize, Sequelize) => {
     const Course = sequelize.define("course", {
       title: {
