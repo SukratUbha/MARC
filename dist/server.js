@@ -1,4 +1,3 @@
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -7,7 +6,7 @@ var pathResolver = require('path');   //gets us our global package application p
 const appDir = pathResolver.join(__dirname, 'app/');    //This global application path. 
 const PORT = isInProduction() ? 80 : 8080;
 var assetsDir =pathResolver.join(appDir+"/assets")
-
+require("./app/routes/course.routes")(app);
 //Are we on the production server? (Affects CORS, SSL Cert & TCP port)
 function isInProduction(){
   return process.cwd() == "/marc/MARC/dist";  //MARC is installed in this directory on the production server.
@@ -82,4 +81,4 @@ server = app.listen(PORT, () => {
   console.log("\n")
   db.appDir
 });
-module.exports = server;
+module.exports = server; //for testing purpose
