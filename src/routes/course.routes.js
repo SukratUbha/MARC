@@ -3,8 +3,7 @@
 
 module.exports = app => {
     const courseController = require("../controllers/course.controller.js"); //instantiating a new object
-    //console.log("in courses.route.js. courses is:"+courses.create);
-    var router = require("express").Router();
+    var router = require("express").Router();       // a NEW 'Router' object. Gets globally configured to live under '/api/courses'. see blow.
   
     // Create a new Course
     router.post("/", courseController.create);

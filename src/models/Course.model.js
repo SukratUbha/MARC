@@ -3,7 +3,7 @@
 module.exports = () => {
   const { Sequelize, DataTypes } = require('sequelize');
   sequelize=global.db;
-    const Course = sequelize.define("course", {
+    return sequelize.define("course", {
       title: {
         type: Sequelize.STRING
       },
@@ -14,6 +14,6 @@ module.exports = () => {
         type: Sequelize.BOOLEAN
       }
     });
-    console.log("inside course.model.js. Course is:" +Course);
-    return Course;
+   // console.log("inside course.model.js. Course is:" +Course);
+    //return Course;
   };

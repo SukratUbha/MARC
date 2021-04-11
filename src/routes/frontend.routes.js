@@ -7,7 +7,7 @@ module.exports = (app)=>{
 
 
   //Example: Dish up a static HTML file at an endpoint (with exception checking)
-  app.get("/submission", (req,res)=>{
+  app.get("/submit", (req,res)=>{
 
     var options = {
         root: frontEndDir,
@@ -21,7 +21,7 @@ module.exports = (app)=>{
     res.sendFile(
       "submission.html",                                //res.sendFile needs a file to dish up on this url
       options,
-      ()=>{console.log("an error occured when sending file")}   //res.sendFile needs to be provided with an anonymous function to execute if theres an error
+      (err)=>{ if (err) console.log("an error occured when sending file:"+err)}   //res.sendFile needs to be provided with an anonymous function to execute if theres an error
       );
     }
   );

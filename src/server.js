@@ -33,9 +33,11 @@ app.use(BodyParser.urlencoded({ extended: true }));   // parse requests of conte
 
 
 
-
-//DATABASE: Initialize global singleton Sequelize if not already
-
+////////////////////////////
+// DATABASE: The database is a GLOBAL variable. Tho Sequelize still require
+// a Sequalize object to be passed around here & there (see models/index.js)
+//
+// DATABASE: Initialize global singleton Sequelize if not already
 if (typeof global.db === 'undefined' || global.db === null) {
   global.db = new Sequelize({       
   dialect: "sqlite",
@@ -45,19 +47,24 @@ if (typeof global.db === 'undefined' || global.db === null) {
   console.log("inside models/index.js. global.db created");
 } 
 
+require(__dirname+"/models/index.js") // Create models (& thus tables)
+global.db.sync();                     // Persist to database first time. Call this often.
 
-//DATABASE: Create models (& thus tables)
-require(__dirname+"/models/index.js")
 
-//Persist to database first time.
-global.db.sync();
-
+///////////////////////////////////////////////
 // ROUTES
-require(__dirname+'/routes/index.js')(app);
+// Call several scripts to instantiate routes, construct controllers and link the controllers to the routes.
+require(__dirname+'/routes/index.js')(app); 
+
+
+
+
+
 
 
 /////////////////////////////////////////////////////////////
-// Set port, listen for requests
+// LISTEN FOR CONNECTIONS
+//
 // If we're on production MARC server, be port 80. Otherwise be port 8080 (unprivliged)
 //
 //
@@ -66,14 +73,14 @@ require(__dirname+'/routes/index.js')(app);
 // https://dev.to/omergulen/step-by-step-node-express-ssl-certificate-run-https-server-from-scratch-in-5-steps-5b87
 
 server = app.listen(PORT, () => {
-  console.log(`Server is running:`);
+  console.log(`\n-----------------------------\nServer is running:`);
   console.log(` Server Port: ${PORT}`)
   console.log(` Server Mode: ${isInProduction() ? "Production Mode" : "Development mode"}`)
-  console.log(`      appDir: ${__dirname}` );
-  if (!isInProduction()  ) {console.log(`Visit http://localhost:${PORT}`)};
-  console.log("\n")
+  console.log(`   __dirname: ${__dirname}` );
+  if (!isInProduction()  ) {console.log(`\nVisit http://localhost:${PORT}`)};
+  console.log("----------------------------\n")
 });
 
 
 //module.exports = server; //for testing purpose
-module.exports=global.db;
+//module.exports=global.db;
