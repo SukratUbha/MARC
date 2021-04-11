@@ -39,13 +39,14 @@ app.db = new Sequelize({
   dialect: "sqlite",
   storage: __dirname+"/marcdatabase.sqlite"
 });
-console.log("Back-end database file: " +app.db.storage);
 
 
 
+global.db=app.db;
 
 //DATABASE: Create models (& thus tables)
 require(__dirname+"/models/Course.model.js")(app.db);
+
 app.db.sync();
 
 // ROUTES

@@ -16,8 +16,3 @@ module.exports = (sequelize) => {
   
     return Course;
   };
-
-  function constructor(){
-
-
-  }
