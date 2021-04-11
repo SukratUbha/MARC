@@ -83,5 +83,5 @@ server = app.listen(PORT, () => {
 });
 
 
-//module.exports = server; //for testing purpose
+module.exports = server; //for testing purpose
 //module.exports=global.db;
