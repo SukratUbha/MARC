@@ -1,7 +1,8 @@
 This is where the actual source code of the program goes.
 When we do stuff with npm we gotta be inside this directory
 
-Stuff outside of /dist is for other stuff not related to our app. 
+Stuff outside of /src is for other stuff not related to our app. 
+
 
 package.json:
 Node.js' package manger (npm) uses this file to organize & describe our node.js app.
@@ -9,14 +10,20 @@ Node.js' package manger (npm) uses this file to organize & describe our node.js 
 server.js:
 We have decided this is our main entrypoint to MARC. package.json even specifies it, so 'npm start' will execute it.
 
-app:
-Just a subdirectory that contains our code in nice modular bits.
+frontend:
+Where we dunk all the React and front end stuff. /src/frontend/assets is for pictures & stuff.
 
-app/assets:
-Where pictures & things go.
+marcdatabase.sqlite:
+the database file
 
-app/persistence:  (invisible in github)
-The database file lives here :) 
+controllers:
+files that manipulate the database on behalf of Coures, Users etc.
+
+models:
+defines Course, User etc (their fields)
+
+routes:
+defines the api endpoint and routes them to controllers.
 
 test:
 The testing framework, mocha, looks for this directory. It finds .js files in here and executes
