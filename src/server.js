@@ -48,6 +48,15 @@ if (typeof global.db === 'undefined' || global.db === null) {
 } 
 
 require(__dirname+"/models/index.js") // Create models (& thus tables)
+
+
+
+// Create a new user 
+const User = require(__dirname+'/models/User.js');
+const jane = User.create({ firstName: "Zane", lastName: "Doe" });
+console.log("Jane's auto-generated ID:", jane.id);
+
+
 global.db.sync();                     // Persist to database first time. Call this often.
 
 
