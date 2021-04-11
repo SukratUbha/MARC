@@ -53,7 +53,7 @@ require(__dirname+"/models/index.js") // Create models (& thus tables)
 
 // Create a new user 
 const User = require(__dirname+'/models/User.js');
-const jane = User.create({ firstName: "Zane", lastName: "Doe" });
+const jane = User.create({ firstName: "Jane", lastName: "Doe" });
 console.log("Jane's auto-generated ID:", jane.id);
 
 

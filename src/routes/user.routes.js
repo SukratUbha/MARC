@@ -18,7 +18,9 @@ module.exports =(app) => {
         
         // Retrieve a single Course with id
         router.get("/logout", userController.logout);
+        
 
+        
         // Retrieve user details (my name, etc)
         router.get("/details", userController.getUserDetails);
         

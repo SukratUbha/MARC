@@ -12,11 +12,15 @@
 
 
 // User  is a CLASS definition.
-const User= global.db.courses;         //see /models/index.js. It builds this. We could very well require the modules/index.js file, but no - we create the database models in server.js on startup.
+User = require(__dirname+'/../models/User.js');         //see /models/index.js. It builds this. We could very well require the modules/index.js file, but no - we create the database models in server.js on startup.
 const Op = require("sequelize").Op;
 
 exports.login = (req, res) => {
-    res.send("hello. im not asking for password right now.")
+    res.send("hello. im not asking for password right now." + boss.firstName);
+
+    //const zane = User.create({ firstName: "Zane", lastName: "Doe" })  // CREATES a new user.
+    boss = User.findAll({ where: condition }); //i have no idea how this works. see code below for  examples.
+
     // Validate request
    /* stuff deleted from course.controller.js
     if (!req.body.title) {
