@@ -2,30 +2,30 @@
 // setting up the routes will determine how the server responses.
 
 module.exports = app => {
-    const courses = require("../controllers/course.controller.js"); //instantiating a new object
+    const courseController = require("../controllers/course.controller.js"); //instantiating a new object
     //console.log("in courses.route.js. courses is:"+courses.create);
     var router = require("express").Router();
   
     // Create a new Course
-    router.post("/", courses.create);
+    router.post("/", courseController.create);
   
     // Retrieve all Courses
-    router.get("/", courses.findAll);
+    router.get("/", courseController.findAll);
   
     // Retrieve all published Courses
-    router.get("/published", courses.findAllPublished);
+    router.get("/published", courseController.findAllPublished);
   
     // Retrieve a single Course with id
-    router.get("/:id", courses.findOne);
+    router.get("/:id", courseController.findOne);
   
     // Update a Course with id
-    router.put("/:id", courses.update);
+    router.put("/:id", courseController.update);
   
     // Delete a Course with id
-    router.delete("/:id", courses.delete);
+    router.delete("/:id", courseController.delete);
   
     // Delete all Courses
-    router.delete("/", courses.deleteAll);
+    router.delete("/", courseController.deleteAll);
     
     //mount the router on the app
     app.use('/api/courses', router);

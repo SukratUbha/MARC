@@ -34,18 +34,11 @@ app.use(BodyParser.urlencoded({ extended: true }));   // parse requests of conte
 
 
 
-//DATABASE: Initialize Sequelize
-global.db = new Sequelize({       
-  dialect: "sqlite",
-  storage: __dirname+"/marcdatabase.sqlite"
-});
-
-
 
 
 
 //DATABASE: Create models (& thus tables)
-require(__dirname+"/models/Course.model.js")(global.db);
+require(__dirname+"/models/index.js")
 
 global.db.sync();
 
@@ -73,3 +66,4 @@ server = app.listen(PORT, () => {
 
 
 //module.exports = server; //for testing purpose
+module.exports=global.db;

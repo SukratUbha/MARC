@@ -1,10 +1,10 @@
 //the fields here must match the fields created in /models/Course.model.js
-const db = require("../models/Course.model.js")(global.db);
+console.log("course.controller.js being executed");
+
+const db= require("../models/index.js")
 const Course = db.courses;
 const Op = require("sequelize").Op;
 
-console.log("course.controller.js being executed");
-// Create and Save a new Course
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.title) {
@@ -36,7 +36,6 @@ exports.create = (req, res) => {
 
 // Retrieve all Courses from the database.
 exports.findAll = (req, res) => {
-  console.log("inside findall. db.courses is: "+global.db.courses);
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
