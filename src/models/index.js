@@ -1,18 +1,3 @@
-const Sequelize= require("sequelize");
-
-
-console.log("inside models/index.js");
-//DATABASE: Initialize global singleton Sequelize if not already
-
-if (typeof global.db === 'undefined' || global.db === null) {
-  global.db = new Sequelize({       
-  dialect: "sqlite",
-  storage: __dirname+"/marcdatabase.sqlite"
-  
-  });
-  console.log("inside models/index.js. global.db created");
-} 
-
-global.db.courses=require("./Course.model.js")(global.db); 
-module.exports=db;
+global.db.courses=require("./Course.model.js")(global.db);  //IMPORTANT: ALWAYS supply an argument here, even tho global.db is global. If you dont supply an argument, Sequelize WILL NOT CREATE THE OBJECT. This took me 7 HOURS OF TORTURE to figure out. please, dont suffer the same fate as i. i have aged and my kids have grown up. i dont recognize the world anymore. please, dont omit an argument in this.
+module.exports=db;        //Controllers look for db, then classes off that.
 

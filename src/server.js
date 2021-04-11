@@ -34,12 +34,22 @@ app.use(BodyParser.urlencoded({ extended: true }));   // parse requests of conte
 
 
 
+//DATABASE: Initialize global singleton Sequelize if not already
 
+if (typeof global.db === 'undefined' || global.db === null) {
+  global.db = new Sequelize({       
+  dialect: "sqlite",
+  storage: __dirname+"/marcdatabase.sqlite"
+  
+  });
+  console.log("inside models/index.js. global.db created");
+} 
 
 
 //DATABASE: Create models (& thus tables)
 require(__dirname+"/models/index.js")
 
+//Persist to database first time.
 global.db.sync();
 
 // ROUTES
