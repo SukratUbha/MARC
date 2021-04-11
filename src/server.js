@@ -38,21 +38,13 @@ app.use(BodyParser.urlencoded({ extended: true }));   // parse requests of conte
 // a Sequalize object to be passed around here & there (see models/index.js)
 //
 // DATABASE: Initialize global singleton Sequelize if not already
-if (typeof global.db === 'undefined' || global.db === null) {
-  global.db = new Sequelize({       
-  dialect: "sqlite",
-  storage: __dirname+"/marcdatabase.sqlite"
-  
-  });
-  console.log("inside models/index.js. global.db created");
-} 
-
+require("./controllers/database_creator.js");   //creats global.db
 require(__dirname+"/models/index.js") // Create models (& thus tables)
 
 
 
 // Create a new user 
-const User = require(__dirname+'/models/User.js');
+const User = require(__dirname+'/models/User.js');//fetch the Model definition
 const jane = User.create({ firstName: "Jane", lastName: "Doe" });
 console.log("Jane's auto-generated ID:", jane.id);
 
