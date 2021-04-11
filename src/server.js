@@ -8,17 +8,31 @@ const Cors = require("cors");
 const app = Express();
 app.Express=Express;
 
+
+
 //Are we on the production server? (Affects CORS, SSL Cert & TCP port)
 function isInProduction(){  return process.cwd() == "/marc/MARC/src";}  //MARC is installed in this directory on the production server.
 const PORT = isInProduction() ? 80 : 8080;
+
+
+
+
 
 //CORS
 var corsOptionsJson = {  origin: isInProduction() ? "http://marc.thewholecake.co.nz" : "http://localhost:8080"};
 app.use(Cors(corsOptionsJson));
 
+
+
+
+
 ///HTML body types for serializing/deserializing objects
 app.use(BodyParser.json());                           // parse requests of content-type - application/json
 app.use(BodyParser.urlencoded({ extended: true }));   // parse requests of content-type - application/x-www-form-urlencoded
+
+
+
+
 
 //DATABASE: Initialize Sequelize
 app.db = new Sequelize({       
@@ -28,15 +42,15 @@ app.db = new Sequelize({
 console.log("Back-end database file: " +app.db.storage);
 
 
+
+
 //DATABASE: Create models (& thus tables)
-//const db = {};
-//require(__dirname+"/routes/course.routes.js")(app);
-//app.db.sync();
+require(__dirname+"/models/Course.model.js")(app.db);
+app.db.sync();
 
 // ROUTES
 require(__dirname+'/routes/index.js')(app);
 
-//require(__dirname+"/routes/course.routes.js")(app);
 
 /////////////////////////////////////////////////////////////
 // Set port, listen for requests

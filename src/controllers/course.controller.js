@@ -1,3 +1,4 @@
+//the fields here must match the fields created in /models/Course.model.js
 const db = require("../models");
 const Course = db.courses;
 const Op = db.Op;

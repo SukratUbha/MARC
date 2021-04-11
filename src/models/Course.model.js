@@ -1,5 +1,7 @@
 // Sequelize Model represents tutorials table in SQLite database.
-module.exports = (sequelize, Sequelize) => {
+
+module.exports = (sequelize) => {
+  const { Sequelize, DataTypes } = require('sequelize');
     const Course = sequelize.define("course", {
       title: {
         type: Sequelize.STRING
@@ -14,3 +16,8 @@ module.exports = (sequelize, Sequelize) => {
   
     return Course;
   };
+
+  function constructor(){
+
+
+  }
