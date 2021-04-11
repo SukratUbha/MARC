@@ -35,19 +35,19 @@ app.use(BodyParser.urlencoded({ extended: true }));   // parse requests of conte
 
 
 //DATABASE: Initialize Sequelize
-app.db = new Sequelize({       
+global.db = new Sequelize({       
   dialect: "sqlite",
   storage: __dirname+"/marcdatabase.sqlite"
 });
 
 
 
-global.db=app.db;
+
 
 //DATABASE: Create models (& thus tables)
-require(__dirname+"/models/Course.model.js")(app.db);
+require(__dirname+"/models/Course.model.js")(global.db);
 
-app.db.sync();
+global.db.sync();
 
 // ROUTES
 require(__dirname+'/routes/index.js')(app);

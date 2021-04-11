@@ -2,8 +2,8 @@
 // setting up the routes will determine how the server responses.
 
 module.exports = app => {
-    const courses = require("../controllers/course.controller.js");
-  
+    const courses = require("../controllers/course.controller.js"); //instantiating a new object
+    //console.log("in courses.route.js. courses is:"+courses.create);
     var router = require("express").Router();
   
     // Create a new Course
