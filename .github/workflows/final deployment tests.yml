@@ -4,7 +4,7 @@
 # ---------------------------
 defaults:
   run:
-    working-directory: ./dist # we have a dist directory. our nodejs program isn't in the root of the project. ./dist is where package.json can be found.
+    working-directory: ./src # we have a dist directory. our nodejs program isn't in the root of the project. ./src is where package.json can be found.
 
 
 name: Deploy stuff to MARC Server
@@ -45,15 +45,4 @@ jobs:
 #    - name: Run build task
 #      run: npm run build --if-present
 
-# THIS IS SO SSH-DEPLOY IS DISABLED. 
-#    - name: Deploy to Server
-#      uses: easingthemes/ssh-deploy@v2.1.6
 
-      env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          ARGS: "-rltgoDzvO --delete"
-          SOURCE: "dist/"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
-          EXCLUDE: "/dist/, /node_modules/"

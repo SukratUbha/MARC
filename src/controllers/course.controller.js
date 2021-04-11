@@ -1,8 +1,20 @@
-const db = require("../models");
-const Course = db.courses;
-const Op = db.Sequelize.Op;
+// A variety of functions which create/modify Courses in the database.
+// The functions take in req/res (request/response) because they respond to
+// API endpoints (routes).
 
-// Create and Save a new Course
+
+
+
+//the Fields mentioned here must match the fields created in /models/Course.model.js
+
+// TODO: sync() the database when needed.
+// TODO:   ----- Check security for EVERY endpoint -------
+
+
+// Course is a CLASS definition.
+const Course = global.db.courses;         //see /models/index.js. It builds this. We could very well require the modules/index.js file, but no - we create the database models in server.js on startup. eg //const db= require("../models/index.js")   
+const Op = require("sequelize").Op;
+
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.title) {
@@ -12,15 +24,15 @@ exports.create = (req, res) => {
       return;
     }
   
-    // Create a Course
-    const course = {
+    // Create a Course (must match /models/Coursemodel)
+    const courseJson = {
       title: req.body.title,
       description: req.body.description,
       published: req.body.published ? req.body.published : false
     };
   
     // Save Course in the database
-    Course.create(course)
+    Course.create(courseJson)
       .then(data => {
         res.send(data);
       })
