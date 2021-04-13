@@ -5,7 +5,10 @@ module.exports = (app)=>{
     app.use('/', express.static(frontEndDir))    //browser finds /index.html in here i think. 
 
 
+  app.post("/login",(req,res)=>{
 
+    //res.text("hey boss");
+  });
   //Example: Dish up a static HTML file at an endpoint (with exception checking)
   app.get("/submit", (req,res)=>{
 
