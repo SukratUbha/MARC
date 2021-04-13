@@ -7,7 +7,7 @@ module.exports = (app)=>{
 
   app.post("/login",(req,res)=>{
 
-    //res.text("hey boss");
+    //res.text("hey boss, its spencer testing git push");
   });
   //Example: Dish up a static HTML file at an endpoint (with exception checking)
   app.get("/submit", (req,res)=>{
