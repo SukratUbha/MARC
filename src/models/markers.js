@@ -1,9 +1,9 @@
-// Sequelize Model represents tutorials table in SQLite database.
+// Sequelize Model adds a table of markers with email and their preferences to the db.
 
 module.exports = () => {
-    const { Sequelize, DataTypes } = require('sequelize');
+    const {Sequelize, DataTypes } = require('sequelize');
     sequelize = global.db;
-      return sequelize.define("Marker", {
+    const Marker = sequelize.define("markers", {
         firstName: {
           type: DataTypes.STRING,
           validate: {
@@ -35,6 +35,7 @@ module.exports = () => {
             type: DataTypes.STRING
         }
       });
-      
+      Marker.sync();
+      return Marker;
     };
   
