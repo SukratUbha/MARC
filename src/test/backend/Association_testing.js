@@ -1,4 +1,4 @@
-
+/*
 //env variable is set to test during the test
 process.env.NODE_ENV = 'test';
 //let Course = require("../../controllers/course.controller");
@@ -35,7 +35,7 @@ describe('Courses', () => {
             .post('/api/courses')
             .send(course);
         console.log(print);
-        */
+        
         done();
             
         
@@ -44,3 +44,4 @@ describe('Courses', () => {
   });
 });
 
+*/
