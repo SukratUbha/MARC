@@ -22,6 +22,7 @@ module.exports = (app) => {
   require(__dirname+"/course.routes.js")(app);       
   require(__dirname+"/user.routes.js")(app);      
   require(__dirname+"/marker.routes.js")(app); 
+  require(__dirname+"/association.routes.js")(app); 
 }
 
 
