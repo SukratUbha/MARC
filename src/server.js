@@ -3,7 +3,7 @@ const Express = require("express");
 const Sequelize = require("sequelize");
 const BodyParser = require("body-parser");
 const Cors = require("cors");
-
+const config = require('config');
 //Create an Express object called app.
 const app = Express();
 app.Express=Express;
@@ -74,12 +74,15 @@ require(__dirname+'/routes/index.js')(app);
 // https://dev.to/omergulen/step-by-step-node-express-ssl-certificate-run-https-server-from-scratch-in-5-steps-5b87
 
 server = app.listen(PORT, () => {
-  console.log(`\n-----------------------------\nServer is running:`);
-  console.log(` Server Port: ${PORT}`)
-  console.log(` Server Mode: ${isInProduction() ? "Production Mode" : "Development mode"}`)
-  console.log(`   __dirname: ${__dirname}` );
-  if (!isInProduction()  ) {console.log(`\nVisit http://localhost:${PORT}`)};
-  console.log("----------------------------\n")
+  //don't show the log when it is in "test" environment
+  if(config.util.getEnv('NODE_ENV') !== 'test') {
+    console.log(`\n-----------------------------\nServer is running:`);
+    console.log(` Server Port: ${PORT}`)
+    console.log(` Server Mode: ${isInProduction() ? "Production Mode" : "Development mode"}`)
+    console.log(`   __dirname: ${__dirname}` );
+    if (!isInProduction()  ) {console.log(`\nVisit http://localhost:${PORT}`)};
+    console.log("----------------------------\n")
+  }
 });
 
 
