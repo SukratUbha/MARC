@@ -26,7 +26,7 @@ function LoginForm() {
                     onChange={(event) => {
                         setPassword(event.target.value);
                     }
-                />
+                    }/>
             </label>
             <button
                 onclick="app.get"
