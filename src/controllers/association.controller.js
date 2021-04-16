@@ -18,6 +18,9 @@ const Op = require("sequelize").Op;
 
 exports.create = (req, res) => {
     res.send("creating association row");
+  //FIND the correct marker
+  //FIND the correct course
+
 };
 /*
 // Retrieve all Courses from the database.

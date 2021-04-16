@@ -44,9 +44,9 @@ require(__dirname+"/models/index.js") // Create models (& thus tables)
 
 
 // Create a new user 
-const User = require(__dirname+'/models/User.js');//fetch the Model definition
-const jane = User.create({ firstName: "Jane", lastName: "Doe" });
-console.log("Jane's auto-generated ID:", jane.id);
+//const User = require(__dirname+'/models/User.js');//fetch the Model definition
+//const jane = User.create({ firstName: "Jane", lastName: "Doe" });
+//console.log("Jane's auto-generated ID:", jane.id);
 
 
 global.db.sync();                     // Persist to database first time. Call this often.
