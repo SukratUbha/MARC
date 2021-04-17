@@ -18,16 +18,17 @@ function aFew(){
 }
 function randomName(){
     var vowels       = 'iouea';
-    var consonates       = 'abcdfghjklmnprstvwy';
+    var consonates       = 'bcdfghjklmnprstvwyaaddhhmmgghghdc';
     var builtName ="";
     
     builtName+=randomChar(consonates.toUpperCase());
-    var len=1+Math.random()*3;
+    var len=1+Math.random()*2;
     for (var i=0; i<len;i++){ 
         builtName+=randomChar(vowels);
+        if (Math.random() > 0.8) builtName+=randomChar(vowels);
         builtName+=randomChar(consonates);
     }
-    builtName+=randomChar(vowels);
+    if (Math.random() < 0.5) builtName+=randomChar(vowels);
     return builtName;
 }
 function randomChar(str){
@@ -44,8 +45,8 @@ async function makeStudent(){
     jane = await Student.create({ firstName: randomName(), lastName: randomName() });
     global.db.sync();                     // Persist to database first time. Call this often.
 
-    //console.log("Created Student "+ jane.firstName + " " + jane.lastName);
-    console.log("made:"+jane.firstName);
+    console.log("Created Student "+ jane.firstName + " " + jane.lastName);
+    //console.log("made:"+jane.firstName);
 
 }
 
