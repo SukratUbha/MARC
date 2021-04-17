@@ -22,6 +22,21 @@ exports.create = (req, res) => {
   //FIND the correct course
 
 };
+
+// Retrieve all Tutorials from the database.
+exports.findAll = (req, res) => {
+  Association.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving associations."
+      });
+    });
+};
+
 /*
 // Retrieve all Courses from the database.
 exports.findAll = (req, res) => {
