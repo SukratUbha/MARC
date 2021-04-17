@@ -17,12 +17,9 @@ module.exports = (app) => {
 
   //Pull in other JS files to mount their routes to
      
-  require(__dirname+"/frontend.routes.js")(app);         //example, pull in ./frontend.routes.js
-  require(__dirname+"/example.routes.js")(app);       
-  require(__dirname+"/course.routes.js")(app);       
+  require(__dirname+"/frontend.routes.js")(app);         //example, pull in ./frontend.routes.js     
   require(__dirname+"/user.routes.js")(app);      
-  require(__dirname+"/marker.routes.js")(app); 
-  require(__dirname+"/association.routes.js")(app); 
+  require(__dirname+"/api.routes.js")(app); 
 }
 
 

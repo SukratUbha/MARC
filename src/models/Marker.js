@@ -3,7 +3,7 @@
 module.exports = () => {
     const {Sequelize, DataTypes } = require('sequelize');
     sequelize = global.db;
-    const Marker = sequelize.define("markers", {
+    const Marker = sequelize.define("Marker", {
         firstName: {
           type: DataTypes.STRING,
           validate: {

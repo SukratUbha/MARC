@@ -13,6 +13,9 @@
 
 // Course is a CLASS definition.
 Association = require(__dirname+'/../models/Association.js');         //see /models/index.js. It builds this. We could very well require the modules/index.js file, but no - we create the database models in server.js on startup.
+Course = require(__dirname+'/../models/Course.js');
+Marker = require(__dirname+'/../models/Marker.js');
+Course = require(__dirname+'/../models/Course.js');
 const Op = require("sequelize").Op;
 
 
