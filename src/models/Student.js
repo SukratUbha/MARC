@@ -14,6 +14,13 @@ Student.init({
   lastName: {
     type: DataTypes.STRING
   },
+
+  //note:
+  // the strings entered for course preference are used to keyword search through associations.
+  // the source of truth for a course being on the student wish-list is the Associations table.
+  // we should periodically scan for if the student's requested course now exists, then link the student
+  // via the association table & set the field here to NULL
+  
   firstPref: {
       type: DataTypes.STRING,
       validate: {
