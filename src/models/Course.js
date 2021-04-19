@@ -1,19 +1,43 @@
-// Sequelize Model represents tutorials table in SQLite database.
+const { Sequelize, DataTypes, Model } = require('sequelize');
+const sequelize = global.db;
 
-module.exports = () => {
-  const { Sequelize, DataTypes } = require('sequelize');
-  sequelize=global.db;
-    return sequelize.define("Course", {
-      title: {
-        type: Sequelize.STRING
-      },
-      description: {
-        type: Sequelize.STRING
-      },
-      published: {
-        type: Sequelize.BOOLEAN
-      }
-    });
-   // console.log("inside course.model.js. Course is:" +Course);
-    //return Course;
-  };
+class Course extends Model {}
+
+Course.init({
+  // Model attributes are defined here
+  Course_name: { // course name 
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  CC: { //course coordinator name
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  CC_email: { // course coordinator's email
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  Total_student: { // estimate students in the course
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  comment: { // course coordinator's comment
+    type: DataTypes.STRING
+    // allowNull defaults to true
+  }
+}, {
+  // Other model options go here
+  sequelize, // We need to pass the connection instance
+  modelName: 'Course', // We need to choose the model name
+  timestamps: false,
+  createdAt: false,
+  updatedAt: false
+});
+
+// the defined model is the class itself
+console.log(Course === sequelize.models.Course); // true
+function boss(params) {
+  
+} 
+// so we can access this from server.js and elsewhere
+module.exports = Course

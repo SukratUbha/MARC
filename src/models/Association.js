@@ -30,8 +30,6 @@ Association.init({
 
 // the defined model is the class itself
 console.log(Association === sequelize.models.Association); // true
-function boss(params) {
-  
-} 
+
 // so we can access this from server.js and elsewhere
 module.exports = Association

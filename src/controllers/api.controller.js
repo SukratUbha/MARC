@@ -19,23 +19,24 @@ Course = require(__dirname+'/../models/Course.js');
 const Op = require("sequelize").Op;
 
 
-exports.create = (req, res) => {
-    res.send("creating association row");
-  //FIND the correct marker
-  //FIND the correct course
-
+exports.createCourse = (req, res) => {
+  //naive way to create course, will cause a lot of error showing on the terminal
+  const Cs101 = Course.create({ id:1, Course_name:"CS101", CC:"Damir", CC_email:"damir@gmail.com", Total_student:510, comment:null});
+  const Cs120 = Course.create({ id:2, Course_name:"CS120", CC:"Tanya", CC_email:"tanya@gmail.com", Total_student:230, comment:null});
+  const Cs130 = Course.create({ id:3, Course_name:"CS130", CC:"Bukhard", CC_email:"bukhard@gmail.com", Total_student:480, comment:null});
+  
 };
 
 // Retrieve all Tutorials from the database.
-exports.findAll = (req, res) => {
-  Association.findAll()
+exports.getAllCourses = (req, res) => {
+  Course.findAll()
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving associations."
+          err.message || "Some error occurred while retrieving courses."
       });
     });
 };

@@ -8,15 +8,15 @@
 
 module.exports =(app) => {
 
-    const association = require("../controllers/api.controller.js"); //instantiating a new object
+    const api = require("../controllers/api.controller.js"); //instantiating a new object
     var router = require("express").Router();       // a NEW 'Router' object. Gets globally configured to live under '/api/courses'. see blow.
     
-    // Create a new Association
-    router.post("/", association.create);
+    // Create a new Course
+    router.get("/Create", api.createCourse);
 
-    // Retrieve all Associations
-    router.get("/", association.findAll);
+    // Retrieve all Courses
+    router.get("/", api.getAllCourses);
 
     //mount the router on the app
-    app.use('/api/association', router);
+    app.use('/Courses', router);
 }
