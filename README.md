@@ -39,6 +39,6 @@ A web-based tool for organizing markers (by Team 6) for Compsci 399.
 ## Dependencies
 Npm knows which dependencies to install because the *package.json* file already has the dependencies registered. They were registered by doing the following:
 
-`npm install express sequelize sqlite3 body-parser cors --save
+`npm install express sequelize sqlite3 body-parser cors express-fileupload --save
 npm install --save-dev mocha supertest`
 
