@@ -18,8 +18,7 @@ Course.init({
     allowNull: false
   },
   Total_student: { // estimate students in the course
-    type: DataTypes.INTEGER,
-    allowNull: false
+    type: DataTypes.INTEGER
   },
   comment: { // course coordinator's comment
     type: DataTypes.STRING
