@@ -1,6 +1,7 @@
 var request = require('supertest');
-process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
-process.env.NODE_ENV = 'test';
+
+//process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
+//process.env.NODE_ENV = 'test';
 
 // https://glebbahmutov.com/blog/how-to-correctly-unit-test-express-server/
 describe('Testing express server', function () {
