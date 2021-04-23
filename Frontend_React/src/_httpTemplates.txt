@@ -1,0 +1,23 @@
+    GET
+    
+    const fetchPromise = fetch('https://localhost:8080',
+            {
+                headers : {
+                    "Accept": "application/json",
+            },
+        });
+    conststreamPromise = fetchPromise.then((response) => response.json());
+    streamPromise.then((data) => alert(data));
+
+
+    POST
+
+    const fetchPromise= fetch('https://localhost:8080',
+            {
+                headers : {
+                    "Content-Type": thisContentsType,
+                },
+                method :"POST",
+                body : contentToSend
+            }
+        );
