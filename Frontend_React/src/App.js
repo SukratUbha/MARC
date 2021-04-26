@@ -1,6 +1,12 @@
 import React from 'react';
 import './App.css';
-import Course from './components/course';
+import { Switch, Route, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import logo from "./assets/round_long.png"
+
+import Addcourse  from './components/add_course.js';
+import Tutorial  from './components/course';
+import TutorialsList  from './components/course';
 
 /*
 By linking frontend to backend
@@ -12,10 +18,35 @@ If we make a request to endpoint and can't find it on the frontend, we go to che
 
 function App() {
   return (
-        <p>
-          <Course />
-        </p>
+    <div>
+      <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a href="/api/courses" className="navbar-brand">
+          <img src={logo} style={{width:"180px"}}/>
+        </a>
+        <div className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to={"#"} className="nav-link">
+              Markers
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"/add"} className="nav-link">
+              Create course
+            </Link>
+          </li>
+        </div>
+      </nav>
+
+      <div className="container mt-3">
+        <Switch>
+          <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
+          <Route exact path="/add" component={Addcourse} />
+          <Route path="/api/courses/:id" component={Tutorial} />
+        </Switch>
+      </div>
+    </div>
   );
 }
+
 
 export default App;

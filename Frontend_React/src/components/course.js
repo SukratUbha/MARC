@@ -16,7 +16,7 @@ export default class Course extends Component{
     // the backend server localhost: 8080
     // Axios will query it and return the result in Axios
     componentDidMount = () => {
-        axios.get("/api/Courses/3").then(response =>{
+        axios.get("/api/Courses/2").then(response =>{
             console.log(response.data); // it returns [] at the inspect browser
             this.setState({
                 course: response.data.Course_name
