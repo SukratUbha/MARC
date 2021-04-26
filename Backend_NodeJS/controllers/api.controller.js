@@ -28,7 +28,7 @@ exports.createCourse = (req, res) => {
   //res.send("3 courses created")
 
   // Validate request
-  if (!req.body.Course_name) {
+  if (!(req.body.Course_name&&req.body.CC&&req.body.CC_email)) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
