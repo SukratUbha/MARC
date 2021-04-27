@@ -45,7 +45,10 @@ Student.init({
 }, {
   // Other model options go here
   sequelize, // We need to pass the connection instance
-  modelName: 'Student' // We need to choose the model name
+  modelName: 'Student', // We need to choose the model name
+  timestamps: false,
+  createdAt: false,
+  updatedAt: false
 });
 
 // the defined model is the class itself
