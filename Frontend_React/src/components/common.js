@@ -74,6 +74,7 @@ export const FormField = styled.div`
 `
 export const FormBoxLabel = styled.label`
     width: 300px;
+    
 `
 export const RegisterButton = styled.button`
 `

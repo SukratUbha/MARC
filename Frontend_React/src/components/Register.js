@@ -78,6 +78,12 @@ function Register() {
                 />
                 </FormField>
                 <FormField>
+                    <label htmlFor='preferences'
+                        className='formLabel'>
+                    </label> 
+                           
+                </FormField>
+                <FormField>
                 <label htmlFor='studentCV'
                  className='formLabel'>
                     CV Upload: 
