@@ -7,6 +7,7 @@ import logo from "./assets/round_long.png"
 import Addcourse  from './components/add_course.js';
 import Tutorial  from './components/course';
 import TutorialsList  from './components/course';
+import Register from './components/Register';
 
 /*
 By linking frontend to backend
@@ -21,7 +22,7 @@ function App() {
     <div>
       <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a href="/api/courses" className="navbar-brand">
-          <img src={logo} style={{width:"180px"}}/>
+          <img src={logo} style={{width:"180px"}} alt="marcLogo"/>
         </a>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
@@ -34,6 +35,13 @@ function App() {
               Create course
             </Link>
           </li>
+          <div className="navbar-right">
+          <li className="nav-item">
+            <Link to={"/register"} className="nav-link">
+              Register
+            </Link>
+          </li>
+          </div>
         </div>
       </nav>
 
@@ -42,6 +50,7 @@ function App() {
           <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
           <Route exact path="/add" component={Addcourse} />
           <Route path="/api/courses/:id" component={Tutorial} />
+          <Route path="/register" component={Register} />
         </Switch>
       </div>
     </div>
