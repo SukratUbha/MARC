@@ -8,7 +8,8 @@ import Addcourse  from './components/add_course.js';
 import Tutorial  from './components/course';
 import TutorialsList  from './components/course';
 import Register from './components/Register';
-
+import Courses from './components/Courses';
+import Markers from './components/Markers';
 /*
 By linking frontend to backend
 In Frontend_React\package.json
@@ -26,8 +27,13 @@ function App() {
         </a>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link to={"#"} className="nav-link">
+            <Link to={"/markers"} className="nav-link">
               Markers
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"/allocate"} className="nav-link">
+              Allocations
             </Link>
           </li>
           <li className="nav-item">
@@ -48,6 +54,8 @@ function App() {
       <div className="container mt-3">
         <Switch>
           <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
+          <Route path="/markers" component={Markers} />
+          <Route path="/allocate" component={Courses} />
           <Route exact path="/add" component={Addcourse} />
           <Route path="/api/courses/:id" component={Tutorial} />
           <Route path="/register" component={Register} />

@@ -73,7 +73,7 @@ export const FormField = styled.div`
     margin: 5px 10px
 `
 export const FormBoxLabel = styled.label`
-
+    width: 300px;
 `
 export const RegisterButton = styled.button`
 `

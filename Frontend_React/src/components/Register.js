@@ -24,6 +24,8 @@ function Register() {
                     className='formInput'
                     placeholder='First name'
                 />
+                </FormField>
+                <FormField>
                 <label htmlFor='lastName'
                  className='formLabel'>
                     Last name
