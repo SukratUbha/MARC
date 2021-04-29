@@ -6,36 +6,40 @@ import {
 
 function Markers(){
     return(
-            <BoxComponent>
+            <BoxComponent style={{width: '90%'}}>
                 <h1>Marker Profiles:</h1>
-                <div className="filterTab">
+                <div className="filterTab" style={{display: 'flex'}}>
                     <label htmlFor="searchBar"/>
                     <input type="text" placeholder="search name, email, course..."/>
-                    <div className="filterTabRight">
-                        <button>+ Marker</button>
+                    <div className="filterTabRight" style={{float: 'right'}}>
+                        <button style={{float: 'right'}}>+ Marker</button>
                     </div>
                 </div>
                 <div className="studentList">
                     <table>
                         <tr>
                             <td className="recordTableHeading">
-                                <h3 classname="recordHeadingFont">First Name</h3>
+                                <h4 classname="recordHeadingFont">First Name</h4>
                             </td>
                             <td className="recordTableHeading">
-                                <h3 classname="recordHeadingFont">Last Name</h3>
+                                <h4 classname="recordHeadingFont">Last Name</h4>
                             </td>
                             <td className="recordTableHeading">
-                                <h3 classname="recordHeadingFont">Email</h3>
+                                <h4 classname="recordHeadingFont">Email</h4>
                             </td>
                             <td className="recordTableHeading">
-                                <h3 classname="recordHeadingFont">Course Preferences</h3>
+                                <h4 classname="recordHeadingFont">Course Preferences</h4>
                             </td>
                             <td className="recordTableHeading">
-                                <h3 classname="recordHeadingFont">CV</h3>
+                                <h4 classname="recordHeadingFont">CV</h4>
                             </td>
                         </tr>
 
                     </table>
+                </div>
+                <div className="toggleBar">
+                    <button className="toggleBtn">Enable colour</button>
+                    <button className="toggleBtn">Filter available markers</button>
                 </div>
             </BoxComponent>
         )

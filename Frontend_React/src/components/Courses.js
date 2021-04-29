@@ -35,31 +35,33 @@ function Courses(){
 
     
     return (
-        <div className="boxComponent">
+        <BoxComponent style={{width: '90%'}}>
             <h1>Marker-Course Assignments</h1>
+            <br/>
+            <br/>
             <div className="filterTab">
                 <label htmlFor="search">Search</label>
                 <input type="text" name="search" className="searchBar" placeholder="Search course, student, coordinatior..."/>
-                <div className="filterTabRight">
+                <div className="filterTabRight"style={{float: 'right'}}>
                     <button className="addCourseBtn">+Course</button>
                 </div>
             </div>
             <table className="courseTable">
                 <tr>
                     <td className="recordTableHeading">
-                        <h3 classname="recordHeadingFont">Course Name</h3>
+                        <h4 classname="recordHeadingFont">Course Name</h4>
                     </td>
                     <td className="recordTableHeading">
-                        <h3 classname="recordHeadingFont">Course Coordinator</h3>
+                        <h4 classname="recordHeadingFont">Course Coordinator</h4>
                     </td>
                     <td className="recordTableHeading">
-                        <h3 classname="recordHeadingFont">Course Coordinator Email</h3>
+                        <h4 classname="recordHeadingFont">Course Coordinator Email</h4>
                     </td>
                     <td className="recordTableHeading">
-                        <h3 classname="recordHeadingFont">Total/Est students</h3>
+                        <h4 classname="recordHeadingFont">Total/Est students</h4>
                     </td>
                     <td className="recordTableHeading">
-                        <h3 classname="recordHeadingFont">comments</h3>
+                        <h4 classname="recordHeadingFont">comments</h4>
                     </td>
                 </tr>
                 {courses.map((value, key) => {
@@ -91,14 +93,14 @@ function Courses(){
             </table>
             <div className="toggleOptions">
                 <button className="toggleBtn">Enable colour</button>
-                <button className="toggleBtn">Sort by vacancy</button>
-                <div className="toggleRight">
+                <button className="toggleBtn">Sort by allocation status</button>
+                <div className="toggleRight" style={{float: 'right'}}>
                     <button className="toggleBtn">Automate...</button>
                 </div>
                 
     
             </div>
-        </div>
+        </BoxComponent>
     );
 }
 

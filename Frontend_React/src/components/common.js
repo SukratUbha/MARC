@@ -70,7 +70,8 @@ export const FormField = styled.div`
     box-sizing: border-box;
     font-size: 16px;
     padding: 10px;
-    margin: 5px 10px
+    margin: 5px 10px;
+    display: block;
 `
 export const FormBoxLabel = styled.label`
     width: 300px;
