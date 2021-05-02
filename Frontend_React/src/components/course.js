@@ -59,13 +59,10 @@ export default class Course extends Component{
                     </OffCanvasBody>
                     
                     <OffCanvasMenu className="menu">
-                    <p>Placeholder content.</p>
-                    <ul>
-                        <Child2 dataFromParent = {this.state.onClick_course} />
-                        <button class="openbtn" onClick={this.handleClick}>
-                            X {this.state.onClick_course.Course_name}
-                        </button>
-                    </ul>
+                    <button class="openbtn" onClick={this.handleClick(null)}>
+                        X 
+                    </button>
+                    <Child2 dataFromParent = {this.state.onClick_course} />
                     </OffCanvasMenu>
                 </OffCanvas>
                 
@@ -76,12 +73,19 @@ export default class Course extends Component{
 }
 
 class Child2 extends React.Component {
-    render(props) {
-        console.log(this.props.dataFromParent)
+    render() {
             return (
+                <React.Fragment>
                 <div>
-                    Data from parent is:{}
+                    Data from parent is:{(this.props.dataFromParent || {}).Course_name}
                 </div>
+                <div>
+                {(this.props.dataFromParent || {}).CC}
+                </div>
+                <div>
+                {(this.props.dataFromParent || {}).CC_email}
+                </div>
+                </React.Fragment>
             );
         }
     }
