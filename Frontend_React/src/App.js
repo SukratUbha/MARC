@@ -21,7 +21,7 @@ If we make a request to endpoint and can't find it on the frontend, we go to che
 function App() {
   return (
     <div>
-      <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <header class="navbar navbar-expand-sm bg-dark navbar-dark" style={{"z-index": "99999",width: "100%", height:"75px"}}>
         <a href="/" className="navbar-brand">
           <img src={logo} style={{width:"180px"}} alt="marcLogo"/>
         </a>
@@ -49,7 +49,7 @@ function App() {
           </li>
           </div>
         </div>
-      </nav>
+      </header>
 
       <div className="container mt-3">
         <Switch>
