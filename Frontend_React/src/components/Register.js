@@ -69,9 +69,23 @@ function Register() {
             pdfLocation: filename
           };
         
-        axios.post('/api/submit', data)
+        try {  
+        axios.post('/api/submit', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
         .then(response => {console.log(response)});
-    } 
+        } catch (err) {
+        if (err.response.status === 500) {
+          console.log('There was a problem with the server');
+        } else {
+          console.log(err)
+        }
+      }
+    
+    };
+
     
 
 
