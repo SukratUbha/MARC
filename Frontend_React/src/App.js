@@ -22,7 +22,7 @@ function App() {
   return (
     <div>
       <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a href="/api/courses" className="navbar-brand">
+        <a href="/" className="navbar-brand">
           <img src={logo} style={{width:"180px"}} alt="marcLogo"/>
         </a>
         <div className="navbar-nav mr-auto">
