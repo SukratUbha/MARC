@@ -40,7 +40,7 @@ export default class Course extends Component{
             <div>
                 <OffCanvas
                     width={300}
-                    height={900}
+                    height={"100%"}
                     transitionDuration={300}
                     effect={"overlay"}
                     isMenuOpened={this.state.isMenuOpened}
@@ -58,7 +58,7 @@ export default class Course extends Component{
                     </p>
                     </OffCanvasBody>
                     
-                    <OffCanvasMenu className="menu">
+                    <OffCanvasMenu className="menu" style={{background:"white", height:"100%", "padding-top":'75px', "overflow":"scroll"}}>
                     <button class="openbtn" onClick={this.handleClick(null)}>
                         X 
                     </button>
@@ -77,13 +77,31 @@ class Child2 extends React.Component {
             return (
                 <React.Fragment>
                 <div>
-                    Data from parent is:{(this.props.dataFromParent || {}).Course_name}
+                    {(this.props.dataFromParent || {}).Course_name}
                 </div>
                 <div>
-                {(this.props.dataFromParent || {}).CC}
+                    {(this.props.dataFromParent || {}).CC}
                 </div>
                 <div>
-                {(this.props.dataFromParent || {}).CC_email}
+                    {(this.props.dataFromParent || {}).CC_email}
+                </div>
+                <div>
+                    {(this.props.dataFromParent || {}).CC_email}
+                </div>
+                <div>
+                    {(this.props.dataFromParent || {}).CC_email}
+                </div>
+                <div>
+                    {(this.props.dataFromParent || {}).CC_email}
+                </div>
+                <div>
+                    {(this.props.dataFromParent || {}).CC_email}
+                </div>
+                <div>
+                    {(this.props.dataFromParent || {}).CC_email}
+                </div>
+                <div>
+                    {(this.props.dataFromParent || {}).CC_email}
                 </div>
                 </React.Fragment>
             );
