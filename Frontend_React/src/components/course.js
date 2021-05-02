@@ -29,10 +29,17 @@ export default class Course extends Component{
     };
 
     handleClick = value => () => {
-        this.setState({ 
-            isMenuOpened: !this.state.isMenuOpened, 
-            onClick_course: value
-        });
+        console.log(this.state.onClick_course!==value, this.state.isMenuOpened, value)
+        if (this.state.onClick_course!==value&&this.state.isMenuOpened==true){
+            this.setState({ 
+                onClick_course: value
+            });
+        } else {
+            this.setState({ 
+                isMenuOpened: !this.state.isMenuOpened,
+                onClick_course: value
+            });
+        }
     };
 
     render(){
@@ -41,7 +48,7 @@ export default class Course extends Component{
                 <OffCanvas
                     width={300}
                     height={"100%"}
-                    transitionDuration={300}
+                    transitionDuration={100}
                     effect={"overlay"}
                     isMenuOpened={this.state.isMenuOpened}
                     position={"right"}
@@ -59,7 +66,7 @@ export default class Course extends Component{
                     </OffCanvasBody>
                     
                     <OffCanvasMenu className="menu" style={{background:"white", height:"100%", "padding-top":'75px', "overflow":"scroll"}}>
-                    <button class="openbtn" onClick={this.handleClick(null)}>
+                    <button class="openbtn" onClick={this.handleClick(this.state.onClick_course)}>
                         X 
                     </button>
                     <Child2 dataFromParent = {this.state.onClick_course} />
