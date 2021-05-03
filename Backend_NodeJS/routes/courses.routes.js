@@ -12,7 +12,7 @@ module.exports =(app) => {
     var router = require("express").Router();       // a NEW 'Router' object. Gets globally configured to live under '/api/courses'. see blow.
     
     // Create a new Course
-    router.get("/create", api.createCourse);
+    router.post("/create", api.createCourse);
 
     // Retrieve all Courses
     router.get("/", api.getAllCourses);

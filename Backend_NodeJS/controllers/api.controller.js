@@ -20,12 +20,46 @@ const Op = require("sequelize").Op;
 
 
 exports.createCourse = (req, res) => {
+  
   //naive way to create course, will cause a lot of error showing on the terminal
-  const Cs101 = Course.create({ id:1, Course_name:"CS101", CC:"Damir", CC_email:"damir@gmail.com", Total_student:null, comment:null});
-  const Cs120 = Course.create({ id:2, Course_name:"CS120", CC:"Tanya", CC_email:"tanya@gmail.com", Total_student:230, comment:null});
-  const Cs130 = Course.create({ id:3, Course_name:"CS130", CC:"Bukhard", CC_email:"bukhard@gmail.com", Total_student:480, comment:null});
-  res.send("3 courses created")
+  //const Cs101 = Course.create({ id:1, Course_name:"CS101", CC:"Damir", CC_email:"damir@gmail.com", Total_student:null, comment:null});
+  //const Cs120 = Course.create({ id:2, Course_name:"CS120", CC:"Tanya", CC_email:"tanya@gmail.com", Total_student:230, comment:null});
+  //const Cs130 = Course.create({ id:3, Course_name:"CS130", CC:"Bukhard", CC_email:"bukhard@gmail.com", Total_student:480, comment:null});
+  //res.send("3 courses created")
+
+  // Validate request
+  if (!(req.body.Course_name&&req.body.CC&&req.body.CC_email)) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+  console.log(req.body.Course_name);
+  
+  // Create a Course
+  const course = {
+    Course_name: req.body.Course_name,
+    CC: req.body.CC,
+    CC_email: req.body.CC_email,
+    Total_student: null,
+    comment: null
+  };
+  console.log(course);
+
+  // Save Course in the database
+  Course.create(course)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Course."
+      });
+    });
+  
 };
+  
 
 // Retrieve all Tutorials from the database.
 exports.getAllCourses = (req, res) => {
