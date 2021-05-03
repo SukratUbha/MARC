@@ -59,7 +59,6 @@ export default class AddCourse extends Component {
 
           submitted: true
         });
-        console.log(response.data);
       })
       .catch(e => {
         console.log(e);
