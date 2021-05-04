@@ -227,7 +227,7 @@ exports.findAllPublished = (req, res) => {
       });
     });
 };
-*/
+
 exports.createCourse = (req, res) => {
   //naive way to create course, will cause a lot of error showing on the terminal
   const Cs101 = Course.create({ id:1, Course_name:"CS101", CC:"Damir", CC_email:"damir@gmail.com", Total_student:null, comment:null});
@@ -235,7 +235,7 @@ exports.createCourse = (req, res) => {
   const Cs130 = Course.create({ id:3, Course_name:"CS130", CC:"Bukhard", CC_email:"bukhard@gmail.com", Total_student:480, comment:null});
   res.send("3 courses created")
 };
-
+*/
 // Retrieve student with name
 exports.getStudent = (req, res) => {
   const fname = req.params.fname;
