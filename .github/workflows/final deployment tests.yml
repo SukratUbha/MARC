@@ -35,13 +35,13 @@ jobs:
       with:
         node-version: '10.x'
 
-    - name: Install npm dependencies
-      run: npm install express sequelize sqlite3 body-parser cors express-fileupload --save && npm install mocha supertest config --save-dev 
-      shell: bash
+    #- name: Install npm dependencies
+    #  run: npm install express sequelize sqlite3 body-parser cors express-fileupload --save && npm install mocha supertest config --save-dev 
+    #  shell: bash
 
       
-    - name: Run Unit Tests
-      run: npm run test --if-present
+    #- name: Run Unit Tests
+    #  run: npm run test --if-present
 #    - name: Run build task
 #      run: npm run build --if-present
 
