@@ -2,8 +2,6 @@ import axios from 'axios';
 import React, {useState} from 'react';
 import {
     BoxComponent,
-    FormBox,
-    FormField,
     RegisterButton,
 } from './common'
 import './Register.css';
@@ -23,6 +21,7 @@ function Register() {
     const [hours, setHours] = useState(0);
     const [file, setFile] = useState("");
     const [filename, setFilename] = useState("Upload CV...");
+
 
     /*real-time updating based on form fields input*/
     const onChangeFirstName = (event) => {
@@ -59,6 +58,10 @@ function Register() {
 
     /*Upload to server using post request*/
     const uploadUser = () => {
+
+        var formData = new FormData();
+        formData.append('file', file);
+
         var data = {
             firstName: firstName,
             lastName: lastName, 
@@ -70,7 +73,7 @@ function Register() {
           };
         
         try {  
-        axios.post('/api/submit', data, {
+        axios.post('/api/submit', [data, formData], {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
