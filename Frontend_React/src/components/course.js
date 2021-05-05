@@ -34,6 +34,10 @@ export default class Course extends Component{
         });
     };
 
+    load = () => {
+        axios.get("/api/courses/load")
+    };
+
     //Modal function 
     toggleModal = key => event => {
         event.preventDefault();
@@ -89,6 +93,7 @@ export default class Course extends Component{
                     )}
                 </p>
                 <div>
+                    <button type="button" className="btn btn-primary" onClick={this.load}>load</button>
                     <button type="button" className="btn btn-primary" onClick={this.toggleModal(MODAL_A)}>Open Modal A</button>
                     <button type="button" className="btn btn-primary" onClick={this.toggleModal(MODAL_B)}>Open Modal B</button>
                     <MyModal

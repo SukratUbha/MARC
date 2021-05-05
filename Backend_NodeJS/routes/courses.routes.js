@@ -17,11 +17,16 @@ module.exports =(app) => {
     // Retrieve all Courses
     router.get("/", api.getAllCourses);
 
+    // Load value (testing purpose)
+    router.get("/load", api.loadvalue);
+
     // Retrive single Course
     router.get("/:id", api.getCourse);
 
     // Retrive single Course
     router.get("/update/:id", api.update_Total_Student);
+
+    
 
     //mount the router on the app
     app.use('/api/courses', router);

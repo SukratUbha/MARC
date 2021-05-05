@@ -114,6 +114,70 @@ exports.update_Total_Student = (req, res) => {
       });
     });
 };
+
+exports.loadvalue = (req, res) => {
+  //naive way to create course, will cause a lot of error showing on the terminal
+  Course.create({ Course_name:"CS373", 
+                  CC:"Bukhard", 
+                  CC_email:"bukhard@gmail.com", 
+                  Deadline: '2021-10-28', 
+                  Year: 3, 
+                  Hours: 2,
+                  Total_student:123, 
+                  comment_CC:null,
+                  comment_MC:null});
+
+  Course.create({ Course_name:"CS101", 
+                  CC:"Damir", 
+                  CC_email:"damir@gmail.com", 
+                  Deadline: '2021-08-09', 
+                  Year: 1, 
+                  Hours: 1.4,
+                  Total_student:500, 
+                  comment_CC:null,
+                  comment_MC:null});
+
+  Course.create({ Course_name:"CS120", 
+                  CC:"Tanya", 
+                  CC_email:"tanya@gmail.com", 
+                  Deadline: '2021-09-09', 
+                  Year: 1, 
+                  Hours: 1.6,
+                  Total_student:300, 
+                  comment_CC:null,
+                  comment_MC:null});
+
+  Course.create({ Course_name:"CS316", 
+                  CC:"Rizwan", 
+                  CC_email:"rizwan@gmail.com", 
+                  Deadline: '2021-9-20', 
+                  Year: 3, 
+                  Hours: 2,
+                  Total_student:150, 
+                  comment_CC:null,
+                  comment_MC:null});
+
+  Course.create({ Course_name:"CS210", 
+                  CC:"Bruce", 
+                  CC_email:"bruce@gmail.com", 
+                  Deadline: '2021-8-20', 
+                  Year: 2, 
+                  Hours: 2.5,
+                  Total_student:300, 
+                  comment_CC:null,
+                  comment_MC:null});
+
+  Course.create({ Course_name:"CS340", 
+                  CC:"Robert", 
+                  CC_email:"robert@gmail.com", 
+                  Deadline: '2021-8-20', 
+                  Year: 3, 
+                  Hours: 2.6,
+                  Total_student:113, 
+                  comment_CC:null,
+                  comment_MC:null});
+  res.send("Courses created")
+};
 /*
 // Retrieve all Courses from the database.
 exports.findAll = (req, res) => {
