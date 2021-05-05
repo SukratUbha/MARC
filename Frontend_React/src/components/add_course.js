@@ -7,6 +7,7 @@ export default class AddCourse extends Component {
     this.onChangeCourse_name = this.onChangeCourse_name.bind(this);
     this.onChangeCC = this.onChangeCC.bind(this);
     this.onChangeCC_email = this.onChangeCC_email.bind(this);
+    this.onChangeYear = this.onChangeYear.bind(this);
     this.saveCourse = this.saveCourse.bind(this);
     this.newCourse = this.newCourse.bind(this);
 
@@ -15,8 +16,12 @@ export default class AddCourse extends Component {
       Course_name: "",
       CC: "", 
       CC_email: "",
-      Total_student: null,
-      comment: null,
+      Year: "", 
+      Deadline: null,
+      Hours: null,
+      Total_student: null, 
+      comment_CC:null,
+      comment_MC:null,
 
       submitted: false
     };
@@ -40,11 +45,18 @@ export default class AddCourse extends Component {
     });
   }
 
+  onChangeYear(e) {
+    this.setState({
+        Year: e.target.value
+    });
+  }
+
   saveCourse() {
     var data = {
       Course_name: this.state.Course_name,
       CC: this.state.CC, 
-      CC_email: this.state.CC_email
+      CC_email: this.state.CC_email,
+      Year: this.state.Year
     };
 
     axios.post("/api/Courses/create", data)
@@ -57,6 +69,13 @@ export default class AddCourse extends Component {
           Total_student: response.data.Total_student,
           comment: response.data.comment,
 
+          Year: response.data.Year, 
+          Deadline: response.data.Deadline,
+          Hours: response.data.Hours,
+          Total_student: response.data.Total_student, 
+          comment_CC:response.data.comment_CC,
+          comment_MC:response.data.comment_MC,
+
           submitted: true
         });
       })
@@ -67,12 +86,16 @@ export default class AddCourse extends Component {
 
   newCourse() {
     this.setState({
-        id: "",
+        id: null,
         Course_name: "",
-        CC: "",
+        CC: "", 
         CC_email: "",
-        Total_student: null,
-        comment: null,
+        Year: "", 
+        Deadline: null,
+        Hours: null,
+        Total_student: null, 
+        comment_CC:null,
+        comment_MC:null,
 
         submitted: false
       });
@@ -117,7 +140,7 @@ export default class AddCourse extends Component {
             </div>
 
             <div className="form-group">
-              <label htmlFor="Course_name">Course Coordinator's Email</label>
+              <label htmlFor="Course_email">Course Coordinator's Email</label>
               <input
                 type="text"
                 className="form-control"
@@ -126,6 +149,19 @@ export default class AddCourse extends Component {
                 value={this.state.CC_email}
                 onChange={this.onChangeCC_email}
                 name="Course Coordinator's Email"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="Year">Year</label>
+              <input
+                type="text"
+                className="form-control"
+                id="Year"
+                required
+                value={this.state.Year}
+                onChange={this.onChangeYear}
+                name="Year"
               />
             </div>
 

@@ -22,12 +22,10 @@ Course.init({
     allowNull: false
   },
   Deadline: { // Enrolment Deadline
-    type: DataTypes.DATE,
-    allowNull: false
+    type: DataTypes.DATE
   },
   Hours: { // Hours to make one student
     type: DataTypes.DECIMAL,
-    allowNull: false
   },
   Total_student: { // estimate students in the course
     type: DataTypes.INTEGER

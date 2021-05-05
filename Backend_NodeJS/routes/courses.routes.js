@@ -21,7 +21,7 @@ module.exports =(app) => {
     router.get("/load", api.loadvalue);
 
     // Retrive single Course
-    router.get("/:id", api.getCourse);
+    //router.get("/:id", api.getCourse);
 
     // Retrive single Course
     router.get("/update/:id", api.update_Total_Student);

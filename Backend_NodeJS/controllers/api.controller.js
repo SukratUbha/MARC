@@ -20,12 +20,6 @@ const Op = require("sequelize").Op;
 
 
 exports.createCourse = (req, res) => {
-  
-  //naive way to create course, will cause a lot of error showing on the terminal
-  //const Cs101 = Course.create({ id:1, Course_name:"CS101", CC:"Damir", CC_email:"damir@gmail.com", Total_student:null, comment:null});
-  //const Cs120 = Course.create({ id:2, Course_name:"CS120", CC:"Tanya", CC_email:"tanya@gmail.com", Total_student:230, comment:null});
-  //const Cs130 = Course.create({ id:3, Course_name:"CS130", CC:"Bukhard", CC_email:"bukhard@gmail.com", Total_student:480, comment:null});
-  //res.send("3 courses created")
 
   // Validate request
   if (!(req.body.Course_name&&req.body.CC&&req.body.CC_email)) {
@@ -38,11 +32,15 @@ exports.createCourse = (req, res) => {
   
   // Create a Course
   const course = {
-    Course_name: req.body.Course_name,
-    CC: req.body.CC,
-    CC_email: req.body.CC_email,
-    Total_student: null,
-    comment: null
+    Course_name:req.body.Course_name, 
+    CC:req.body.CC, 
+    CC_email:req.body.CC_email, 
+    Year: req.body.Year, 
+    Deadline: null,
+    Hours: null,
+    Total_student: null, 
+    comment_CC:null,
+    comment_MC:null
   };
   console.log(course);
 
@@ -74,7 +72,7 @@ exports.getAllCourses = (req, res) => {
       });
     });
 };
-
+/*
 exports.getCourse = (req, res) => {
   const id = req.params.id;
 
@@ -87,7 +85,7 @@ exports.getCourse = (req, res) => {
         message: "Error retrieving course with id=" + id
       });
     });
-};
+};*/
 
 // Update a Course by the id in the request
 exports.update_Total_Student = (req, res) => {
