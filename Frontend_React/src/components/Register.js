@@ -51,6 +51,9 @@ function Register() {
     const onChangeHours = (event) => {
         setHours(event.target.value);
     }
+    const onChangeLocation = (event) => {
+        setLocation(event.target.value);
+    }
     const onChangeFile = (event) => {
         setFile(event.target.files[0]);
         setFilename(event.target.files[0].name);
@@ -61,9 +64,10 @@ function Register() {
 
         var formData = new FormData();
         formData.append('file', file);
+        
 
         var data = {
-            firstName: firstName,
+             firstName: firstName,
             lastName: lastName, 
             firstPref: firstPref,
             secondPref: secondPref,
@@ -71,6 +75,7 @@ function Register() {
             email: email,
             pdfLocation: filename
           };
+        formData.append('data', data);
         
         try {  
         axios.post('/api/submit', [data, formData], {
@@ -136,11 +141,8 @@ function Register() {
                     value={hours} onChange={onChangeHours}/>
                 </div>
                 <div className="formField">
-                    <label htmlFor='location' className='formLabel'> location </label>
-                    <select name="location" className='formSelect'>
-                        <option value="Auckland">Auckland</option>
-                        <option value="Remote">Remote</option>
-                    </select>
+                    <label htmlFor='location' className='formLabel'> What is the nature of your physical availablity to mark on UoA Campus? </label>
+                    <input type="text" className="formInput" placeholder="describe circumstances here..."/>
                 </div>
                 <div className="formField">
                     <label htmlFor='studentCV' className='formLabel'> CV Upload: </label>

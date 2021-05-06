@@ -51,12 +51,12 @@ function App() {
               </Modal>
               <li className="nav-item">
                 <Link to={"/markers"} className="nav-link">
-                  Markers
+                  Markers View
                 </Link>
               </li>
               <li className="nav-item">
                 <Link to={"/allocate"} className="nav-link">
-                  Allocations
+                  Course List
                 </Link>
               </li>
               <div className="navbar-right">
@@ -76,7 +76,7 @@ function App() {
             <Route path="/markers" component={Markers} />
             <Route path="/allocate" component={Courses} />
             <Route path="/register" component={Register} />
-          </div>
+        </div>
         
       </div>
       </ReflexContainer>
