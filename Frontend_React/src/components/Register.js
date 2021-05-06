@@ -136,7 +136,7 @@ function Register() {
                     </div>
                 </div>
                 <div className="formField">
-                    <label htmlFor='location' className='formLabel'> Hours </label>
+                    <label htmlFor='hours' className='formLabel'> Hours </label>
                     <input type="text" className="formLabel" placeholder="0"
                     value={hours} onChange={onChangeHours}/>
                 </div>

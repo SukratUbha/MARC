@@ -4,19 +4,19 @@ Student = require(__dirname+'/../models/Student.js');
 Course = require(__dirname+'/../models/Course.js');
 const Op = require("sequelize").Op;
 
-exports.registerMarker = (req,res) =>{
+exports.registerStudent = (req,res) =>{
 
 const student = {
-    first_name:req.body.first_name, 
-    last_name:req.body.last_name, 
+    firstName:req.body.firstName, 
+    lastName:req.body.lastName, 
     email:req.body.email, 
     password: req.body.password, 
-    firstPref: req.body.firstPref,
+    firstPref: req.body.preferences,
     secondPref: req.body.secondPref,
     thirdPref: req.body.thirdPref,
-    Hours: req.body.hours,
-    description: req.body.description, 
-    pdfLocation:req.body.fileLocation,
+    hours: req.body.hours,
+    description: req.body.location, 
+    pdfLocation:req.body.location,  //need to change and add pdf location
     }
 
     Student.create(student)
