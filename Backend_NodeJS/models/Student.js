@@ -14,6 +14,9 @@ Student.init({
   lastName: {
     type: DataTypes.STRING
   },
+  password: {
+    type: DataTypes.STRING
+  },
 
   //note:
   // the strings entered for course preference are used to keyword search through associations.
@@ -37,8 +40,15 @@ Student.init({
     type: DataTypes.STRING,
     validate: {
       notEmpty: true
-  }
   },
+  },
+  hours: {
+    type: DataTypes.INTEGER
+  },
+  description: {
+    type: DataTypes.STRING
+  },
+  
   pdfLocation: {
       type: DataTypes.STRING
   }
