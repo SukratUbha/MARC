@@ -11,7 +11,7 @@ app.Express=Express;
 
 
 //Are we on the production server? (Affects CORS, SSL Cert & TCP port)
-function isInProduction(){  return process.cwd() == "/marc/MARC/src";}  //MARC is installed in this directory on the production server.
+function isInProduction(){  return process.cwd() == "/marc/MARC/Backend_NodeJS";}  //MARC is installed in this directory on the production server.
 const PORT = isInProduction() ? 80 : 8080;
 
 
