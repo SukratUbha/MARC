@@ -20,6 +20,7 @@ module.exports = (app) => {
   require(__dirname+"/user.routes.js")(app);      
   require(__dirname+"/courses.routes.js")(app); 
   require(__dirname+"/students.routes.js")(app); 
+  require(__dirname+"/mailer.routes.js")(app); 
 }
 
 

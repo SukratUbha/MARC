@@ -7,6 +7,7 @@ import Addcourse  from './components/add_course.js';
 import Register from './components/Register';
 import Courses from './components/Courses';
 import Markers from './components/Markers';
+import SendEmails from './components/SendEmails';
 import Overview  from './components/index';
 
 import Modal from 'react-modal'
@@ -59,6 +60,12 @@ function App() {
                   Course List
                 </Link>
               </li>
+              {/* The email link below will only be visible if authenticated user is viewing the page */}
+              <li className="nav-item"> 
+                <Link to={"/email"} className="nav-link">
+                  Send Email
+                </Link>
+              </li>
               <div className="navbar-right">
               <li className="nav-item">
                 <Link to={"/register"} className="nav-link">
@@ -76,6 +83,7 @@ function App() {
             <Route path="/markers" component={Markers} />
             <Route path="/allocate" component={Courses} />
             <Route path="/register" component={Register} />
+            <Route path="/email" component = {SendEmails} />
         </div>
         
       </div>
