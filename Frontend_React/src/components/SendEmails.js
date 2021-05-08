@@ -35,7 +35,8 @@ class Mailer extends React.Component {
 
   render() {
     return(
-      <div className="App">
+      <BoxComponent style={{width: '90%'}}>
+      <div className="MailerApp">
         <form id="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST">
           <div className="form-group">
             <label htmlFor="subject">Subject</label>
@@ -50,8 +51,10 @@ class Mailer extends React.Component {
             <textarea className="form-control" rows="5" value={this.state.message} onChange={this.onMessageChange.bind(this)} />
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
+          
         </form>
       </div>
+    </BoxComponent>
     );
   }
 

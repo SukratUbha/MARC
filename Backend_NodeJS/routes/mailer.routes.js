@@ -3,14 +3,12 @@ module.exports =(app) => {
     const register = require("../controllers/register.controller.js"); //instantiating a new object
     var router = require("express").Router();       // a NEW 'Router' object. Gets globally configured to live under '/api/courses'. see blow.
     var nodemailer = require('nodemailer');
-    // var cors = require('cors');
-    // const creds = require('./config');
 
     var transport = {
-        host: 'smtp.gmail.com', // Don’t forget to replace with the SMTP host of your provider
+        host: 'smtp.gmail.com',
         port: 465,
         auth: {
-        user: 'cockpit.marc@gmail.com',//creds.USER,   //Can include this info in the config file
+        user: 'cockpit.marc@gmail.com',//creds.USER,   //should include this info in the config file
         pass: 'subjecttochange' //creds.PASS
     }
     }
