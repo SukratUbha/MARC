@@ -5,22 +5,35 @@ class Association extends Model {}
 
 Association.init({
   // Model attributes are defined here
-  Marker_ID: { //marker's preference 
+  course_id: { //course 
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  Student_pref: { //student's preference 
+  student_id: { //student 
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  request: { // requested by course coordinator
     type: DataTypes.BOOLEAN,
     allowNull: false
   },
-  CC_request: { // requested by course coordinator
-    type: DataTypes.BOOLEAN
-    // allowNull defaults to true
-  },
-  MC_propose: { // proposed by marker coordinator
+  application: { // applied to mark course
     type: DataTypes.BOOLEAN,
     allowNull: false
+  },
+  slist: { // shit list
+    type: DataTypes.BOOLEAN,
+    allowNull: false
+  },
+  marking: { // currently marking the course
+    type: DataTypes.BOOLEAN,
+    allowNull: false
+  },
+  time: { // time allocated for the course
+    type: DataTypes.INTEGER,
+    allowNull: true
   }
+
 }, {
   // Other model options go here
   sequelize, // We need to pass the connection instance
