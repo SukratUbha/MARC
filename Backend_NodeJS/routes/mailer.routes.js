@@ -26,14 +26,15 @@ module.exports =(app) => {
     app.post("/api/sendMyEmail", (req, res, next) => {
 
     var subject = req.body.subject
-    console.log(subject);
+    // console.log(subject);
     var email = req.body.email
     var message = req.body.message
     var content = `subject: ${subject} \n email: ${email} \n message: ${message} \n\n Please forward any queries to burkhard@cs.auckland.ac.nz `
 
     var mail = {
         from: 'cockpit.marc@gmail.com',
-        to: email,  // Change to email address that you want to receive messages on
+        bcc: email,  // Change to email address that you want to receive messages on// use to: email to not obfuscate
+        //bcc: is used above to send to multiple recipients- the recipient will not see the other receiving addresses
         subject: subject,
         text: content
     }
