@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from "axios";
 import Modal from 'react-modal';
 import MyModal from './course-modal'; 
+import './course.css'; 
 
 const MODAL_A = 'modal_a';
 const MODAL_B = 'modal_b';
@@ -86,7 +87,7 @@ export default class Course extends Component{
             <div>
                 <p>
                     {this.state.courses.map(course=>
-                        <div>
+                        <div style={{"padding-bottom": "15px"}}>
                             <button class="openbtn" onClick={this.handleClick(course)}>
                                 {course.Course_name}</button> 
                         </div>

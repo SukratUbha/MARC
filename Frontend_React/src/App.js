@@ -7,7 +7,6 @@ import Addcourse  from './components/add_course.js';
 import Register from './components/Register';
 import Courses from './components/Courses';
 import Markers from './components/Markers';
-import SendEmails from './components/SendEmails';
 import Overview  from './components/index';
 
 import Modal from 'react-modal'
@@ -36,7 +35,7 @@ function App() {
         <ReflexElement className="header" flex={0.1}>
           <header class="navbar navbar-expand-sm bg-dark navbar-dark" style={{"z-index": "99999",width: "100%", height:"75px"}}>
             <a href="/" className="navbar-brand">
-              <img src={logo} style={{width:"180px"}} alt="marcLogo"/>
+              <img src={logo} style={{width:"200px", paddingRight:"20px"}} alt="marcLogo"/>
             </a>
             <div className="navbar-nav mr-auto">
               <li className="nav-item" onClick={()=>SetModalIsOpen(true)}>
@@ -60,12 +59,6 @@ function App() {
                   Course List
                 </Link>
               </li>
-              {/* The email link below will only be visible if authenticated user is viewing the page */}
-              <li className="nav-item"> 
-                <Link to={"/email"} className="nav-link">
-                  Send Email
-                </Link>
-              </li>
               <div className="navbar-right">
               <li className="nav-item">
                 <Link to={"/register"} className="nav-link">
@@ -83,7 +76,6 @@ function App() {
             <Route path="/markers" component={Markers} />
             <Route path="/allocate" component={Courses} />
             <Route path="/register" component={Register} />
-            <Route path="/email" component = {SendEmails} />
         </div>
         
       </div>
