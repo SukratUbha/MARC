@@ -12,10 +12,10 @@ module.exports =(app) => {
     router.post("/api/uploadregistrationform", upload.single("file"), async function(req, res, next) {  //upload form needs to be connected
         const {
           file,
-          body: { firstName,
-                  lastName,
-                  email,
-                  password,
+          body: { name,
+                  //lastName,
+                  //email,
+                  //password,
                   //and the rest
                  }
         } = req;
@@ -33,6 +33,19 @@ module.exports =(app) => {
     router.post("/api/registerStudent", register.registerStudent)   //Saw the add to server request on register.js, this can be modified to crud to db. 
     //So, ill leave this here until further clarity under /api/registerStudent  
 
+    app.post("/api/markerstest", (req,res)=>{
+      const {
+        file,
+        body: { name,
+                //lastName,
+                //email,
+                //password,
+                //and the rest
+               }
+      } = req;
+      console.log(req.body);
+      //console.log(req.body.fname);
+    })
 
     // Retrieve all Students
 

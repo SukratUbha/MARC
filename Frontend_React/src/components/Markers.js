@@ -60,7 +60,7 @@ function Markers() {
         data.append("name", name);
         data.append("file", file);
         console.log(data);
-        Axios.post("http://localhost:8080/markers", data)
+        Axios.post("/api/markerstest", data)
             .then(res => console.log(res))
             .catch(err => console.log(err));
         };
@@ -75,9 +75,7 @@ function Markers() {
         <form action="#">
           <div className="flex">
             <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
+            <input type="text" id="name"
               onChange={event => {
                 const { value } = event.target;
                 setName(value);

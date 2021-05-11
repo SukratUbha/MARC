@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, {useState} from 'react';
+
 import {
     BoxComponent,
     RegisterButton,
@@ -63,9 +64,8 @@ function Register() {
     const uploadUser = () => {
 
         var formData = new FormData();
-        formData.append('file', file);
+       // formData.append('file', file);    //add file after appending data
         
-
         var data = {
              firstName: firstName,
             lastName: lastName, 
@@ -76,6 +76,7 @@ function Register() {
             pdfLocation: filename
           };
         formData.append('data', data);
+        formData.append('file', file);
         
         try {  
         axios.post('/api/submit', [data, formData], {

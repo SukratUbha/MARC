@@ -29,7 +29,7 @@ module.exports =(app) => {
     console.log(subject);
     var email = req.body.email
     var message = req.body.message
-    var content = `subject: ${subject} \n email: ${email} \n message: ${message} \n Please forward any queries to burkhard@cs.auckland.ac.nz `
+    var content = `subject: ${subject} \n email: ${email} \n message: ${message} \n\n Please forward any queries to burkhard@cs.auckland.ac.nz `
 
     var mail = {
         from: 'cockpit.marc@gmail.com',
