@@ -16,10 +16,11 @@ module.exports = (app) => {
   console.log(__dirname +"/index.js imports being ran");
 
   //Pull in other JS files to mount their routes to
-     
-  require(__dirname+"/frontend.routes.js")(app);         //example, pull in ./frontend.routes.js     
+      
   require(__dirname+"/user.routes.js")(app);      
-  require(__dirname+"/api.routes.js")(app); 
+  require(__dirname+"/courses.routes.js")(app); 
+  require(__dirname+"/students.routes.js")(app); 
+  require(__dirname+"/mailer.routes.js")(app); 
 }
 
 

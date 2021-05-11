@@ -12,16 +12,21 @@ module.exports =(app) => {
     var router = require("express").Router();       // a NEW 'Router' object. Gets globally configured to live under '/api/courses'. see blow.
     
     // Create a new Course
-    router.get("/create", api.createCourse);
+    router.post("/create", api.createCourse);
 
     // Retrieve all Courses
     router.get("/", api.getAllCourses);
 
+    // Load value (testing purpose)
+    router.get("/load", api.loadvalue);
+
     // Retrive single Course
-    router.get("/:id", api.getCourse);
+    //router.get("/:id", api.getCourse);
 
     // Retrive single Course
     router.get("/update/:id", api.update_Total_Student);
+
+    
 
     //mount the router on the app
     app.use('/api/courses', router);

@@ -1,3 +1,5 @@
-src/package-lock.json
-src/node_modules/
-src/marcdatabase.sqlite
+Backend_NodeJS/package-lock.json
+Backend_NodeJS/node_modules/
+Backend_NodeJS/marcdatabase.sqlite
+Frontend_React/package-lock.json
+Frontend_React/node_modules/

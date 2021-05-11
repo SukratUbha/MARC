@@ -17,12 +17,25 @@ Course.init({
     type: DataTypes.STRING,
     allowNull: false
   },
+  Year: { // 1st year course/2nd year etc.
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  Deadline: { // Enrolment Deadline
+    type: DataTypes.DATE
+  },
+  Hours: { // Hours to make one student
+    type: DataTypes.DECIMAL,
+  },
   Total_student: { // estimate students in the course
     type: DataTypes.INTEGER
   },
-  comment: { // course coordinator's comment
+  comment_CC: { // course coordinator's comment
     type: DataTypes.STRING
     // allowNull defaults to true
+  },
+  comment_MC: { // marker coordinator's comment
+    type: DataTypes.STRING
   }
 }, {
   // Other model options go here
@@ -32,11 +45,12 @@ Course.init({
   createdAt: false,
   updatedAt: false
 });
-
+            
 // the defined model is the class itself
 console.log(Course === sequelize.models.Course); // true
 function boss(params) {
-  
+    const Cs101 = Course.create({Course_name:"CS101", CC:"Damir", CC_email:"damir@gmail.com", Total_student:null, comment:null});
+
 } 
 // so we can access this from server.js and elsewhere
 module.exports = Course
