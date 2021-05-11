@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from "axios";
 
 import Main  from './course';
 import Course_right  from './course_right';
@@ -21,14 +20,12 @@ export default class index extends Component{
             return (
                 <ReflexContainer orientation="vertical">
                     <ReflexElement className="left-pane">
-                        <Main functionCallFromParent={this.parentFunction.bind(this)}/>
+                        <Main functionCallFromParent={this.parentFunction}/>
                         </ReflexElement>
 
-                        <ReflexSplitter style={{"z-index":'0'}}/>
+                        <ReflexSplitter style={{"zIndex":'0'}}/>
 
                         <ReflexElement className="right-pane"
-                        minSize="200"
-                        maxSize="800"
                         style={{background:'white'}}>
                         <div className="pane-content">
                             <Course_right dataFromParent={this.state.value_key}/>

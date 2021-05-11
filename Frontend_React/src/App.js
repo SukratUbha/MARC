@@ -33,13 +33,13 @@ function App() {
     <ReflexContainer orientation="horizontal">
       <div>
         <ReflexElement className="header" flex={0.1}>
-          <header class="navbar navbar-expand-sm bg-dark navbar-dark" style={{"z-index": "99999",width: "100%", height:"75px"}}>
+          <header className="navbar navbar-expand-sm bg-dark navbar-dark" style={{"zIndex": "99999",width: "100%", height:"75px"}}>
             <a href="/" className="navbar-brand">
               <img src={logo} style={{width:"200px", paddingRight:"20px"}} alt="marcLogo"/>
             </a>
             <div className="navbar-nav mr-auto">
               <li className="nav-item" onClick={()=>SetModalIsOpen(true)}>
-                <Link className="nav-link">
+                <Link to={"#"} className="nav-link">
                   Create
                 </Link>
               </li>

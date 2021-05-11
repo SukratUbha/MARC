@@ -156,22 +156,22 @@ export default class Course extends Component{
                   <table>
                       <tr>
                           <td className="recordTableHeading">
-                              <h6 classname="recordHeadingFont">Marker</h6>
+                              <h6 className="recordHeadingFont">Marker</h6>
                           </td>
                           <td className="recordTableHeading">
-                                <h6 classname="recordHeadingFont">GPA</h6>
+                                <h6 className="recordHeadingFont">GPA</h6>
                           </td>
                            <td className="recordTableHeading">
-                                 <h6 classname="recordHeadingFont">Level</h6>
+                                 <h6 className="recordHeadingFont">Level</h6>
                              </td>
                              <td className="recordTableHeading">
-                                <h6 classname="recordHeadingFont">Status</h6>
+                                <h6 className="recordHeadingFont">Status</h6>
                             </td>
                             <td className="recordTableHeading">
-                                <h6 classname="recordHeadingFont">Hours</h6>
+                                <h6 className="recordHeadingFont">Hours</h6>
                             </td>
                             <td>
-                                <button onclick={this.reAssign} style={{cursor: 'pointer'}}>Reassign</button>
+                                <button onClick={this.reAssign} style={{cursor: 'pointer'}}>Reassign</button>
                             </td>
                        </tr>
                    </table>

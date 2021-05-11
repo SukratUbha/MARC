@@ -85,14 +85,12 @@ export default class Course extends Component{
 
         return (
             <div>
-                <p>
-                    {this.state.courses.map(course=>
-                        <div style={{"padding-bottom": "15px"}}>
-                            <button class="openbtn" onClick={this.handleClick(course)}>
-                                {course.Course_name}</button> 
-                        </div>
-                    )}
-                </p>
+                {this.state.courses.map(course=>
+                    <div key={course.id} style={{"paddingBottom": "15px"}}>
+                        <button className="openbtn" onClick={()=>this.handleClick(course)}>
+                            {course.Course_name}</button> 
+                    </div>
+                )}
                 <div>
                     <button type="button" className="btn btn-primary" onClick={this.load}>load</button>
                     <button type="button" className="btn btn-primary" onClick={this.toggleModal(MODAL_A)}>Open Modal A</button>
