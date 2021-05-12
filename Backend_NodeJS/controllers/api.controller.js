@@ -298,25 +298,6 @@ exports.createCourse = (req, res) => {
   res.send("3 courses created")
 };
 */
-exports.createStudent = (req, res) => {
-  // Create a student
-  const student = {
-    firstname: "bob",
-    lastname: "ross"
-  };
-
-  // Save Course in the database
-  Student.create(student)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the student."
-      });
-    });
-}
 
 // Retrieve all students from the database.
 exports.getAllStudents = (req, res) => {
