@@ -41,7 +41,7 @@ function App() {
             <div className="navbar-nav mr-auto">
               <li className="nav-item" onClick={()=>SetModalIsOpen(true)}>
                 <Link to={"#"} className="nav-link">
-                  Create
+                  Create Course
                 </Link>
               </li>
               <Modal isOpen={modalIsOpen} onRequestClose={() => SetModalIsOpen(false)} >
@@ -51,13 +51,23 @@ function App() {
                 <Addcourse/>
               </Modal>
               <li className="nav-item">
-                <Link to={"/markers"} className="nav-link">
-                  Markers View
+                <Link to={"/#"} className="nav-link">
+                  Student List
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={"/allocate"} className="nav-link">
-                  Course List
+                <Link to={"#"} className="nav-link">
+                  Colourize Student Status
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"#"} className="nav-link">
+                  Colourize Student Status
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"#"} className="nav-link">
+                  Colourize Late Courses
                 </Link>
               </li>
               <li className="nav-item">
@@ -65,10 +75,15 @@ function App() {
                   Send Emails
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to={"/markers"} className="nav-link">
+                  Markers View (Testing)
+                </Link>
+              </li>
               <div className="navbar-right">
               <li className="nav-item">
                 <Link to={"/register"} className="nav-link">
-                  Register
+                  Register (Testing)
                 </Link>
               </li>
               </div>
@@ -80,7 +95,6 @@ function App() {
         {condition}
         <div className="container mt-3">
             <Route path="/markers" component={Markers} />
-            <Route path="/allocate" component={Courses} />
             <Route path="/register" component={Register} />
             <Route path="/emails" component={sendEmails} />
         </div>
