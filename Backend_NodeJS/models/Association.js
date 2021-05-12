@@ -14,30 +14,25 @@ Association.init({
     allowNull: false
   },
   request: { // requested by course coordinator
-    type: DataTypes.BOOLEAN,
-    allowNull: false
+    type: DataTypes.BOOLEAN
   },
   application: { // applied to mark course
-    type: DataTypes.BOOLEAN,
-    allowNull: false
+    type: DataTypes.BOOLEAN
   },
-  slist: { // shit list
+  blist: { // black list
     type: DataTypes.BOOLEAN,
-    allowNull: false
   },
   marking: { // currently marking the course
-    type: DataTypes.BOOLEAN,
-    allowNull: false
-  },
-  time: { // time allocated for the course
-    type: DataTypes.INTEGER,
-    allowNull: true
+    type: DataTypes.BOOLEAN
   }
 
 }, {
   // Other model options go here
   sequelize, // We need to pass the connection instance
-  modelName: 'Association' // We need to choose the model name
+  modelName: 'Association', // We need to choose the model name
+  timestamps: false,
+  createdAt: false,
+  updatedAt: false
 });
 
 
