@@ -24,17 +24,17 @@ Student.init({
   // we should periodically scan for if the student's requested course now exists, then link the student
   // via the association table & set the field here to NULL
   
-  firstPref: {
-      type: DataTypes.STRING,
+  firstPref: { //first preference of course_id
+      type: DataTypes.INTEGER,
       validate: {
           notEmpty: true
       }
   },
   secondPref: {
-      type: DataTypes.STRING
+      type: DataTypes.INTEGER
   },
   thirdPref: {
-      type: DataTypes.STRING
+      type: DataTypes.INTEGER
   },
   email: {
     type: DataTypes.STRING,
@@ -60,6 +60,8 @@ Student.init({
   createdAt: false,
   updatedAt: false
 });
+
+
 
 // the defined model is the class itself
 console.log(Student === sequelize.models.Student); // true
