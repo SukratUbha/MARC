@@ -12,14 +12,16 @@ app.Express=Express;
 
 //Are we on the production server? (Affects CORS, SSL Cert & TCP port)
 function isInProduction(){  return process.cwd() == "/marc/MARC/Backend_NodeJS";}  //MARC is installed in this directory on the production server.
-const PORT = isInProduction() ? 80 : 8080;
+const PORT = isInProduction() ? 8080 : 8080;    //backend always on port 8080
 
 
 
 
 
 //CORS
-var corsOptionsJson = {  origin: isInProduction() ? "http://marc.thewholecake.co.nz" : "http://localhost:8080"};
+var corsOptionsJson = {
+    origin: isInProduction() ? "http://marc.thewholecake.co.nz" +PORT : "http://localhost" +PORT,
+  };
 app.use(Cors(corsOptionsJson));
 
 
