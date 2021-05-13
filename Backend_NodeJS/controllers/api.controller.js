@@ -367,3 +367,21 @@ exports.getAssociation_courseid = (req, res) => {
       });
     });
 };
+
+exports.getAssociationRelation = (req, res) => {
+  const srt = req.params.str;
+  course, student = str.split("-");
+
+  Association.findAll({
+    where: {
+      course_id: course,
+      student_id: student
+    }}).then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving association with id=" + id
+      });
+    });
+};

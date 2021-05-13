@@ -20,5 +20,5 @@ module.exports =(app) => {
 
 
     //mount the router on the app
-    app.use('/api/students', router);
+    app.use('/api/student', router);
 }
