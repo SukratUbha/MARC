@@ -20,8 +20,8 @@ module.exports =(app) => {
     // Load value (testing purpose)
     router.get("/load", api.loadvalue);
 
-    // Retrive single Course
-    //router.get("/:id", api.getCourse);
+    // Retrive single Course association
+    router.get("/association/:id", api.getAssociation_courseid);
 
     // Retrive single Course
     router.get("/update/:id", api.update_Total_Student);

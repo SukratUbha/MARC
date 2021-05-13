@@ -19,15 +19,15 @@ export default class index extends Component{
     render() {
             return (
                 <ReflexContainer orientation="vertical">
-                    <ReflexElement className="left-pane">
-                        <Main functionCallFromParent={this.parentFunction}/>
+                        <ReflexElement className="left-pane">
+                        <   Main functionCallFromParent={this.parentFunction}/>
                         </ReflexElement>
 
                         <ReflexSplitter style={{"zIndex":'0'}}/>
 
                         <ReflexElement className="right-pane"
-                        style={{background:'white'}}>
-                        <div className="pane-content">
+                        size="450">
+                        <div className="pane-content" style={{background:'white', overflow:"scroll"}}>
                             <Course_right dataFromParent={this.state.value_key}/>
                         </div>
                     </ReflexElement>

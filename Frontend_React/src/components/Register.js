@@ -13,8 +13,10 @@ function Register() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+    /*
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
+    */
     const [firstPref, setFirstPref] = useState(null);
     const [secondPref, setSecondPref] = useState(null);
     const [thirdPref, setThirdPref] = useState(null);
@@ -34,12 +36,14 @@ function Register() {
     const onChangeEmail = (event) => {
         setEmail(event.target.value);
     };
+{/*
     const onChangePassword = (event) => {
         setPassword(event.target.value);
     };
     const onChangePassword2 = (event) => {
         setPassword2(event.target.value);
     };
+*/}
     const onChangeFirstPref = (event) => {
         setFirstPref(event.target.value);
     };
@@ -95,12 +99,81 @@ function Register() {
     
     };
 
+    const load = () => {
+        const student1 = {
+            firstName:"Steven", 
+            lastName:"Kan", 
+            email:"Steven@gmail.com", 
+            password: null, 
+            firstPref: 1,
+            secondPref: null,
+            thirdPref: null,
+            hours: 10.7,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student2 = {
+            firstName:"Andrew", 
+            lastName:"Pakwing", 
+            email:"Andrew@gmail.com", 
+            password: null, 
+            firstPref: 5,
+            secondPref: 6,
+            thirdPref: 2,
+            hours: 8,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student3 = {
+            firstName:"Dave", 
+            lastName:"Wright", 
+            email:"Dave@gmail.com", 
+            password: null, 
+            firstPref: 3,
+            secondPref: 4,
+            thirdPref: null,
+            hours: 20,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student4 = {
+            firstName:"Spencer", 
+            lastName:"Smith", 
+            email:"Spencer@gmail.com", 
+            password: null, 
+            firstPref: 6,
+            secondPref: 4,
+            thirdPref: 2,
+            hours: 15,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student5 = {
+            firstName:"Sukrat", 
+            lastName:"Ubha", 
+            email:"Sukrat@gmail.com", 
+            password: null, 
+            firstPref: 1,
+            secondPref: 3,
+            thirdPref: null,
+            hours: 18.7,
+            description: null, 
+            pdfLocation:null 
+        };
+        axios.post("/api/students/api/registerStudent", student1);
+        axios.post("/api/students/api/registerStudent", student2);
+        axios.post("/api/students/api/registerStudent", student3);
+        axios.post("/api/students/api/registerStudent", student4);
+        axios.post("/api/students/api/registerStudent", student5)
+    };
     
 
 
     /*HTML component rendered on client page*/
     return(
+        
         <BoxComponent>
+            <button onClick={load}>Load Student</button>
             <form onSubmit={uploadUser}>
                 <h1>Marker application form</h1>
                 <div className="formField">
@@ -118,6 +191,7 @@ function Register() {
                     <input type='email' name='email' className='formInput' placeholder='abc123@gmail.com'
                     value={email} onChange={onChangeEmail}/>
                 </div>
+                {/*
                 <div className="formField">
                     <label htmlFor='password' className='formLabel'> Password </label>
                     <input type='password' name='password' className='formInput' placeholder='password'
@@ -128,12 +202,12 @@ function Register() {
                     <input type='password2' name='password2' className='formInput' placeholder='confirm password'
                     value={password2} onChange={onChangePassword2}/>
                 </div>
+                */}
                 <div className="formField">
                     <label htmlFor='preferences' className='formLabel'> Course preferences </label> 
                     <div name='preferences'>
                         <input type="text" className="searchbar" placeholder="search courses..."
                         value={firstPref} onChange={onChangeFirstPref}/>
-                        <div className="dragDropBox">Drag Drop</div>
                     </div>
                 </div>
                 <div className="formField">
@@ -143,7 +217,8 @@ function Register() {
                 </div>
                 <div className="formField">
                     <label htmlFor='location' className='formLabel'> What is the nature of your physical availablity to mark on UoA Campus? </label>
-                    <input type="text" className="formInput" placeholder="describe circumstances here..."/>
+                    <input type="text" className="formInput" style={{width: '75%', height: '100px'}}
+                    placeholder="describe circumstances here..."/>
                 </div>
                 <div className="formField">
                     <label htmlFor='studentCV' className='formLabel'> CV Upload: </label>

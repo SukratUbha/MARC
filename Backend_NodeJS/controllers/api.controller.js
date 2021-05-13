@@ -72,7 +72,7 @@ exports.getAllCourses = (req, res) => {
       });
     });
 };
-/*
+
 exports.getCourse = (req, res) => {
   const id = req.params.id;
 
@@ -85,7 +85,7 @@ exports.getCourse = (req, res) => {
         message: "Error retrieving course with id=" + id
       });
     });
-};*/
+};
 
 // Update a Course by the id in the request
 exports.update_Total_Student = (req, res) => {
@@ -115,6 +115,18 @@ exports.update_Total_Student = (req, res) => {
 
 exports.loadvalue = (req, res) => {
   //naive way to create course, will cause a lot of error showing on the terminal
+
+//   {   "firstName":"Steven", 
+//     "lastName":"Kan", 
+//     "email":"Steven@gmail.com", 
+//     "password": null, 
+//     "firstPref": 1,
+//     "secondPref": 1,
+//     "thirdPref": null,
+//     "hours": 10.7,
+//     "description": null, 
+//     "pdfLocation":null 
+// }
   Course.create({ Course_name:"CS373", 
                   CC:"Bukhard", 
                   CC_email:"bukhard@gmail.com", 
@@ -326,31 +338,7 @@ exports.getStudent = (req, res) => {
       });
     });
 };
-/*
-exports.createAss = (req, res) => {
-  // Create a ass
-  const ass = {
-    course_id: 0,
-    student_id: 1,
-    request: true,
-    application: false,
-    slist: false,
-    marking: false,
-    time: Null
-  };
-  // Save Course in the database
-  Association.create(ass)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the ass."
-      });
-    });
-}
-*/
+
 exports.getInfo = (req, res) => {
   const id = req.params.id;
   Association.findAll({student_id: id})
@@ -363,3 +351,19 @@ exports.getInfo = (req, res) => {
     });
   });
 }
+
+exports.getAssociation_courseid = (req, res) => {
+  const id = req.params.id;
+
+  Association.findAll({
+    where: {
+      course_id: id
+    }}).then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving association with id=" + id
+      });
+    });
+};
