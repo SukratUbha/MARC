@@ -75,7 +75,7 @@ require(__dirname+'/routes/index.js')(app);
 // May need to toggle TLS/SSL off when in dev mode, but TLS in production mode.
 // https://dev.to/omergulen/step-by-step-node-express-ssl-certificate-run-https-server-from-scratch-in-5-steps-5b87
 
-server = app.listen(PORT, () => {
+server = app.listen(PORT,'127.0.0.1', () => {
   //don't show the log when it is in "test" environment
   if(config.util.getEnv('NODE_ENV') !== 'test') {
     console.log(`\n-----------------------------\nServer is running:`);
