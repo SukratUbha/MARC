@@ -26,6 +26,7 @@ export default class Course extends Component{
     resetPassword() {
         const cc_email = (this.props.dataFromParent || {}).CC_email;
         //complete reset password action
+        //have marker be able to type in a new password?
     }
 
     overrideReqHours() {
@@ -170,10 +171,17 @@ export default class Course extends Component{
                             <td className="recordTableHeading">
                                 <h6 className="recordHeadingFont">Hours</h6>
                             </td>
+                            {/*
                             <td>
                                 <button onClick={this.reAssign} style={{cursor: 'pointer'}}>Reassign</button>
                             </td>
+                            */}
                        </tr>
+                        
+                        {
+                            
+                        }
+
                    </table>
                 </div>
                 </React.Fragment>

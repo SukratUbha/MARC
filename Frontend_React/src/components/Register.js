@@ -13,8 +13,10 @@ function Register() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+    /*
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
+    */
     const [firstPref, setFirstPref] = useState(null);
     const [secondPref, setSecondPref] = useState(null);
     const [thirdPref, setThirdPref] = useState(null);
@@ -34,12 +36,14 @@ function Register() {
     const onChangeEmail = (event) => {
         setEmail(event.target.value);
     };
+{/*
     const onChangePassword = (event) => {
         setPassword(event.target.value);
     };
     const onChangePassword2 = (event) => {
         setPassword2(event.target.value);
     };
+*/}
     const onChangeFirstPref = (event) => {
         setFirstPref(event.target.value);
     };
@@ -118,6 +122,7 @@ function Register() {
                     <input type='email' name='email' className='formInput' placeholder='abc123@gmail.com'
                     value={email} onChange={onChangeEmail}/>
                 </div>
+                {/*
                 <div className="formField">
                     <label htmlFor='password' className='formLabel'> Password </label>
                     <input type='password' name='password' className='formInput' placeholder='password'
@@ -128,12 +133,12 @@ function Register() {
                     <input type='password2' name='password2' className='formInput' placeholder='confirm password'
                     value={password2} onChange={onChangePassword2}/>
                 </div>
+                */}
                 <div className="formField">
                     <label htmlFor='preferences' className='formLabel'> Course preferences </label> 
                     <div name='preferences'>
                         <input type="text" className="searchbar" placeholder="search courses..."
                         value={firstPref} onChange={onChangeFirstPref}/>
-                        <div className="dragDropBox">Drag Drop</div>
                     </div>
                 </div>
                 <div className="formField">
@@ -143,7 +148,8 @@ function Register() {
                 </div>
                 <div className="formField">
                     <label htmlFor='location' className='formLabel'> What is the nature of your physical availablity to mark on UoA Campus? </label>
-                    <input type="text" className="formInput" placeholder="describe circumstances here..."/>
+                    <input type="text" className="formInput" style={{width: '75%', height: '100px'}}
+                    placeholder="describe circumstances here..."/>
                 </div>
                 <div className="formField">
                     <label htmlFor='studentCV' className='formLabel'> CV Upload: </label>
