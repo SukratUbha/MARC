@@ -15,6 +15,7 @@ export default class Course extends Component{
         super(props);
         this.state = {
             courses: [],
+            assoc:[],
             onClick_course: null,
             title1: DEFAULT_TITLE,
             currentModal: null
@@ -35,8 +36,18 @@ export default class Course extends Component{
         });
     };
 
-    load = () => {
+    load = () => { //load default value for classes
         axios.get("/api/courses/load")
+    };
+
+    get_association = courseid => () =>{ //load default value for classes
+        console.log(courseid)
+        axios.get("/api/courses/association/" + courseid).then(response =>{
+            this.setState({
+                assoc: response.data
+            });
+            
+        });
     };
 
     //Modal function 
@@ -85,11 +96,22 @@ export default class Course extends Component{
 
         return (
             <div>
-                {this.state.courses.map(course=>
+                {this.state.courses.map((course)=>
+                     
                     <div key={course.id} style={{"paddingBottom": "15px"}}>
-                        <button className="openbtn" onClick={()=>this.handleClick(course)}>
-                            {course.Course_name}</button> 
+                        <div>
+                            
+                            <button className="openbtn" onClick={this.handleClick(course)}>
+                                {course.Course_name}</button> 
+                        </div>
+                        {this.state.assoc.map(assoc=>
+                            <div key={assoc.id} style={{"paddingBottom": "15px"}}>
+                                    <button className="openbtn">
+                                        {assoc.student_id}</button> 
+                            </div>
+                        )}
                     </div>
+                    
                 )}
                 <div>
                     <button type="button" className="btn btn-primary" onClick={this.load}>load</button>

@@ -95,12 +95,81 @@ function Register() {
     
     };
 
+    const load = () => {
+        const student1 = {
+            firstName:"Steven", 
+            lastName:"Kan", 
+            email:"Steven@gmail.com", 
+            password: null, 
+            firstPref: 1,
+            secondPref: null,
+            thirdPref: null,
+            hours: 10.7,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student2 = {
+            firstName:"Andrew", 
+            lastName:"Pakwing", 
+            email:"Andrew@gmail.com", 
+            password: null, 
+            firstPref: 5,
+            secondPref: 6,
+            thirdPref: 2,
+            hours: 8,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student3 = {
+            firstName:"Dave", 
+            lastName:"Wright", 
+            email:"Dave@gmail.com", 
+            password: null, 
+            firstPref: 3,
+            secondPref: 4,
+            thirdPref: null,
+            hours: 20,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student4 = {
+            firstName:"Spencer", 
+            lastName:"Smith", 
+            email:"Spencer@gmail.com", 
+            password: null, 
+            firstPref: 6,
+            secondPref: 4,
+            thirdPref: 2,
+            hours: 15,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student5 = {
+            firstName:"Sukrat", 
+            lastName:"Ubha", 
+            email:"Sukrat@gmail.com", 
+            password: null, 
+            firstPref: 1,
+            secondPref: 3,
+            thirdPref: null,
+            hours: 18.7,
+            description: null, 
+            pdfLocation:null 
+        };
+        axios.post("/api/students/api/registerStudent", student1);
+        axios.post("/api/students/api/registerStudent", student2);
+        axios.post("/api/students/api/registerStudent", student3);
+        axios.post("/api/students/api/registerStudent", student4);
+        axios.post("/api/students/api/registerStudent", student5)
+    };
     
 
 
     /*HTML component rendered on client page*/
     return(
+        
         <BoxComponent>
+            <button onClick={load}>Load Student</button>
             <form onSubmit={uploadUser}>
                 <h1>Marker application form</h1>
                 <div className="formField">
