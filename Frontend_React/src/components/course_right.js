@@ -29,7 +29,8 @@ export default class Course extends Component{
         //have marker be able to type in a new password?
     }
 
-    overrideReqHours() {
+    overrideReqHours(idString) {
+        var element = document.getElementById(idString);        
         //change the element to be an input field. 
         //have a cancel, and a use computed hours button.
         //axios post.
@@ -52,10 +53,6 @@ export default class Course extends Component{
                 return true;   
             }
         return true; //update to false later
-    }
-
-    makeEditable(element) {
-        element.contenteditable = ((element.contenteditable === 'true') ? 'true' : 'false');
     }
 
     isDeadlinePassed() {
@@ -122,18 +119,24 @@ export default class Course extends Component{
                         Enrolled Students:{(this.props.dataFromParent || {}).Total_student}
                         <br></br>
                     </div>
-                    <div className="modifable">
-                        Student Hours required:{this.totalHours}
-                        <button onClick={this.overrideReqHours} style={{float: 'right'}}>
+                    <div style={{display: "inline-flex"}}>
+                        Student Hours required:
+                        <input 
+                        style={{height: '25px', borderBlockColor: 'transparent'}}
+                        id = "totalHours" 
+                        placeholder="needs to make a state for this in backend" 
+                        disabled='true'
+                        />
+                        <button onClick={this.overrideReqHours("totalHours")} style={{float: 'right', height: '25px'}}>
                             Override
                         </button>
                     </div>
                     <div>
                         <br></br>
-                        Student Hours allocated: {}
+                        Student Hours allocated: {'association data'}
                     </div>
                     <div>
-                        Student Hours defecit: {}
+                        Student Hours defecit: {'association data'}
                         <br></br>
                         <br></br>
                     </div>
@@ -171,7 +174,7 @@ export default class Course extends Component{
                             <td className="recordTableHeading">
                                 <h6 className="recordHeadingFont">Hours</h6>
                             </td>
-                            {/*
+                            {/* Implement this when we can retrieve the students
                             <td>
                                 <button onClick={this.reAssign} style={{cursor: 'pointer'}}>Reassign</button>
                             </td>
@@ -179,7 +182,7 @@ export default class Course extends Component{
                        </tr>
                         
                         {
-                            
+
                         }
 
                    </table>
