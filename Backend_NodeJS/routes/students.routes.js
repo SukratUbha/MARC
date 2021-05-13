@@ -20,10 +20,10 @@ module.exports =(app) => {
                  }
         } = req;
       
-        const fileName = firstname + file.detectedFileExtension;
+        const fileName = firstname + lastName + file.detectedFileExtension;
         await pipeline(
           file.stream,
-          fs.createWriteStream(`${__dirname}/../public/images/${fileName}`)
+          fs.createWriteStream(`${__dirname}/../Uploads/${fileName}`)
         );
       
         res.send("File uploaded as " + fileName);

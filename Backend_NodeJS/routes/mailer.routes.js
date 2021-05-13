@@ -29,14 +29,15 @@ module.exports =(app) => {
     // console.log(subject);
     var email = req.body.email
     var message = req.body.message
-    var content = `subject: ${subject} \n email: ${email} \n message: ${message} \n\n Please forward any queries to burkhard@cs.auckland.ac.nz `
-
+    var content = `subject: ${subject} \n\n message: ${message} \n\n Please reply to this email for further enquiries `
+    //var content = `subject: ${subject} \n email: ${email} \n message: ${message} \n\n Please forward any queries to burkhard@cs.auckland.ac.nz `    
     var mail = {
         from: 'cockpit.marc@gmail.com',
-        bcc: email,  // Change to email address that you want to receive messages on// use to: email to not obfuscate
-        //bcc: is used above to send to multiple recipients- the recipient will not see the other receiving addresses
+        bcc: email,  // Change to email address that you want to receive messages on// use 'to: email' to show other recipients
+        //bcc: is used above to send to (multiple) recipient- the recipient will not see the other receiving addresses
         subject: subject,
-        text: content
+        text: content,
+        replyTo: "burkhard@cs.auckland.ac.nz" // CHANGE TO BURKHARD'S ADDRESS burkhard@cs.auckland.ac.nz in production
     }
 
     transporter.sendMail(mail, (err, data) => {

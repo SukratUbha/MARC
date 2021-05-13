@@ -43,9 +43,9 @@ class Mailer extends React.Component {
             <input type="text" className="form-control" value={this.state.subject} onChange={this.onSubjectChange.bind(this)} />
           </div>
           <div className="form-group">
-            <label htmlFor="exampleInputEmail1">Email addresses</label>
+            <label htmlFor="exampleInputEmail1">Email Addresses</label>
             <input type="email" multiple name="emails"  true className="form-control" aria-describedby="emailHelp" 
-            value={this.state.email} onChange={this.onEmailChange.bind(this)} placeholder = 'recipient1@domain1.com, recipient2@domain2.com' />
+            value={this.state.email} onChange={this.onEmailChange.bind(this)} placeholder = 'recipient1, recipient2...' />
           </div>
           <div className="form-group">
             <label htmlFor="message">Message</label>

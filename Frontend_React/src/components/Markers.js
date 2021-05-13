@@ -55,21 +55,22 @@ import {
 
 function Markers() {
 
-    const send = event => {
-        const data = new FormData();
-        data.append("name", name);
-        data.append("file", file);
-        console.log(data);
-        Axios.post("/api/markerstest", data)
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
-        };
+  const send = event => {
+    const data = new FormData();
+    data.append("name", name);
+    data.append("file", file);
+
+    Axios.post("https://httpbin.org/anything", data)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
 
     const [name, setName] = useState();
     const [file, setFile] = useState();
     console.log(name);
+    
   return (
-    <BoxComponent style={{width: '90%'}}>
+    // <BoxComponent style={{width: '90%'}}>
     <div className="App">
       <header className="App-header">
         <form action="#">
@@ -87,7 +88,7 @@ function Markers() {
             <input
               type="file"
               id="file"
-              accept=".jpg"
+              accept=".pdf"
               onChange={event => {
                 const file = event.target.files[0];
                 setFile(file);
@@ -98,7 +99,7 @@ function Markers() {
         <button onClick={send}>Send</button>
       </header>
     </div>
-    </BoxComponent>
+    // </BoxComponent>
   );
 }
 
