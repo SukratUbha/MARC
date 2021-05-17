@@ -4,28 +4,80 @@ const sequelize = global.db;
 class Association extends Model {}
 
 Association.init({
-  // Model attributes are defined here
-  course_id: { //course 
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  student_id: { //student 
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  request: { // requested by course coordinator
-    type: DataTypes.BOOLEAN
-  },
-  application: { // applied to mark course
-    type: DataTypes.BOOLEAN
-  },
-  blist: { // black list
-    type: DataTypes.BOOLEAN,
-  },
-  marking: { // currently marking the course
-    type: DataTypes.BOOLEAN
-  }
 
+  //////////////////////
+  //Two foreign keys. 
+  course_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  student_id: { 
+    //this is NOT their 'student ID'. its a foreign key. the 'student ID' in real life is just a property on the student model. it has no functional purpose.
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+
+  ///////////////////////
+  // The fields that indicate a student's relationship to this course.
+  // Because they're INTEGERs they can take on the form of: false, true, and true-with-a-value.
+
+  burkhard_proposed: { 
+    // proposted-hours that this student works on the course (by Marker coordinator)
+    // -1 means true. 0 means false. a value specifies how many hours.
+    type: DataTypes.INTEGER
+  },
+
+  course_proposed: {
+    // proposted-hours that this student works on the course (by Course-Coordinator coordinator)
+    // -1 means true. 0 means false. a value specifies how many hours.
+    type: DataTypes.INTEGER
+  },
+
+  student_proposed: { 
+    // student applied to mark course
+    // -1 is true. 0 is false.
+    type: DataTypes.INTEGER
+  },
+
+  course_blacklist: {
+    // course coordinator blacklisted this student from this course.
+    // -1 is true. 0 is false.
+    type: DataTypes.INTEGER
+  },
+
+  burkhard_blacklist: {
+    // marker coordinator blacklisted this student from this course.
+    // -1 is true, 0 is false;
+    type: DataTypes.INTEGER
+  },
+  
+  marking_hours: {
+    // student is officially marking the course for N hours.
+    // -1 means true.
+    // 0 means false
+    // value means hours.
+    type: DataTypes.INTEGER
+
+  },
+  
+  previously_enrolled: {
+    // student previously enrolled this course.
+    // -1 means true.
+    // 0 means false
+    // value means ... maybe it can mean how many semesters ago? 
+    // we could keep historical Association tables & this might be a foriegn key of sorts some time in the future. <-- Dave thinks ahead :)
+    type: DataTypes.INTEGER
+
+  },
+  previously_marked: {
+    // student previously enrolled this course.
+    // -1 means true.
+    // 0 means false
+    // value means ... maybe it can mean how many semesters ago? 
+    // we could keep historical Association tables & this might be a foriegn key of sorts some time in the future. <-- Dave thinks ahead :)
+    type: DataTypes.INTEGER
+
+  }
 }, {
   // Other model options go here
   sequelize, // We need to pass the connection instance
