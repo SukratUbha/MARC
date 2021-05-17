@@ -9,12 +9,19 @@ Course.init({
     type: DataTypes.INTEGER,
     allowNull: false
   },
+
+  /* REMOVED to replace with owner field
   CC: { //course coordinator name
     type: DataTypes.STRING,
     allowNull: false
   },
   CC_email: { // course coordinator's email
     type: DataTypes.STRING,
+    allowNull: false
+  },
+  */
+  Owner: { //Foreign key User model (id)
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   Year: { // 1st year course/2nd year etc.
@@ -28,6 +35,9 @@ Course.init({
     type: DataTypes.DECIMAL,
   },
   Total_student: { // estimate students in the course
+    type: DataTypes.INTEGER
+  },
+  Total_hours: { // total hours marking required for course (overridable) 
     type: DataTypes.INTEGER
   },
   comment_CC: { // course coordinator's comment
