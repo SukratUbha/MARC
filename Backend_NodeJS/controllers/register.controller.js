@@ -47,3 +47,31 @@ function createAssociation(student_id, course_id){
 
   Association.create(association);
 }
+
+// Retrieve all students from the database.
+exports.getAllStudents = (req, res) => {
+  Student.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving students."
+      });
+    });
+};
+
+exports.getStudent = (req, res) => {
+  const id = req.params.id;
+
+  Student.findByPk(id)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving student with id=" + id
+      });
+    });
+};

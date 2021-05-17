@@ -48,9 +48,10 @@ module.exports =(app) => {
     })
 
     // Retrieve all Students
+    router.get("/", register.getAllStudents);
 
     // Retrive single Student
-
+    router.get("/id:id", register.getStudent);
 
     //mount the router on the app
     app.use('/api/students', router);

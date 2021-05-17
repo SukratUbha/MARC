@@ -16,6 +16,7 @@ export default class Course extends Component{
         this.state = {
             courses: [],
             assoc:[],
+            students:[],
             onClick_course: null,
             title1: DEFAULT_TITLE,
             currentModal: null
@@ -34,20 +35,28 @@ export default class Course extends Component{
                 courses: response.data
             });
         });
+
+        axios.get("/api/courses/association/").then(response =>{
+            this.setState({
+                assoc: response.data
+            });
+        });
+
+        axios.get("/api/students/").then(response =>{
+            this.setState({
+                students: response.data
+            });
+        });
     };
 
     load = () => { //load default value for classes
         axios.get("/api/courses/load")
     };
 
-    get_association = courseid => () =>{ //load default value for classes
-        console.log(courseid)
-        axios.get("/api/courses/association/" + courseid).then(response =>{
-            this.setState({
-                assoc: response.data
-            });
-            
-        });
+    get_student (student_id) { //load default value for classes
+        console.log(student_id)
+        return this.state.students.filter((student) => {
+            return student_id === student.id})
     };
 
     //Modal function 
@@ -99,17 +108,30 @@ export default class Course extends Component{
                 {this.state.courses.map((course)=>
                      
                     <div key={course.id} style={{"paddingBottom": "15px"}}>
-                        <div>
+                        <div style={{display:"inline-block"}}>
                             
-                            <button className="openbtn" onClick={this.handleClick(course)}>
+                            <button onClick={this.handleClick(course)}>
                                 {course.Course_name}</button> 
+                            
+                            
+                            {this.state.assoc.filter(assoc => assoc.course_id === course.id).map((filtered_assoc)=>
+                                <div style={{display:"inline-block"}}>
+                                    {this.state.students.filter(student => student.id === filtered_assoc.student_id)
+                                                        .map((filtered_student)=>
+                                        <button>
+                                            {filtered_student.firstName}
+                                            <br/>
+                                            GPA:
+                                        </button>
+                                        
+                                    )}
+                                </div> 
+                            )}
                         </div>
-                        {this.state.assoc.map(assoc=>
-                            <div key={assoc.id} style={{"paddingBottom": "15px"}}>
-                                    <button className="openbtn">
-                                        {assoc.student_id}</button> 
-                            </div>
-                        )}
+                        
+                        <div style={{display:"inline-block"}}>
+                            
+                        </div>
                     </div>
                     
                 )}
@@ -125,23 +147,23 @@ export default class Course extends Component{
                         askToClose={this.toggleModal(MODAL_A)}
                         onChangeInput={this.handleInputChange} />
                     <Modal
-                    ref="mymodal2"
-                    id="test2"
-                    aria={{
-                        labelledby: "heading",
-                        describedby: "fulldescription"
-                    }}
-                    closeTimeoutMS={150}
-                    contentLabel="modalB"
-                    isOpen={currentModal == MODAL_B}
-                    shouldCloseOnOverlayClick={false}
-                    onAfterOpen={this.handleOnAfterOpenModal}
-                    onRequestClose={this.toggleModal(MODAL_B)}>
-                    <h1 id="heading" ref={h1 => this.heading = h1}>This is the modal 2!</h1>
-                    <div id="fulldescription" tabIndex="0" role="document">
-                        <p>This is a description of what it does: nothing :)</p>
-                        <button onClick={this.toggleModal(MODAL_B)}>close</button>
-                    </div>
+                        ref="mymodal2"
+                        id="test2"
+                        aria={{
+                            labelledby: "heading",
+                            describedby: "fulldescription"
+                        }}
+                        closeTimeoutMS={150}
+                        contentLabel="modalB"
+                        isOpen={currentModal == MODAL_B}
+                        shouldCloseOnOverlayClick={false}
+                        onAfterOpen={this.handleOnAfterOpenModal}
+                        onRequestClose={this.toggleModal(MODAL_B)}>
+                        <h1 id="heading" ref={h1 => this.heading = h1}>This is the modal 2!</h1>
+                        <div id="fulldescription" tabIndex="0" role="document">
+                            <p>This is a description of what it does: nothing :)</p>
+                            <button onClick={this.toggleModal(MODAL_B)}>close</button>
+                        </div>
                     </Modal>
                 </div>
             </div>
