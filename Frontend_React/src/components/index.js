@@ -9,27 +9,32 @@ export default class index extends Component{
     constructor(props){
         super(props);
         this.state={
-            value_key:""
+            course:"",
+            assoc:""
         }
     }
-    parentFunction=(data_from_child)=>{
-        this.setState({value_key:data_from_child});
+    parentFunction=(retrieved_course, retrieved_assoc)=>{
+        this.setState({
+            course: retrieved_course,
+            assoc: retrieved_assoc
+        });
     }
 
     render() {
             return (
                 <ReflexContainer orientation="vertical">
                         <ReflexElement className="left-pane">
-                        <   Main functionCallFromParent={this.parentFunction}/>
+                            <div className="pane-content" style={{overflow:"scroll"}}>
+                                <Main functionCallFromParent={this.parentFunction}/>
+                            </div>
                         </ReflexElement>
 
                         <ReflexSplitter style={{"zIndex":'0'}}/>
 
-                        <ReflexElement className="right-pane"
-                        size="450">
-                        <div className="pane-content" style={{background:'white', overflow:"scroll"}}>
-                            <Course_right dataFromParent={this.state.value_key}/>
-                        </div>
+                        <ReflexElement className="right-pane" size="450">
+                            <div className="pane-content" style={{background:'white', overflow:"scroll"}}>
+                                <Course_right dataFromParent={this.state.course} dataFromAssoc={this.state.assoc}/>
+                            </div>
                     </ReflexElement>
                 </ReflexContainer>
             );

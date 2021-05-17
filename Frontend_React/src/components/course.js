@@ -19,7 +19,8 @@ export default class Course extends Component{
             students:[],
             onClick_course: null,
             title1: DEFAULT_TITLE,
-            currentModal: null
+            currentModal: null,
+            one_assoc: null
         }
     }
 
@@ -51,12 +52,6 @@ export default class Course extends Component{
 
     load = () => { //load default value for classes
         axios.get("/api/courses/load")
-    };
-
-    get_student (student_id) { //load default value for classes
-        console.log(student_id)
-        return this.state.students.filter((student) => {
-            return student_id === student.id})
     };
 
     //Modal function 
@@ -97,7 +92,13 @@ export default class Course extends Component{
     }
 
     handleClick = value => () => {
-        this.props.functionCallFromParent(value);
+        axios.get("/api/courses/association/" + value.id).then(response =>{
+            this.setState({
+                one_assoc: response.data
+            });
+            this.props.functionCallFromParent(value, this.state.one_assoc);
+        });
+        
     }
 
     render(){

@@ -128,8 +128,7 @@ exports.loadvalue = (req, res) => {
 //     "pdfLocation":null 
 // }
   Course.create({ Course_name:"CS373", 
-                  CC:"Bukhard", 
-                  CC_email:"bukhard@gmail.com", 
+                  Owner: 1, 
                   Deadline: '2021-10-28', 
                   Year: 3, 
                   Hours: 2,
@@ -138,8 +137,7 @@ exports.loadvalue = (req, res) => {
                   comment_MC:null});
 
   Course.create({ Course_name:"CS101", 
-                  CC:"Damir", 
-                  CC_email:"damir@gmail.com", 
+                  Owner: 2,
                   Deadline: '2021-08-09', 
                   Year: 1, 
                   Hours: 1.4,
@@ -148,8 +146,7 @@ exports.loadvalue = (req, res) => {
                   comment_MC:null});
 
   Course.create({ Course_name:"CS120", 
-                  CC:"Tanya", 
-                  CC_email:"tanya@gmail.com", 
+                  Owner: 3,
                   Deadline: '2021-09-09', 
                   Year: 1, 
                   Hours: 1.6,
@@ -158,8 +155,7 @@ exports.loadvalue = (req, res) => {
                   comment_MC:null});
 
   Course.create({ Course_name:"CS316", 
-                  CC:"Rizwan", 
-                  CC_email:"rizwan@gmail.com", 
+                  Owner: 4,
                   Deadline: '2021-9-20', 
                   Year: 3, 
                   Hours: 2,
@@ -168,8 +164,7 @@ exports.loadvalue = (req, res) => {
                   comment_MC:null});
 
   Course.create({ Course_name:"CS210", 
-                  CC:"Bruce", 
-                  CC_email:"bruce@gmail.com", 
+                  Owner:"Bruce", 
                   Deadline: '2021-8-20', 
                   Year: 2, 
                   Hours: 2.5,
@@ -178,8 +173,7 @@ exports.loadvalue = (req, res) => {
                   comment_MC:null});
 
   Course.create({ Course_name:"CS340", 
-                  CC:"Robert", 
-                  CC_email:"robert@gmail.com", 
+                  Owner:"Robert", 
                   Deadline: '2021-8-20', 
                   Year: 3, 
                   Hours: 2.6,
