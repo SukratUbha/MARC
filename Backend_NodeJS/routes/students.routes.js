@@ -9,18 +9,22 @@ module.exports =(app) => {
     const pipeline = promisify(require("stream").pipeline);
 
     //used to store registration form file and data
-    router.post("/api/uploadregistrationform", upload.single("file"), async function(req, res, next) {  //upload form needs to be connected
+    app.post("/api/uploadregistrationform", upload.single("file"), async function(req, res, next) {  //upload form needs to be connected
         const {
           file,
-          body: { name,
-                  //lastName,
-                  //email,
-                  //password,
-                  //and the rest
+          body: { firstName,
+                  lastName,
+                  email,
+                  fPref,
+                  hours,
+                  description
                  }
         } = req;
-      
-        const fileName = firstname + lastName + file.detectedFileExtension;
+        console.log(req.body.hours);
+        console.log(`${__dirname}../Uploads/`);
+        
+        const fileName = firstName + lastName + file.detectedFileExtension;
+        console.log(fileName);
         await pipeline(
           file.stream,
           fs.createWriteStream(`${__dirname}/../Uploads/${fileName}`)
@@ -32,20 +36,6 @@ module.exports =(app) => {
     // Create a new Student
     router.post("/api/registerStudent", register.registerStudent)   //Saw the add to server request on register.js, this can be modified to crud to db. 
     //So, ill leave this here until further clarity under /api/registerStudent  
-
-    app.post("/api/markerstest", (req,res)=>{
-      const {
-        file,
-        body: { name,
-                //lastName,
-                //email,
-                //password,
-                //and the rest
-               }
-      } = req;
-      console.log(req.body);
-      //console.log(req.body.fname);
-    })
 
     // Retrieve all Students
     router.get("/", register.getAllStudents);
