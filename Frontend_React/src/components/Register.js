@@ -32,22 +32,26 @@ function Register() {
     data.append("file", file);
 
     Axios.post("/api/uploadregistrationform", data)
-      .then(res => console.log(res))
+      .then(res => resetForm()
+      )
       .catch(err => console.log(err));
   };
-
+  function resetForm(){
+    this.setState({fname: "", lName: "", email: "", fPref: "", sPref: "", tPrf: "", hours: "", description: "", file: null})
+  }
+  
   return (
     <div className="App">
       <header className="App-header">
         <form action="#">
           <div className="flex">
-            <label htmlFor="name">First Name</label>
-            <input type="text" id="name" onChange={event => {
+            <label htmlFor="fname">First Name</label>
+            <input type="text" id="fname" onChange={event => {
                 const { value } = event.target;
                 setName(value);
               }}
             />
-            <label htmlFor="lastName">Last Name</label>
+            <label htmlFor="lName">Last Name</label>
             <input type="text" id="lname" onChange={event => {
                 const { value } = event.target;
                 setLName(value);

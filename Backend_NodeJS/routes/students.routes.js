@@ -1,3 +1,7 @@
+// const { json } = require("sequelize/types");
+
+// const { values } = require("sequelize/types/lib/operators");
+
 module.exports =(app) => {
 
     const register = require("../controllers/register.controller.js"); //instantiating a new object
@@ -30,19 +34,12 @@ module.exports =(app) => {
             file.stream,
             fs.createWriteStream(`${__dirname}/../Uploads/${fileName}`)
           );
-          // router.post("/?", register.registerStudent(req,res))
-          register.registerStudent(req,res)
-          .next(
-            console.log('OK')
-          )
-          .catch (err =>{
-            console.log("error in register catch");
-          })
-          // router.post("/?", register.registerStudent(req,res))
+          
+          let regVal = await register.registerStudent(req,res);
           res.send("File uploaded as " + fileName);
-      }
-      catch{
-        console.log("Error in catch");
+          //  register.registerStudent(req,res)
+      } catch(err){
+        console.log(err);
       }
       });
 

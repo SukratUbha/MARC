@@ -16,27 +16,27 @@ exports.registerStudent = (req,res) => {
     firstPref: req.body.fPref,
     secondPref: req.body.sPref,
     thirdPref: req.body.tPref,
-    hours: req.body.hours,
+    total_hours: req.body.hours,
     description: req.body.description, 
     pdfLocation: cvLocation  
   }
   // console.log(student);
   Student.create(student)
     .then(data => {
-      res.send(data);
+      // res.send("OK");
       createAssociation(data.id, data.firstPref);
       if (data.secondPref){createAssociation(data.id, data.secondPref)};
       if (data.thirdPref){createAssociation(data.id, data.thirdPref)}
       console.log(data.id)
+      Promise.resolve("OK");
     })
     .catch(err => {
-      res.status(500).send({
+      // res.status(500).send({
         message:
           err.message || "Some error occurred while registering the student."
+          Promise.reject(new Error('fail'));
       });
-    });
-    
-
+    // });
 
 }
 
