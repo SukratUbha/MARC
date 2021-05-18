@@ -1,23 +1,26 @@
+
 Association = require(__dirname+'/../models/Association.js');         //see /models/index.js. It builds this. We could very well require the modules/index.js file, but no - we create the database models in server.js on startup.
 Course = require(__dirname+'/../models/Course.js');
 Student = require(__dirname+'/../models/Student.js');
 const Op = require("sequelize").Op;
 
-exports.registerStudent = (req,res) =>{
+exports.registerStudent = (req,res) => {
+  console.log("IN THE REGISTER STUDENT FUNCITON");
+  const fileName = req.body.firstName + req.body.lastName;
+  cvLocation = __dirname + '/../Uploads/'+ fileName + ".pdf"
 
   const student = {
     firstName:req.body.firstName, 
     lastName:req.body.lastName, 
     email:req.body.email, 
-    password: req.body.password, 
-    firstPref: req.body.firstPref,
-    secondPref: req.body.secondPref,
-    thirdPref: req.body.thirdPref,
+    firstPref: req.body.fPref,
+    secondPref: req.body.sPref,
+    thirdPref: req.body.tPref,
     hours: req.body.hours,
-    description: req.body.location, 
-    pdfLocation:req.body.location,  //need to change and add pdf location
+    description: req.body.description, 
+    pdfLocation: cvLocation  
   }
-  
+  console.log(student);
   Student.create(student)
     .then(data => {
       res.send(data);
@@ -32,6 +35,9 @@ exports.registerStudent = (req,res) =>{
           err.message || "Some error occurred while registering the student."
       });
     });
+    
+
+
 }
 
 //helper function 

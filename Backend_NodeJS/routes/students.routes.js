@@ -10,26 +10,27 @@ module.exports =(app) => {
 
     //used to store registration form file and data
     app.post("/api/uploadregistrationform", upload.single("file"), async function(req, res, next) {  //upload form needs to be connected
-        const {
+      console.log("IN THE Router STUDENT FUNCITON"); 
+      const {
           file,
           body: { firstName,
                   lastName,
                   email,
                   fPref,
+                  sPref,
+                  tPref,
                   hours,
                   description
                  }
         } = req;
-        console.log(req.body.hours);
-        console.log(`${__dirname}../Uploads/`);
-        
         const fileName = firstName + lastName + file.detectedFileExtension;
         console.log(fileName);
         await pipeline(
           file.stream,
           fs.createWriteStream(`${__dirname}/../Uploads/${fileName}`)
         );
-      
+        // router.post("/?", register.registerStudent(req,res))
+        router.post("/?", register.registerStudent(req,res))
         res.send("File uploaded as " + fileName);
       });
 

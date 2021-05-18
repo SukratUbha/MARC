@@ -7,11 +7,13 @@ import {
 } from './common'
 import './Register.css';
 
-function Markers() {
+function Register() {
   const [name, setName] = useState();
   const [lname, setLName] = useState();
   const [email, setEmail] = useState();
   const [fPref, setFirstPref] = useState();
+  const [sPref, setSecondPref] = useState();
+  const [tPref, setThirdPref] = useState();
   const [hours, setHours] = useState();
   const [description, setDescription] = useState();
   const [file, setFile] = useState();
@@ -22,6 +24,8 @@ function Markers() {
     data.append("lastName",lname)
     data.append("email",email)
     data.append("fPref",fPref)
+    data.append("sPref",sPref)
+    data.append("tPref",tPref)
     data.append("hours",hours)
     data.append("description",description)
 
@@ -55,10 +59,22 @@ function Markers() {
                 setEmail(value);
               }}
             />
-            <label htmlFor="fPref">Course Preference</label>
+            <label htmlFor="fPref">First Preference</label>
             <input type="text" id="fPref" onChange={event => {
                 const { value } = event.target;
                 setFirstPref(value);
+              }}
+            />
+            <label htmlFor="sPref">Second Preference</label>
+            <input type="text" id="sPref" onChange={event => {
+                const { value } = event.target;
+                setSecondPref(value);
+              }}
+            />
+            <label htmlFor="tPref">Third Preference</label>
+            <input type="text" id="tPref" onChange={event => {
+                const { value } = event.target;
+                setThirdPref(value);
               }}
             />
             <label htmlFor="hours">Hours</label>
@@ -79,7 +95,7 @@ function Markers() {
             <input
               type="file"
               id="file"
-              accept=".jpg"
+              accept=".pdf"
               onChange={event => {
                 const file = event.target.files[0];
                 setFile(file);
@@ -87,10 +103,10 @@ function Markers() {
             />
           </div>
         </form>
-        <button onClick={send}>Send</button>
+        <button onClick={send}>Register</button>
       </header>
     </div>
   );
 }
 
-export default Markers;
+export default Register;
