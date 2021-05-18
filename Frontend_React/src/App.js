@@ -32,76 +32,67 @@ function App() {
 
   return (
     <ReflexContainer orientation="horizontal">
-      <div>
-        <ReflexElement className="header" flex={0.1}>
-          <header className="navbar navbar-expand-sm bg-dark navbar-dark" style={{"zIndex": "99999",width: "100%", height:"75px"}}>
-            <a href="/" className="navbar-brand">
-              <img src={logo} style={{width:"200px", paddingRight:"20px"}} alt="marcLogo"/>
-            </a>
-            <div className="navbar-nav mr-auto">
-              <li className="nav-item" onClick={()=>SetModalIsOpen(true)}>
-                <Link to={"#"} className="nav-link">
-                  Create Course
-                </Link>
-              </li>
-              <Modal isOpen={modalIsOpen} onRequestClose={() => SetModalIsOpen(false)} >
-                <div>
-                  <button onClick={() => SetModalIsOpen(false)}>X</button>
-                </div>
-                <Addcourse/>
-              </Modal>
-              <li className="nav-item">
-                <Link to={"/#"} className="nav-link">
-                  Student List
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"#"} className="nav-link">
-                  Colourize Student Status
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"#"} className="nav-link">
-                  Colourize Student Status
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"#"} className="nav-link">
-                  Colourize Late Courses
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/emails"} className="nav-link">
-                  Send Emails
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/markers"} className="nav-link">
-                  Markers View (Testing)
-                </Link>
-              </li>
-              <div className="navbar-right">
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Register (Testing)
-                </Link>
-              </li>
-              </div>
+      <header className="navbar navbar-expand-sm bg-dark navbar-dark" style={{"zIndex": "99999",width: "100%", height:"75px"}}>
+        <a href="/" className="navbar-brand">
+          <img src={logo} style={{width:"200px", paddingRight:"20px"}} alt="marcLogo"/>
+        </a>
+        <div className="navbar-nav mr-auto">
+          <li className="nav-item" onClick={()=>SetModalIsOpen(true)}>
+            <Link to={"#"} className="nav-link">
+              Create Course
+            </Link>
+          </li>
+          <Modal isOpen={modalIsOpen} onRequestClose={() => SetModalIsOpen(false)} >
+            <div>
+              <button onClick={() => SetModalIsOpen(false)}>X</button>
             </div>
-            
-          </header>
-          
-        </ReflexElement>
-        {condition}
-        <div className="container mt-3">
-            <Route path="/markers" component={Markers} />
-            <Route path="/register" component={Register} />
-            <Route path="/emails" component={sendEmails} />
+            <Addcourse/>
+          </Modal>
+          <li className="nav-item">
+            <Link to={"/#"} className="nav-link">
+              Student List
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"#"} className="nav-link">
+              Colourize Student Status
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"#"} className="nav-link">
+              Colourize Student Status
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"#"} className="nav-link">
+              Colourize Late Courses
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"/emails"} className="nav-link">
+              Send Emails
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"/markers"} className="nav-link">
+              Markers View (Testing)
+            </Link>
+          </li>
+          <div className="navbar-right">
+          <li className="nav-item">
+            <Link to={"/register"} className="nav-link">
+              Register (Testing)
+            </Link>
+          </li>
+          </div>
         </div>
-        
-      </div>
-      </ReflexContainer>
-  );
+      </header>
+      {condition}
+      <Route path="/markers" component={Markers} />
+      <Route path="/register" component={Register} />
+      <Route path="/emails" component={sendEmails} />
+    </ReflexContainer>
+  )
 }
 
 

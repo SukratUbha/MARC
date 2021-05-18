@@ -105,7 +105,7 @@ export default class Course extends Component{
         const { currentModal } = this.state;
 
         return (
-            <div>
+            <div className="pane-content" style={{overflow:"scroll", height:"100%"}}>
                 {this.state.courses.map((course)=>
                      
                     <div key={course.id} style={{"paddingBottom": "15px"}}>
@@ -119,7 +119,7 @@ export default class Course extends Component{
                                 <div style={{display:"inline-block"}}>
                                     {this.state.students.filter(student => student.id === filtered_assoc.student_id)
                                                         .map((filtered_student)=>
-                                        <button>
+                                        <button onClick={this.handleClick(filtered_student)}>
                                             {filtered_student.firstName}
                                             <br/>
                                             GPA:
