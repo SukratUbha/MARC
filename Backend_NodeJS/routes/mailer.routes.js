@@ -26,7 +26,7 @@ module.exports =(app) => {
     app.post("/api/sendMyEmail", (req, res, next) => {
 
     var subject = req.body.subject
-    // console.log(subject);
+    console.log(subject);
     var email = req.body.email
     var message = req.body.message
     var content = `subject: ${subject} \n\n message: ${message} \n\n Please reply to this email for further enquiries `

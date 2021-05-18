@@ -1,142 +1,193 @@
-import React, { Component } from "react";
-import axios from "axios";
+import axios from 'axios';
+import React, {useState} from 'react';
 
-export default class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.onChangeFirst_name = this.onChangeFirst_name.bind(this);
-    this.onChangeLast_name = this.onChangeLast_name.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangeFirst_pref = this.onChangeFirst_pref.bind(this);
-    this.onChangeSecond_pref = this.onChangeSecond_pref.bind(this);
-    this.onChangeThird_pref = this.onChangeThird_pref.bind(this);
+import {
+    BoxComponent,
+    RegisterButton,
+} from './common'
+import './Register.css';
 
-    this.state = {
-      First_name: "",
-      Last_name: "", 
-      Email: "",
-      First_pref: null,
-      Second_pref: null,
-      Third_pref: null,
-      Student_CV: "",
-      submitted: false
+function Register() {
+
+    /*Dynamic form field variables*/
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    /*
+    const [password, setPassword] = useState("");
+    const [password2, setPassword2] = useState("");
+    */
+    const [firstPref, setFirstPref] = useState(null);
+    const [secondPref, setSecondPref] = useState(null);
+    const [thirdPref, setThirdPref] = useState(null);
+    const [location, setLocation] = useState("");
+    const [hours, setHours] = useState(0);
+    const [file, setFile] = useState("");
+    const [filename, setFilename] = useState("Upload CV...");
+
+
+    /*real-time updating based on form fields input*/
+    const onChangeFirstName = (event) => {
+        setFirstName(event.target.value);
     };
-  }
-
-  onChangeCourse_name(e) {
-    this.setState({
-        Course_name: e.target.value
-    });
-  }
-
-  onChangeCC(e) {
-    this.setState({
-      CC: e.target.value
-    });
-  }
-
-  onChangeCC_email(e) {
-    this.setState({
-        CC_email: e.target.value
-    });
-  }
-
-  saveCourse() {
-    var data = {
-      Course_name: this.state.Course_name,
-      CC: this.state.CC, 
-      CC_email: this.state.CC_email
+    const onChangeLastName = (event) => {
+        setLastName(event.target.value);
+    };
+    const onChangeEmail = (event) => {
+        setEmail(event.target.value);
+    };
+{/*
+    const onChangePassword = (event) => {
+        setPassword(event.target.value);
+    };
+    const onChangePassword2 = (event) => {
+        setPassword2(event.target.value);
+    };
+*/}
+    const onChangeFirstPref = (event) => {
+        setFirstPref(event.target.value);
+    };
+    const onChangeSecondPref = (event) => {
+        setSecondPref(event.target.value);
+    };
+    const onChangeThirdPref = (event) => {
+        setThirdPref(event.target.value);
+    }
+    const onChangeHours = (event) => {
+        setHours(event.target.value);
+    }
+    const onChangeLocation = (event) => {
+        setLocation(event.target.value);
+    }
+    const onChangeFile = (event) => {
+        setFile(event.target.files[0]);
+        setFilename(event.target.files[0].name);
     };
 
-    axios.post("/api/Register/", data)
-      .then(response => {
-        this.setState({
-          id: response.data.id,
-          Course_name: response.data.Course_name,
-          CC: response.data.CC,
-          CC_email: response.data.CC_email,
-          Total_student: response.data.Total_student,
-          comment: response.data.comment,
+    /*Upload to server using post request*/
+    const uploadUser = () => {
 
-          submitted: true
-        });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
+        var formData = new FormData();
+       // formData.append('file', file);    //add file after appending data
+        
+        var data = {
+             firstName: firstName,
+            lastName: lastName, 
+            firstPref: firstPref,
+            secondPref: secondPref,
+            thirdPref: thirdPref,
+            email: email,
+            pdfLocation: filename
+          };
+        formData.append('data', data);
+        formData.append('file', file);
+        
+        try {  
+        axios.post('/api/submit', [data, formData], {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then(response => {console.log(response)});
+        } catch (err) {
+        if (err.response.status === 500) {
+          console.log('There was a problem with the server');
+        } else {
+          console.log(err)
+        }
+      }
+    
+    };
 
-  newMarker() {
-    this.setState({
-        id: "",
-        Course_name: "",
-        CC: "",
-        CC_email: "",
-        Total_student: null,
-        comment: null,
+    const load = () => {
+        const student1 = {
+            firstName:"Honey", 
+            lastName:"Chicken", 
+            email:"honeychicken@gmail.com", 
+            password: null, 
+            firstPref: 1,
+            secondPref: null,
+            thirdPref: null,
+            hours: 10.7,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student2 = {
+            firstName:"Mac", 
+            lastName:"N'Cheese", 
+            email:"cheese214@gmail.com", 
+            password: null, 
+            firstPref: 5,
+            secondPref: 6,
+            thirdPref: 2,
+            hours: 8,
+            description: null, 
+            pdfLocation:null 
+        };
+    };
+    
 
-        submitted: false
-      });
-  }
 
-  render() {
-    return (
-      <div className="submit-form">
-        {this.state.submitted ? (
-          <div>
-            <h4>You Registered successfully!</h4>
-            <button className="btn btn-success" onClick={this.newCourse}>
-              Create another course
-            </button>
-          </div>
-        ) : (
-          <div>
-            <div className="form-group">
-              <label htmlFor="Course_name">Course name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="Course_name"
-                required
-                value={this.state.Course_name}
-                onChange={this.onChangeCourse_name}
-                name="Course name"
-              />
-            </div>
+    /*HTML component rendered on client page*/
+    return(
+        
+        <BoxComponent>
+            <button onClick={load}>Load Student</button>
+            <form onSubmit={uploadUser}>
+                <h1>Marker application form</h1>
+                <div className="formField">
+                    <label htmlFor='firstName' className='formLabel'> First name </label>
+                    <input id="firstName" type='text' name='firstName' className='formInput' placeholder='First name'
+                    value={firstName} onChange={onChangeFirstName}/>
+                </div>
+                <div className="formField">
+                    <label htmlFor='lastName' className='formLabel'> Last name </label>
+                    <input id="lastName" type='text' name='lastName' className='formInput' placeholder='Last name'
+                    value={lastName} onChange={onChangeLastName}/>
+                </div>
+                <div className="formField">
+                    <label htmlFor='email' className='formLabel'> Email </label>
+                    <input type='email' name='email' className='formInput' placeholder='abc123@gmail.com'
+                    value={email} onChange={onChangeEmail}/>
+                </div>
+                {/*
+                <div className="formField">
+                    <label htmlFor='password' className='formLabel'> Password </label>
+                    <input type='password' name='password' className='formInput' placeholder='password'
+                    value={password} onChange={onChangePassword}/>
+                </div>
+                <div className="formField">
+                    <label htmlFor='password2' className='formLabel'> Confirm password </label>
+                    <input type='password2' name='password2' className='formInput' placeholder='confirm password'
+                    value={password2} onChange={onChangePassword2}/>
+                </div>
+                */}
+                <div className="formField">
+                    <label htmlFor='preferences' className='formLabel'> Course preferences </label> 
+                    <div name='preferences'>
+                        <input type="text" className="searchbar" placeholder="search courses..."
+                        value={firstPref} onChange={onChangeFirstPref}/>
+                    </div>
+                </div>
+                <div className="formField">
+                    <label htmlFor='hours' className='formLabel'> Hours </label>
+                    <input type="text" className="formLabel" placeholder="0"
+                    value={hours} onChange={onChangeHours}/>
+                </div>
+                <div className="formField">
+                    <label htmlFor='location' className='formLabel'> What is the nature of your physical availablity to mark on UoA Campus? </label>
+                    <input type="text" className="formInput" style={{width: '75%', height: '100px'}}
+                    placeholder="describe circumstances here..."/>
+                </div>
+                <div className="formField">
+                    <label htmlFor='studentCV' className='formLabel'> CV Upload: </label>
+                    <input type='file' name='studentCV' className='formInput'
+                    value={file} onChange={onChangeFile}/>   
+                </div>   
+                <RegisterButton type="submit"> Register </RegisterButton>   
+            </form>
+        </BoxComponent>
+    )
+} 
 
-            <div className="form-group">
-              <label htmlFor="CC">Course Coordinator</label>
-              <input
-                type="text"
-                className="form-control"
-                id="CC"
-                required
-                value={this.state.CC}
-                onChange={this.onChangeCC}
-                name="Course Coordinator"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="Course_name">Course Coordinator's Email</label>
-              <input
-                type="text"
-                className="form-control"
-                id="CC_email"
-                required
-                value={this.state.CC_email}
-                onChange={this.onChangeCC_email}
-                name="Course Coordinator's Email"
-              />
-            </div>
-
-            <button onClick={this.saveCourse} className="btn btn-success">
-              Submit
-            </button>
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+export default Register;
