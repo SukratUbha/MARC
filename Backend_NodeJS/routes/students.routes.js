@@ -9,33 +9,45 @@ module.exports =(app) => {
     const pipeline = promisify(require("stream").pipeline);
 
     //used to store registration form file and data
-    app.post("/api/uploadregistrationform", upload.single("file"), async function(req, res, next) {  //upload form needs to be connected
-      console.log("IN THE Router STUDENT FUNCITON"); 
-      const {
-          file,
-          body: { firstName,
-                  lastName,
-                  email,
-                  fPref,
-                  sPref,
-                  tPref,
-                  hours,
-                  description
-                 }
-        } = req;
-        const fileName = firstName + lastName + file.detectedFileExtension;
-        console.log(fileName);
-        await pipeline(
-          file.stream,
-          fs.createWriteStream(`${__dirname}/../Uploads/${fileName}`)
-        );
-        // router.post("/?", register.registerStudent(req,res))
-        router.post("/?", register.registerStudent(req,res))
-        res.send("File uploaded as " + fileName);
+    app.post("/api/uploadregistrationform", upload.single("file"), async function(req, res, next){  //upload form needs to be connected
+      try{
+        console.log("IN THE Router STUDENT FUNCITON"); 
+        const {
+            file,
+            body: { firstName,
+                    lastName,
+                    email,
+                    fPref,
+                    sPref,
+                    tPref,
+                    hours,
+                    description
+                  }
+          } = req;
+          const fileName = firstName + lastName + file.detectedFileExtension;
+          console.log(fileName);
+          await pipeline(
+            file.stream,
+            fs.createWriteStream(`${__dirname}/../Uploads/${fileName}`)
+          );
+          // router.post("/?", register.registerStudent(req,res))
+          register.registerStudent(req,res)
+          .next(
+            console.log('OK')
+          )
+          .catch (err =>{
+            console.log("error in register catch");
+          })
+          // router.post("/?", register.registerStudent(req,res))
+          res.send("File uploaded as " + fileName);
+      }
+      catch{
+        console.log("Error in catch");
+      }
       });
 
     // Create a new Student
-    router.post("/api/registerStudent", register.registerStudent)   //Saw the add to server request on register.js, this can be modified to crud to db. 
+    // router.post("/api/registerStudent", register.registerStudent)   //Saw the add to server request on register.js, this can be modified to crud to db. 
     //So, ill leave this here until further clarity under /api/registerStudent  
 
     // Retrieve all Students

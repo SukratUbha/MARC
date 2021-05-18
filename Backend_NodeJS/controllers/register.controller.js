@@ -20,7 +20,7 @@ exports.registerStudent = (req,res) => {
     description: req.body.description, 
     pdfLocation: cvLocation  
   }
-  console.log(student);
+  // console.log(student);
   Student.create(student)
     .then(data => {
       res.send(data);
