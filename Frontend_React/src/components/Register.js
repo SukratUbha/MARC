@@ -32,14 +32,23 @@ function Register() {
     data.append("file", file);
 
     Axios.post("/api/uploadregistrationform", data)
-      .then(res => resetForm()
-      )
+      .then((res) =>{
+        if(res.data === "Registered"){
+          console.log(res.data) 
+          alert("Registered")
+          resetForm()         
+        }
+        else{
+          console.log(res.data)
+          alert("Failed to register")
+        }
+      })
       .catch(err => console.log(err));
   };
-  function resetForm(){
-    this.setState({fname: "", lName: "", email: "", fPref: "", sPref: "", tPrf: "", hours: "", description: "", file: null})
+  const resetForm = () => {
+    window.location.reload(true);
   }
-  
+
   return (
     <div className="App">
       <header className="App-header">

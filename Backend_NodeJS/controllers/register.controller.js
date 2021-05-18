@@ -4,11 +4,8 @@ Course = require(__dirname+'/../models/Course.js');
 Student = require(__dirname+'/../models/Student.js');
 const Op = require("sequelize").Op;
 
-exports.registerStudent = (req,res) => {
-  console.log("IN THE REGISTER STUDENT FUNCITON");
-  const fileName = req.body.firstName + req.body.lastName;
-  cvLocation = __dirname + '/../Uploads/'+ fileName + ".pdf"
-
+exports.registerStudent = (req,res,cvLocation) => {
+  console.log("IN THE REGISTER STUDENT FUNCITON");  
   const student = {
     firstName:req.body.firstName, 
     lastName:req.body.lastName, 

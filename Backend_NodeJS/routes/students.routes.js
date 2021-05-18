@@ -1,7 +1,3 @@
-// const { json } = require("sequelize/types");
-
-// const { values } = require("sequelize/types/lib/operators");
-
 module.exports =(app) => {
 
     const register = require("../controllers/register.controller.js"); //instantiating a new object
@@ -25,21 +21,22 @@ module.exports =(app) => {
                     sPref,
                     tPref,
                     hours,
-                    description
+                    description                    
                   }
           } = req;
           const fileName = firstName + lastName + file.detectedFileExtension;
+          cvLocation = __dirname + '/../Uploads/'+ fileName
           console.log(fileName);
           await pipeline(
             file.stream,
             fs.createWriteStream(`${__dirname}/../Uploads/${fileName}`)
           );
           
-          let regVal = await register.registerStudent(req,res);
-          res.send("File uploaded as " + fileName);
-          //  register.registerStudent(req,res)
+          let regVal = await register.registerStudent(req,res,cvLocation);
+          res.send("Registered");
+          
       } catch(err){
-        console.log(err);
+        res.send("Not Registered");
       }
       });
 
