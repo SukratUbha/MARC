@@ -12,7 +12,13 @@ export default class Course extends Component{
         this.state = {
             assoc: this.props.dataFromAssoc,
             CCUser: [],
+            Student: [],
+            currentAllocatedHours: 0,
         }
+    }
+    //reload
+    reloadData(){
+        //in progress
     }
 
     //Panel header
@@ -42,10 +48,10 @@ export default class Course extends Component{
                     </div>
                     <div className="emailCC" style={{display: 'inline-flex'}}>
                         <div>
-                            Fetch From User table
+                            Fetch From User table (no field yet)
                         </div>
                         <div style={{float : 'right'}}>
-                            <button onclick={this.sendCCEmail}>send email</button>
+                            <button onclick={this.sendCCEmail()}>send email</button>
                         </div>
                     </div>
                     <div>
@@ -81,6 +87,9 @@ export default class Course extends Component{
                 </div>
                 <div>
                     Enrolment Deadline:{(this.props.dataFromParent || {}).Deadline}
+                    {
+                        this.isDeadlinePassed()
+                    }
                 </div>
             </div>
         );
@@ -115,10 +124,10 @@ export default class Course extends Component{
         return(
             <div className="assocHours">
                 <div>
-                    Student Hours allocated: {'association data'}
+                    Marking Hours allocated: {'resultant from sum of table'}
                 </div>
                 <div>
-                    Student Hours defecit: {'association data'}
+                    Marking Hours defecit: {''}
                 </div>
             </div>
         );
@@ -158,8 +167,8 @@ export default class Course extends Component{
         //change the element to be an input field. 
         //have a cancel, and a use computed hours button.
         //axios post.
-        var element = document.getElementById(elementId);
-        element.contentEditable( element.contentEditable === false ? true : false )
+        //var element = document.getElementById(elementId);
+        //element.contentEditable( element.contentEditable === false ? true : false )
         //change the button to say confirm
         //include an x to cancel?
     }
@@ -170,6 +179,10 @@ export default class Course extends Component{
 
     cancelReqHours(elementId) {
         //in progress, have this triggered by esc or x
+    }
+
+    editComment(elementID) {
+        //in progress,
     }
     
     //Association / marker data rendering
@@ -208,28 +221,36 @@ export default class Course extends Component{
     }
 
     loadMarkerAssociations() {
+        /*
+                axios.get("/api/students/id:"+filtered_student.student_id).then(response =>{
+            this.setState({
+                Student: response.data
+            });
+        });
+        */
         return(
-            this.state.assoc.filter( record => record.marking_hours !== 0).map((filtered_student) =>
+            this.state.assoc.filter( record => record.marking_hours !== 0).map((filtered_student) =>                
                 <tr className="recordTableEntry">
                     <td className="recordTableCell">
                         {filtered_student.student_id}
                     </td>
                     <td className="recordTableCell">
-                        burkhard_proposed?
-                        course_proposed?
-                        student_proposed?
+                        {(filtered_student || {}).burkhard_proposed}
+                        {(filtered_student || {}).course_proposed}
+                        {(filtered_student || {}).student_proposed}
                     </td>
                     <td className="recordTableCell">
-                        previously_enrolled?
-                        previously_marked?
-                        burkhard_blacklist?
-                        course_blacklist?
+                        {(filtered_student || {}).previously_enrolled}
+                        {(filtered_student || {}).previously_marked}
+                        {(filtered_student || {}).burkhard_blacklist}
+                        {(filtered_student || {}).course_blacklist}
                     </td>
                     <td className="recordTableCell" id={filtered_student.student_id}>
-                        {filtered_student.marking_hours}/students registered hours
+                        {(filtered_student || {}).marking_hours}/{/*Need the axios request*/}
                     </td>
                     <td>
-                        <button onClick={this.reAssignHours(filtered_student.student_id)} style={{cursor: 'pointer'}}>Reassign</button>
+                        <p className="reassignHours" onClick={this.reAssignHours((filtered_student || {}).student_id)} style={{cursor: 'pointer'}}>Reassign</p>
+                        <div className="deleteMarker" onClick={this.deleteMarker((filtered_student || {}).student_id)} style={{cursor: 'pointer'}}>X</div>
                     </td>
                 </tr>
             )
@@ -238,9 +259,11 @@ export default class Course extends Component{
 
     addMarker(){
         //in progress
+        //confused, is there a modal
+        //trigger reload function
     }
 
-    deleteMarker(){
+    deleteMarker(studentID){
         //in progress
     }
 
@@ -257,7 +280,7 @@ export default class Course extends Component{
         if (computedHours === (this.props.dataFromParent || {}).Total_hours) {
                 return (<p className="computed">(computed)</p>);   
             }
-        return false; //update to false later
+        return {}; //update to false later
     }
 
     isDeadlinePassed() {
@@ -280,34 +303,24 @@ export default class Course extends Component{
         return ((deadlineDate <= date) ? <p>(late)</p> : {});
     }
 
-    //student data 
 
     render() {
             return (
                 <React.Fragment>
                     <div className="panelTitle">
-                        { () => {
-                            this.loadModuleTitle();
-                            }
-                        }
+                        {this.loadModuleTitle()}
                     </div>
                     <div className="courseData">
-                        { () => {
-                            this.loadCoordinator();
-                            this.loadCourseDeadline();
-                            this.loadCourseHours();
-                            this.loadAllocatedHours();
-                            this.loadComments();
-                            }
-                        }
+                        {this.loadCoordinator()}
+                        {/*this.loadCourseDeadline()*/}
+                        {this.loadCourseHours()}
+                        {this.loadAllocatedHours()}
+                        {this.loadComments()}
                     </div>
                     <div className="associationData">
-                        { () => {
-                            this.loadMarkerTable();
-                            }
-                        }
+                        {this.loadMarkerTable()}
                     </div>
                 </React.Fragment>
             );
         }
-    }
+    } 
