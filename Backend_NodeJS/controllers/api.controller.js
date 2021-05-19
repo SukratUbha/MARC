@@ -351,3 +351,73 @@ exports.getAssociationRelation = (req, res) => {
       });
     });
 };
+exports.addStudentToCourse = (req, res) => {
+
+  // Validate request
+  if (!(req.body.Course_id&&req.body.Student_id)) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+  result = Association.findAll({
+    where: {
+      course_id:req.body.Course_id, 
+      student_id:req.body.Student_id
+    }})
+  if(result.length != 0){
+    Association.update({marking_hours: Hours}),
+    {where:{
+      course_id:req.body.Course_id, 
+      student_id:req.body.Student_id
+    }}    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while editing association."
+      });
+    });
+  }else{
+    const ass = {
+      course_id:req.body.Course_id, 
+      student_id:req.body.Student_id, 
+      burkhard_proposed:false,
+      course_proposed: false,
+      student_proposed: false,
+      course_blacklist: false,
+      burkhard_blacklist: false,
+      marking_hours:-1,
+      previously_marked:-1
+    };
+    console.log(course);
+  
+    // Save association in the database
+    Association.create(ass)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the Association."
+        });
+      });
+  }
+};
+exports.getAssociation_studentid = (req, res) => {
+  const id = req.params.id;
+
+  Association.findAll({
+    where: {
+      student_id: id
+    }}).then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving association with id=" + id
+      });
+    });
+};
