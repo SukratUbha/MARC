@@ -24,7 +24,10 @@ module.exports =(app) => {
     router.get("/association", api.getAssociation_all);
 
     // Retrive single Course association
-    router.get("/association/:id", api.getAssociation_courseid);
+    router.get("/association/course/:id", api.getAssociation_courseid);
+
+    // Retrive single Course association
+    router.get("/association/student/:id", api.getAssociation_studentid);
 
     // Retrive single Course
     router.get("/update/:id", api.update_Total_Student);

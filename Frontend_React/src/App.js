@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "./assets/round_long.png";
 import Addcourse  from './components/add_course.js';
 import Register from './components/Register';
-import Courses from './components/Courses';
 import Markers from './components/Markers';
 import sendEmails from './components/SendEmails';
 import Overview  from './components/index';

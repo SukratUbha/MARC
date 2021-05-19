@@ -11,13 +11,15 @@ export default class index extends Component{
     constructor(props){
         super(props);
         this.state={
-            course:"",
+            identifier: null,
+            value:"",
             assoc:null
         }
     }
-    parentFunction=(retrieved_course, retrieved_assoc)=>{
+    parentFunction=(retrieved_identifier , retrieved_value, retrieved_assoc)=>{
         this.setState({
-            course: retrieved_course,
+            identifier: retrieved_identifier,
+            value: retrieved_value,
             assoc: retrieved_assoc
         });
     }
@@ -25,10 +27,10 @@ export default class index extends Component{
     render() {
         let condition
         
-        if (this.state.assoc!==null){ 
-            condition=<Course_right dataFromParent={this.state.course} dataFromAssoc={this.state.assoc}/>
-        } else if (this.state.course===""){
-            condition=<Course_student/>
+        if (this.state.identifier==="course"){ 
+            condition=<Course_right dataFromParent={this.state.value} dataFromAssoc={this.state.assoc}/>
+        } else if (this.state.identifier==="student"){
+            condition=<Course_student dataFromParent={this.state.value} dataFromAssoc={this.state.assoc}/>
         } else {
             condition=<Course_empty/>
         }

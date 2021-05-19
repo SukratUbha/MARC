@@ -334,6 +334,10 @@ exports.getAssociation_courseid = (req, res) => {
     });
 };
 
+exports.getAssociation_studentid = (req, res) => {
+  //ToDO Andrew
+};
+
 exports.getAssociationRelation = (req, res) => {
   const srt = req.params.str;
   course, student = str.split("-");

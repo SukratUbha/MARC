@@ -54,55 +54,137 @@ export default class Course extends Component{
         axios.get("/api/courses/load")
     };
 
-    //Modal function 
-    toggleModal = key => event => {
-        event.preventDefault();
-        if (this.state.currentModal) {
-          this.handleModalCloseRequest();
-          return;
-        }
+    loadstudent = () => {
+        // const student1 = {
+        //     firstName:"Steven", 
+        //     lastName:"Kan", 
+        //     email:"Steven@gmail.com", 
+        //     upi:"stev123",
+        //     password: null, 
+        //     firstPref: 1,
+        //     secondPref: null,
+        //     thirdPref: null,
+        //     total_hours: 10.7,
+        //     description: null, 
+        //     pdfLocation:null 
+        // };
+        // const student2 = {
+        //     firstName:"Andrew", 
+        //     lastName:"Pakwing", 
+        //     email:"Andrew@gmail.com", 
+        //     upi:"andr123",
+        //     password: null, 
+        //     firstPref: 5,
+        //     secondPref: 6,
+        //     thirdPref: 2,
+        //     total_hours: 8,
+        //     description: null, 
+        //     pdfLocation:null 
+        // };
+        // const student3 = {
+        //     firstName:"Dave", 
+        //     lastName:"Wright", 
+        //     email:"Dave@gmail.com", 
+        //     upi:"dave123",
+        //     password: null, 
+        //     firstPref: 3,
+        //     secondPref: 4,
+        //     thirdPref: null,
+        //     total_hours: 20,
+        //     description: null, 
+        //     pdfLocation:null 
+        // };
+        // const student4 = {
+        //     firstName:"Spencer", 
+        //     lastName:"Smith", 
+        //     email:"Spencer@gmail.com", 
+        //     upi:"spen123",
+        //     password: null, 
+        //     firstPref: 6,
+        //     secondPref: 4,
+        //     thirdPref: 2,
+        //     total_hours: 15,
+        //     description: null, 
+        //     pdfLocation:null 
+        // };
+        // const student5 = {
+        //     firstName:"Sukrat", 
+        //     lastName:"Ubha", 
+        //     email:"Sukrat@gmail.com", 
+        //     upi:"sukr123", 
+        //     password: null, 
+        //     firstPref: 1,
+        //     secondPref: 3,
+        //     thirdPref: null,
+        //     total_hours: 18.7,
+        //     description: null, 
+        //     pdfLocation:null 
+        // };
+        // axios.post("/api/students/api/registertestStudent", student1);
+        // axios.post("/api/students/api/registertestStudent", student2);
+        // axios.post("/api/students/api/registertestStudent", student3);
+        // axios.post("/api/students/api/registertestStudent", student4);
+        // axios.post("/api/students/api/registertestStudent", student5)
+    };
+
+    // //Modal function 
+    // toggleModal = key => event => {
+    //     event.preventDefault();
+    //     if (this.state.currentModal) {
+    //       this.handleModalCloseRequest();
+    //       return;
+    //     }
     
-        this.setState({
-          ...this.state,
-          currentModal: key,
-          title1: DEFAULT_TITLE
-        });
-      }
+    //     this.setState({
+    //       ...this.state,
+    //       currentModal: key,
+    //       title1: DEFAULT_TITLE
+    //     });
+    //   }
     
-    handleModalCloseRequest = () => {
-    // opportunity to validate something and keep the modal open even if it
-    // requested to be closed
-    this.setState({
-        ...this.state,
-        currentModal: null
-    });
-    }
+    // handleModalCloseRequest = () => {
+    // // opportunity to validate something and keep the modal open even if it
+    // // requested to be closed
+    // this.setState({
+    //     ...this.state,
+    //     currentModal: null
+    // });
+    // }
 
-    handleInputChange = e => {
-    let text = e.target.value;
-    if (text == '') {
-        text = DEFAULT_TITLE;
-    }
-    this.setState({ ...this.state, title1: text });
-    }
+    // handleInputChange = e => {
+    // let text = e.target.value;
+    // if (text == '') {
+    //     text = DEFAULT_TITLE;
+    // }
+    // this.setState({ ...this.state, title1: text });
+    // }
 
-    handleOnAfterOpenModal = () => {
-    // when ready, we can access the available refs.
-    this.heading && (this.heading.style.color = '#F00');
-    }
+    // handleOnAfterOpenModal = () => {
+    // // when ready, we can access the available refs.
+    // this.heading && (this.heading.style.color = '#F00');
+    // }
 
-    handleClick = value => () => {
-        axios.get("/api/courses/association/" + value.id).then(response =>{
-            this.setState({
-                one_assoc: response.data
+    handleClick = (identifier, value) => () => {
+        console.log(identifier);
+        if (identifier === "course"){
+            axios.get("/api/courses/association/course/" + value.id).then(response =>{
+                this.setState({
+                    one_assoc: response.data
+                });
+                this.props.functionCallFromParent("course", value, this.state.one_assoc);
             });
-            this.props.functionCallFromParent(value, this.state.one_assoc);
-        });
-        
+        } else {
+            axios.get("/api/courses/association/student/" + value.id).then(response =>{
+                this.setState({
+                    one_assoc: response.data
+                });
+                this.props.functionCallFromParent("student", value, this.state.one_assoc);
+            });
+        }
     }
 
     render(){
-        const { currentModal } = this.state;
+        // const { currentModal } = this.state;
 
         return (
             <div className="pane-content" style={{overflow:"scroll", height:"100%"}}>
@@ -111,18 +193,16 @@ export default class Course extends Component{
                     <div key={course.id} style={{"paddingBottom": "15px"}}>
                         <div style={{display:"inline-block"}}>
                             
-                            <button onClick={this.handleClick(course)}>
+                            <button onClick={this.handleClick("course", course)}>
                                 {course.Course_name}</button> 
                             
                             
                             {this.state.assoc.filter(assoc => assoc.course_id === course.id).map((filtered_assoc)=>
-                                <div style={{display:"inline-block"}}>
+                                <div key={filtered_assoc.id} style={{display:"inline-block"}}>
                                     {this.state.students.filter(student => student.id === filtered_assoc.student_id)
                                                         .map((filtered_student)=>
-                                        <button onClick={this.handleClick(filtered_student)}>
+                                        <button key={filtered_student.id} onClick={this.handleClick("student",filtered_student)}>
                                             {filtered_student.firstName}
-                                            <br/>
-                                            GPA:
                                         </button>
                                         
                                     )}
@@ -138,7 +218,16 @@ export default class Course extends Component{
                 )}
                 <div>
                     <button type="button" className="btn btn-primary" onClick={this.load}>load</button>
-                    <button type="button" className="btn btn-primary" onClick={this.toggleModal(MODAL_A)}>Open Modal A</button>
+                    <button type="button" className="btn btn-primary" onClick={this.loadstudent}>load student</button>
+                </div>
+            </div>
+
+            
+        )
+    }
+}
+
+{/* <button type="button" className="btn btn-primary" onClick={this.toggleModal(MODAL_A)}>Open Modal A</button>
                     <button type="button" className="btn btn-primary" onClick={this.toggleModal(MODAL_B)}>Open Modal B</button>
                     <MyModal
                         title={this.state.title1}
@@ -165,12 +254,5 @@ export default class Course extends Component{
                             <p>This is a description of what it does: nothing :)</p>
                             <button onClick={this.toggleModal(MODAL_B)}>close</button>
                         </div>
-                    </Modal>
-                </div>
-            </div>
-
-            
-        )
-    }
-}
+                    </Modal> */}
 
