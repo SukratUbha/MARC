@@ -12,6 +12,7 @@ module.exports =(app) => {
     app.post("/api/uploadregistrationform", upload.single("file"), async function(req, res, next){  //upload form needs to be connected
       try{
         console.log("IN THE Router STUDENT FUNCITON"); 
+        console.log(req);
         const {
             file,
             body: { firstName,

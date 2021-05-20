@@ -1,13 +1,15 @@
 import Axios from 'axios';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import Dropbox from './dropbox';
 
 import {
     BoxComponent,
     RegisterButton,
 } from './common'
 import './Register.css';
+import { Dropdown } from 'semantic-ui-react';
 
-function Register() {
+function Register(props) {
   const [name, setName] = useState();
   const [lname, setLName] = useState();
   const [email, setEmail] = useState();
@@ -33,10 +35,11 @@ function Register() {
 
     Axios.post("/api/uploadregistrationform", data)
       .then((res) =>{
+        console.log(data)
         if(res.data === "Registered"){
           console.log(res.data) 
           alert("Registered")
-          resetForm()         
+          // resetForm()         
         }
         else{
           console.log(res.data)
@@ -50,6 +53,7 @@ function Register() {
   }
 
   return (
+    <BoxComponent>
     <div className="App">
       <header className="App-header">
         <form action="#">
@@ -73,11 +77,17 @@ function Register() {
               }}
             />
             <label htmlFor="fPref">First Preference</label>
-            <input type="text" id="fPref" onChange={event => {
+            <Dropbox id="fPref"
+              
+                // const { value } = event.target;
+                // setFirstPref(value);
+              
+            />
+              {/* <input type="text" id="fPref" onChange={event => {
                 const { value } = event.target;
                 setFirstPref(value);
               }}
-            />
+            /> */}
             <label htmlFor="sPref">Second Preference</label>
             <input type="text" id="sPref" onChange={event => {
                 const { value } = event.target;
@@ -119,6 +129,7 @@ function Register() {
         <button onClick={send}>Register</button>
       </header>
     </div>
+    </BoxComponent>
   );
 }
 
