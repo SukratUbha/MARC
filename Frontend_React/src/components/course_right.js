@@ -20,6 +20,7 @@ export default class Course extends Component{
     //reload
     reloadData(){
         //in progress
+        //its possible react always does this already.
     }
 
 
@@ -113,8 +114,11 @@ export default class Course extends Component{
                     disabled='true'
                     />
                     <button onClick={this.overrideReqHours("totalHours")} style={{float: 'right', height: '25px'}}>
-                        Override
+                        override
                     </button>
+                    <button type="submit" id="submitReqHours" style={{display: 'none'}} onClick={this.submitReqHours()}>Confirm</button>
+                    <button type="submit" id="cancelReqHours" style={{display: 'none'}} onClick={this.cancelReqHours()}>X</button> 
+
                 </div>
             </div>
         );
@@ -136,13 +140,13 @@ export default class Course extends Component{
                     </tr>
                     <tr className="hoursAllocated">
                         <td>Marking Hours allocated:</td>
-                        <td>{'sum of table'}</td>
-                        <td>{'input fields'}</td>
+                        <td>{((this.state.allocationData || {}).Hours_allocated_saved) || this.getTotalHours()}</td>
+                        <td>{((this.state.allocationData || {}).Hours_allocated_unsaved) || this.getTotalHours()}</td>
                     </tr>
                     <tr className="hoursDefecit">
                         <td style={{width: '250px'}}>Marking Hours defecit:</td>
-                        <td style={{width: '150px'}}>{'f sum of table'}</td>
-                        <td style={{width: '150px'}}>{'f input fields'}</td>
+                        <td style={{width: '150px'}}>{((this.state.allocationData || {}).Hours_defecit_saved) || '0'}</td>
+                        <td style={{width: '150px'}}>{((this.state.allocationData || {}).Hours_defecit_unsaved) || '0'}</td>
                     </tr>
                 </table>
             </div>
@@ -191,6 +195,7 @@ export default class Course extends Component{
 
     submitReqHours(elementId) {
         //in progress, have this triggered by enter or confirm
+        //axios post
     }
 
     cancelReqHours(elementId) {
@@ -200,6 +205,11 @@ export default class Course extends Component{
     editComment(elementID) {
         //in progress,
     }
+
+    submitComment(elementID) {
+        //this will allow for the submitted
+        //Needs to check if its the CC or Admin comment
+    }
     
     //Association / marker data rendering
     loadMarkerTable() {
@@ -208,7 +218,7 @@ export default class Course extends Component{
                 <h4>Marker Assignments</h4>
                 <table>
                     <tr>
-                        <td className="recordTableHeading">
+                        <td className="recordTableHeading" style={{width: '100px', border: '1px solid black'}}>
                             <h6 className="recordHeadingFont">Marker</h6>
                         </td>
                         {/*
@@ -219,13 +229,13 @@ export default class Course extends Component{
                                 <h6 className="recordHeadingFont">Level</h6>
                             </td>
                         */}
-                        <td className="recordTableHeading">
+                        <td className="recordTableHeading" style={{width: '100px', border: '1px solid black'}}>
                             <h6 className="recordHeadingFont">Status</h6>
                         </td>
-                        <td className="recordTableHeading">
+                        <td className="recordTableHeading" style={{width: '100px', border: '1px solid black'}}>
                             <h6 className="recordHeadingFont">Experience</h6>
                         </td>
-                        <td className="recordTableHeading">
+                        <td className="recordTableHeading"style={{width: '100px', border: '1px solid black'}}>
                             <h6 className="recordHeadingFont">Hours</h6>
                         </td>
                     </tr>
@@ -268,7 +278,7 @@ export default class Course extends Component{
                         {(filtered_student || {}).marking_hours}/{/*Need the axios request*/}
                     </td>
                     <td className="recordTableCell">
-                        <p className="reassignHours" onClick={this.reAssignHours((filtered_student || {}).student_id)} style={{cursor: 'pointer'}}>Reassign</p>
+                        <div className="reassignHours" onClick={this.reAssignHours((filtered_student || {}).student_id)} style={{cursor: 'pointer'}}>Reassign</div>
                         <div className="deleteMarker" onClick={this.deleteMarker((filtered_student || {}).student_id)} style={{cursor: 'pointer'}}>X</div>
                     </td>
                 </tr>
@@ -285,7 +295,6 @@ export default class Course extends Component{
 
     deleteMarker(studentID){
         //in progress
-
         this.reloadData();
     }
 
@@ -330,18 +339,20 @@ export default class Course extends Component{
     render() {
             return (
                 <React.Fragment>
-                    <div className="panelTitle" style={{backgroundColor : '#FFB6A4'}}>
-                        {this.loadModuleTitle()}
-                    </div>
-                    <div className="courseData" style={{backgroundColor :'#E67B8A'}}>
-                        {this.loadCoordinator()}
-                        {this.loadCourseDeadline()}
-                        {this.loadCourseHours()}
-                        {this.loadAllocatedHours()}
-                        {this.loadComments()}
-                    </div>
-                    <div className="associationData" style={{backgroundColor : '#982D89'}}>
-                        {this.loadMarkerTable()}
+                    <div className="box" style={{padding: '5px'}}>
+                        <div className="panelTitle" style={{backgroundColor : '#FFB6A4', marginBottom: '10px'}}>
+                            {this.loadModuleTitle()}
+                        </div>
+                        <div className="courseData" style={{backgroundColor :'#E67B8A', marginBottom: '10px'}}>
+                            {this.loadCoordinator()}
+                            {this.loadCourseDeadline()}
+                            {this.loadCourseHours()}
+                            {this.loadAllocatedHours()}
+                            {this.loadComments()}
+                        </div>
+                        <div className="associationData" style={{backgroundColor : '#982D89'}}>
+                            {this.loadMarkerTable()}
+                        </div>
                     </div>
                 </React.Fragment>
             );
