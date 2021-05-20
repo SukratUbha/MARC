@@ -9,17 +9,19 @@ import axios from "axios";
 export default class Course extends Component{
     constructor(props){
         super(props);
+
         this.state = {
             assoc: this.props.dataFromAssoc,
             CCUser: [],
             Student: [],
-            currentAllocatedHours: 0,
+            allocationData: [],
         }
     }
     //reload
     reloadData(){
         //in progress
     }
+
 
     //Panel header
     loadModuleTitle() {
@@ -28,8 +30,8 @@ export default class Course extends Component{
                 <h1 className="cRightTitle">
                     {(this.props.dataFromParent || {}).Course_name}: 
                     {/*Have calculation based on how much has been assigned in table*/}
-                    ({/*Total Hours Defecit*/})
-                    /{(this.props.dataFromParent || {}).Total_hours}
+                    ({/*Total Hours Defecit*/}{((this.state.allocationData || {}).Hours_defecit_saved) || '0'})
+                    /{this.getTotalHours()}
                 </h1>
             </div>
         );
@@ -87,9 +89,7 @@ export default class Course extends Component{
                 </div>
                 <div>
                     Enrolment Deadline:{(this.props.dataFromParent || {}).Deadline}
-                    {
-                        this.isDeadlinePassed()
-                    }
+                    {this.isDeadlinePassed()}
                 </div>
             </div>
         );
@@ -107,9 +107,9 @@ export default class Course extends Component{
                 <div style={{display: "inline-flex"}}>
                     Student Hours required:
                     <input 
-                    style={{height: '25px', borderBlockColor: 'transparent'}}
+                    style={{height: '25px', width: '50px', border: '0px solid', backgroundColor: 'transparent', color: 'black'}}
                     id = "totalHours" 
-                    placeholder={(this.props.dataFromParent || {}).Total_hours}
+                    placeholder={this.getTotalHours()} //temporary
                     disabled='true'
                     />
                     <button onClick={this.overrideReqHours("totalHours")} style={{float: 'right', height: '25px'}}>
@@ -120,15 +120,31 @@ export default class Course extends Component{
         );
     }
 
+    getTotalHours() {
+        return( (this.props.dataFromParent || {}).Total_student * (this.props.dataFromParent || {}).Hours
+        );
+    }
+
     loadAllocatedHours(){
         return(
-            <div className="assocHours">
-                <div>
-                    Marking Hours allocated: {'resultant from sum of table'}
-                </div>
-                <div>
-                    Marking Hours defecit: {''}
-                </div>
+            <div className="allcHours">
+                <table className="allocHoursTable">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>(Unsaved)</td>
+                    </tr>
+                    <tr className="hoursAllocated">
+                        <td>Marking Hours allocated:</td>
+                        <td>{'sum of table'}</td>
+                        <td>{'input fields'}</td>
+                    </tr>
+                    <tr className="hoursDefecit">
+                        <td style={{width: '250px'}}>Marking Hours defecit:</td>
+                        <td style={{width: '150px'}}>{'f sum of table'}</td>
+                        <td style={{width: '150px'}}>{'f input fields'}</td>
+                    </tr>
+                </table>
             </div>
         );
     }
@@ -207,7 +223,7 @@ export default class Course extends Component{
                             <h6 className="recordHeadingFont">Status</h6>
                         </td>
                         <td className="recordTableHeading">
-                            <h6 className="recordHeadingFont">History</h6>
+                            <h6 className="recordHeadingFont">Experience</h6>
                         </td>
                         <td className="recordTableHeading">
                             <h6 className="recordHeadingFont">Hours</h6>
@@ -215,6 +231,9 @@ export default class Course extends Component{
                     </tr>
                     {this.loadMarkerAssociations()}
                 </table>
+                <div className="tableFunctions">
+                    <p className="addMarker" onclick={this.addMarker()} style={{cursor: 'pointer'}}>+ Add Marker</p>
+                </div>
             </div>       
         );
 
@@ -231,24 +250,24 @@ export default class Course extends Component{
         return(
             this.state.assoc.filter( record => record.marking_hours !== 0).map((filtered_student) =>                
                 <tr className="recordTableEntry">
-                    <td className="recordTableCell">
+                    <td className="recordTableCell"> {/*Name of student*/}
                         {filtered_student.student_id}
                     </td>
-                    <td className="recordTableCell">
+                    <td className="recordTableCell"> {/*Marking Status*/}
                         {(filtered_student || {}).burkhard_proposed}
                         {(filtered_student || {}).course_proposed}
                         {(filtered_student || {}).student_proposed}
                     </td>
-                    <td className="recordTableCell">
+                    <td className="recordTableCell"> {/*Experience*/}
                         {(filtered_student || {}).previously_enrolled}
                         {(filtered_student || {}).previously_marked}
                         {(filtered_student || {}).burkhard_blacklist}
                         {(filtered_student || {}).course_blacklist}
                     </td>
-                    <td className="recordTableCell" id={filtered_student.student_id}>
+                    <td className="recordTableCell" id={filtered_student.student_id}>{/*Assigned Hours*/}
                         {(filtered_student || {}).marking_hours}/{/*Need the axios request*/}
                     </td>
-                    <td>
+                    <td className="recordTableCell">
                         <p className="reassignHours" onClick={this.reAssignHours((filtered_student || {}).student_id)} style={{cursor: 'pointer'}}>Reassign</p>
                         <div className="deleteMarker" onClick={this.deleteMarker((filtered_student || {}).student_id)} style={{cursor: 'pointer'}}>X</div>
                     </td>
@@ -261,14 +280,18 @@ export default class Course extends Component{
         //in progress
         //confused, is there a modal
         //trigger reload function
+        this.reloadData();
     }
 
     deleteMarker(studentID){
         //in progress
+
+        this.reloadData();
     }
 
     changeMarkerHours() {
         //in progress
+        this.reloadData();
     }
 
    
@@ -300,24 +323,24 @@ export default class Course extends Component{
         const today = new Date();
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
-        return ((deadlineDate <= date) ? <p>(late)</p> : {});
+        return ((deadlineDate <= date) ? <>(late)</> : <></>);
     }
 
 
     render() {
             return (
                 <React.Fragment>
-                    <div className="panelTitle">
+                    <div className="panelTitle" style={{backgroundColor : '#FFB6A4'}}>
                         {this.loadModuleTitle()}
                     </div>
-                    <div className="courseData">
+                    <div className="courseData" style={{backgroundColor :'#E67B8A'}}>
                         {this.loadCoordinator()}
-                        {/*this.loadCourseDeadline()*/}
+                        {this.loadCourseDeadline()}
                         {this.loadCourseHours()}
                         {this.loadAllocatedHours()}
                         {this.loadComments()}
                     </div>
-                    <div className="associationData">
+                    <div className="associationData" style={{backgroundColor : '#982D89'}}>
                         {this.loadMarkerTable()}
                     </div>
                 </React.Fragment>
