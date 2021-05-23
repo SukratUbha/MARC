@@ -20,7 +20,7 @@ const PORT = isInProduction() ? 8080 : 8080;    //backend always on port 8080
 
 //CORS
 var corsOptionsJson = {
-    origin: isInProduction() ? "http://marc.thewholecake.co.nz" +PORT : "http://localhost" +PORT,
+    origin: isInProduction() ? "http://marcdev.duckdns.org" +PORT : "http://localhost" +PORT,
   };
 app.use(Cors(corsOptionsJson));
 
