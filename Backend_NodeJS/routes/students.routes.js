@@ -42,7 +42,7 @@ module.exports =(app) => {
       });
 
     // Create a new Student
-    // router.post("/api/registertestStudent", register.testregisterStudent)   //Saw the add to server request on register.js, this can be modified to crud to db. 
+    router.post("/api/registertestStudent", register.testregisterStudent)   //Saw the add to server request on register.js, this can be modified to crud to db. 
     //So, ill leave this here until further clarity under /api/registerStudent  
 
     // Retrieve all Students
@@ -50,6 +50,9 @@ module.exports =(app) => {
 
     // Retrive single Student
     router.get("/id:id", register.getStudent);
+
+    // Update a Student's description with id
+    router.put("/update/description/:id", register.updateStudent);
 
     //mount the router on the app
     app.use('/api/students', router);

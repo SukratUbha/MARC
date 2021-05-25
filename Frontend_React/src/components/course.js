@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import Modal from 'react-modal';
-import MyModal from './course-modal'; 
+// import Modal from 'react-modal';
+// import MyModal from './course-modal'; 
 import './course.css'; 
 
-const MODAL_A = 'modal_a';
-const MODAL_B = 'modal_b';
+// const MODAL_A = 'modal_a';
+// const MODAL_B = 'modal_b';
 
 const DEFAULT_TITLE = 'Default title';
 
@@ -20,7 +20,8 @@ export default class Course extends Component{
             onClick_course: null,
             title1: DEFAULT_TITLE,
             currentModal: null,
-            one_assoc: null
+            one_assoc: null,
+            count: 0
         }
     }
 
@@ -50,122 +51,114 @@ export default class Course extends Component{
         });
     };
 
+    componentDidUpdate(prevProps, prevState) {
+        //trigger when dataFromStudent ie. num is incremented by course_student.js
+        if (prevState.count !== this.props.dataFromStudent) {
+            axios.get("/api/students/").then(response =>{
+                this.setState({
+                    students: response.data,
+                    count: this.props.dataFromStudent
+                });
+                console.log("student has updated in course.js")
+            });
+        }
+    }
+    
     load = () => { //load default value for classes
         axios.get("/api/courses/load")
+        axios.get("/api/courses/").then(response =>{
+            this.setState({
+                courses: response.data
+            });
+        });
     };
 
     loadstudent = () => {
-        // const student1 = {
-        //     firstName:"Steven", 
-        //     lastName:"Kan", 
-        //     email:"Steven@gmail.com", 
-        //     upi:"stev123",
-        //     password: null, 
-        //     firstPref: 1,
-        //     secondPref: null,
-        //     thirdPref: null,
-        //     total_hours: 10.7,
-        //     description: null, 
-        //     pdfLocation:null 
-        // };
-        // const student2 = {
-        //     firstName:"Andrew", 
-        //     lastName:"Pakwing", 
-        //     email:"Andrew@gmail.com", 
-        //     upi:"andr123",
-        //     password: null, 
-        //     firstPref: 5,
-        //     secondPref: 6,
-        //     thirdPref: 2,
-        //     total_hours: 8,
-        //     description: null, 
-        //     pdfLocation:null 
-        // };
-        // const student3 = {
-        //     firstName:"Dave", 
-        //     lastName:"Wright", 
-        //     email:"Dave@gmail.com", 
-        //     upi:"dave123",
-        //     password: null, 
-        //     firstPref: 3,
-        //     secondPref: 4,
-        //     thirdPref: null,
-        //     total_hours: 20,
-        //     description: null, 
-        //     pdfLocation:null 
-        // };
-        // const student4 = {
-        //     firstName:"Spencer", 
-        //     lastName:"Smith", 
-        //     email:"Spencer@gmail.com", 
-        //     upi:"spen123",
-        //     password: null, 
-        //     firstPref: 6,
-        //     secondPref: 4,
-        //     thirdPref: 2,
-        //     total_hours: 15,
-        //     description: null, 
-        //     pdfLocation:null 
-        // };
-        // const student5 = {
-        //     firstName:"Sukrat", 
-        //     lastName:"Ubha", 
-        //     email:"Sukrat@gmail.com", 
-        //     upi:"sukr123", 
-        //     password: null, 
-        //     firstPref: 1,
-        //     secondPref: 3,
-        //     thirdPref: null,
-        //     total_hours: 18.7,
-        //     description: null, 
-        //     pdfLocation:null 
-        // };
-        // axios.post("/api/students/api/registertestStudent", student1);
-        // axios.post("/api/students/api/registertestStudent", student2);
-        // axios.post("/api/students/api/registertestStudent", student3);
-        // axios.post("/api/students/api/registertestStudent", student4);
-        // axios.post("/api/students/api/registertestStudent", student5)
+        const student1 = {
+            firstName:"Albert", 
+            lastName:"Einstein", 
+            email:"Albert@gmail.com", 
+            upi:"albe123",
+            password: null, 
+            firstPref: 1,
+            secondPref: null,
+            thirdPref: null,
+            total_hours: 10.7,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student2 = {
+            firstName:"Stephen", 
+            lastName:"Hawking", 
+            email:"Stephen@gmail.com", 
+            upi:"step123",
+            password: null, 
+            firstPref: 5,
+            secondPref: 6,
+            thirdPref: 2,
+            total_hours: 8,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student3 = {
+            firstName:"Thomas", 
+            lastName:"Edison", 
+            email:"Thomas@gmail.com", 
+            upi:"thom123",
+            password: null, 
+            firstPref: 3,
+            secondPref: 4,
+            thirdPref: null,
+            total_hours: 20,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student4 = {
+            firstName:"Isaac", 
+            lastName:"Newton", 
+            email:"Isaac@gmail.com", 
+            upi:"issa123",
+            password: null, 
+            firstPref: 6,
+            secondPref: 4,
+            thirdPref: 2,
+            total_hours: 15,
+            description: null, 
+            pdfLocation:null 
+        };
+        const student5 = {
+            firstName:"Alan", 
+            lastName:"Turing", 
+            email:"Alan@gmail.com", 
+            upi:"alan123", 
+            password: null, 
+            firstPref: 1,
+            secondPref: 3,
+            thirdPref: null,
+            total_hours: 18.7,
+            description: null, 
+            pdfLocation:null 
+        };
+        axios.post("/api/students/api/registertestStudent", student1);
+        axios.post("/api/students/api/registertestStudent", student2);
+        axios.post("/api/students/api/registertestStudent", student3);
+        axios.post("/api/students/api/registertestStudent", student4);
+        axios.post("/api/students/api/registertestStudent", student5)
+
+        axios.get("/api/courses/association/").then(response =>{
+            this.setState({
+                assoc: response.data
+            });
+        });
+
+        axios.get("/api/students/").then(response =>{
+            this.setState({
+                students: response.data
+            });
+        });
     };
 
-    // //Modal function 
-    // toggleModal = key => event => {
-    //     event.preventDefault();
-    //     if (this.state.currentModal) {
-    //       this.handleModalCloseRequest();
-    //       return;
-    //     }
-    
-    //     this.setState({
-    //       ...this.state,
-    //       currentModal: key,
-    //       title1: DEFAULT_TITLE
-    //     });
-    //   }
-    
-    // handleModalCloseRequest = () => {
-    // // opportunity to validate something and keep the modal open even if it
-    // // requested to be closed
-    // this.setState({
-    //     ...this.state,
-    //     currentModal: null
-    // });
-    // }
-
-    // handleInputChange = e => {
-    // let text = e.target.value;
-    // if (text == '') {
-    //     text = DEFAULT_TITLE;
-    // }
-    // this.setState({ ...this.state, title1: text });
-    // }
-
-    // handleOnAfterOpenModal = () => {
-    // // when ready, we can access the available refs.
-    // this.heading && (this.heading.style.color = '#F00');
-    // }
-
     handleClick = (identifier, value) => () => {
-        console.log(identifier);
         if (identifier === "course"){
             axios.get("/api/courses/association/course/" + value.id).then(response =>{
                 this.setState({
@@ -187,7 +180,7 @@ export default class Course extends Component{
         // const { currentModal } = this.state;
 
         return (
-            <div className="pane-content" style={{overflow:"scroll", height:"100%"}}>
+            <div className="pane-content" style={{width:"750px"}}>
                 {this.state.courses.map((course)=>
                      
                     <div key={course.id} style={{"paddingBottom": "15px"}}>
@@ -226,6 +219,43 @@ export default class Course extends Component{
         )
     }
 }
+
+// //Modal function 
+    // toggleModal = key => event => {
+    //     event.preventDefault();
+    //     if (this.state.currentModal) {
+    //       this.handleModalCloseRequest();
+    //       return;
+    //     }
+    
+    //     this.setState({
+    //       ...this.state,
+    //       currentModal: key,
+    //       title1: DEFAULT_TITLE
+    //     });
+    //   }
+    
+    // handleModalCloseRequest = () => {
+    // // opportunity to validate something and keep the modal open even if it
+    // // requested to be closed
+    // this.setState({
+    //     ...this.state,
+    //     currentModal: null
+    // });
+    // }
+
+    // handleInputChange = e => {
+    // let text = e.target.value;
+    // if (text == '') {
+    //     text = DEFAULT_TITLE;
+    // }
+    // this.setState({ ...this.state, title1: text });
+    // }
+
+    // handleOnAfterOpenModal = () => {
+    // // when ready, we can access the available refs.
+    // this.heading && (this.heading.style.color = '#F00');
+    // }
 
 {/* <button type="button" className="btn btn-primary" onClick={this.toggleModal(MODAL_A)}>Open Modal A</button>
                     <button type="button" className="btn btn-primary" onClick={this.toggleModal(MODAL_B)}>Open Modal B</button>

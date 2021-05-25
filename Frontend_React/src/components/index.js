@@ -13,14 +13,29 @@ export default class index extends Component{
         this.state={
             identifier: null,
             value:"",
-            assoc:null
+            assoc:null,
+            courses: [],
+            count: 0
         }
     }
+
+    // componentDidUpdate(prevProps, prevState) {
+    //     console.log("course has updated...", this.state.count)
+    // }
+
     parentFunction=(retrieved_identifier , retrieved_value, retrieved_assoc)=>{
+        //trigger from course.js
         this.setState({
             identifier: retrieved_identifier,
             value: retrieved_value,
             assoc: retrieved_assoc
+        });
+    }
+
+    updateStudent=(num)=>{
+        //trigger from course_student.js
+        this.setState({
+            count: this.state.count + num 
         });
     }
 
@@ -30,7 +45,7 @@ export default class index extends Component{
         if (this.state.identifier==="course"){ 
             condition=<Course_right dataFromParent={this.state.value} dataFromAssoc={this.state.assoc}/>
         } else if (this.state.identifier==="student"){
-            condition=<Course_student dataFromParent={this.state.value} dataFromAssoc={this.state.assoc}/>
+            condition=<Course_student dataFromParent={this.state.value} dataFromAssoc={this.state.assoc} functionCallFromStudent={this.updateStudent}/>
         } else {
             condition=<Course_empty/>
         }
@@ -40,8 +55,8 @@ export default class index extends Component{
                     <ReflexContainer orientation="vertical">
                         <ReflexElement >
                             <ReflexContainer orientation="horizontal">
-                                <ReflexElement >
-                                    <Main functionCallFromParent={this.parentFunction}/>
+                                <ReflexElement style={{"overflow": "scroll"}}>
+                                    <Main functionCallFromParent={this.parentFunction} dataFromStudent={this.state.count}/>
                                 </ReflexElement>
                             </ReflexContainer>
                         </ReflexElement>

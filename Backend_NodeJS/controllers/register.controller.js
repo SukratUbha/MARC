@@ -37,38 +37,38 @@ exports.registerStudent = (req,res,cvLocation) => {
 
 }
 
-// exports.testregisterStudent = (req,res) =>{
+exports.testregisterStudent = (req,res) =>{
 
-//   const student = {
-//     firstName:req.body.firstName, 
-//     lastName:req.body.lastName, 
-//     student_number:req.body.student_number, 
-//     upi:req.body.upi,
-//     email:req.body.email, 
-//     password: req.body.password, 
-//     firstPref: req.body.firstPref,
-//     secondPref: req.body.secondPref,
-//     thirdPref: req.body.thirdPref,
-//     total_hours: req.body.total_hours,
-//     description: req.body.description, 
-//     pdfLocation:req.body.location,  //need to change and add pdf location
-//   }
+  const student = {
+    firstName:req.body.firstName, 
+    lastName:req.body.lastName, 
+    student_number:req.body.student_number, 
+    upi:req.body.upi,
+    email:req.body.email, 
+    password: req.body.password, 
+    firstPref: req.body.firstPref,
+    secondPref: req.body.secondPref,
+    thirdPref: req.body.thirdPref,
+    total_hours: req.body.total_hours,
+    description: req.body.description, 
+    pdfLocation:req.body.location,  //need to change and add pdf location
+  }
   
-//   Student.create(student)
-//     .then(data => {
-//       res.send(data);
-//       createAssociation(data.id, data.firstPref);
-//       if (data.secondPref){createAssociation(data.id, data.secondPref)};
-//       if (data.thirdPref){createAssociation(data.id, data.thirdPref)}
-//       console.log(data.id)
-//     })
-//     .catch(err => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while registering the student."
-//       });
-//     });
-// }
+  Student.create(student)
+    .then(data => {
+      res.send(data);
+      createAssociation(data.id, data.firstPref);
+      if (data.secondPref){createAssociation(data.id, data.secondPref)};
+      if (data.thirdPref){createAssociation(data.id, data.thirdPref)}
+      console.log(data.id)
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while registering the student."
+      });
+    });
+}
 
 //helper function 
 function createAssociation(student_id, course_id){
@@ -110,4 +110,28 @@ exports.getStudent = (req, res) => {
         message: "Error retrieving student with id=" + id
       });
     });
+};
+
+exports.updateStudent = (req, res) => {
+  const id = req.params.id;
+
+  Student.update(req.body, {
+    where: { id: id }
+  }).then(num => {
+      if (num == 1) {
+        res.send({
+          message: `Student with id=${id} was updated successfully.`
+        });
+      } else {
+        res.send({
+          message: `Cannot update Student with id=${id}. Maybe Student's details was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Student's Details with id=" + id
+      });
+    });
+
 };
