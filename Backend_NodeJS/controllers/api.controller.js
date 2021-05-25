@@ -88,29 +88,8 @@ exports.getCourse = (req, res) => {
 };
 
 // Update a Course by the id in the request
-exports.update_Total_Student = (req, res) => {
-  const id = req.params.id;
-
-  //set total student by default 510 change into req.body
-  Course.update({Total_student: 510}, {
-    where: { id: id }
-  })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "Course was updated successfully."
-        });
-      } else {
-        res.send({
-          message: `Cannot update Course with id=${id}. Maybe Course was not found or req.body is empty!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating Course with id=" + id
-      });
-    });
+exports.updateCourse = (req, res) => {
+  // Andrew ToDo
 };
 
 exports.loadvalue = (req, res) => {
