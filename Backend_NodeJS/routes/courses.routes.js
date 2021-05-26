@@ -29,6 +29,10 @@ module.exports =(app) => {
     // Retrive single Course association
     router.get("/association/student/:id", api.getAssociation_studentid);
 
+    //SPENCER ADDED: Retrieve single Course + Student association relation
+    //Could someone check this? Thank you :)
+    router.get("/association/relation/:course_id-student_id", api.getAssociationRelation)
+
     // Update Course with id
     router.put("/update/:id", api.updateCourse);
 
