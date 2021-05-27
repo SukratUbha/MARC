@@ -30,6 +30,9 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
+    "express-session": "^1.17.2",
     "mocha": "^8.3.2",
     "supertest": "^6.1.3"
   }
