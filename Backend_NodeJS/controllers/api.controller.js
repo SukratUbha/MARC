@@ -19,7 +19,6 @@ Course = require(__dirname+'/../models/Course.js');
 const Op = require("sequelize").Op;
 
 
-
 exports.createCourse = (req, res) => {
 
   // Validate request
@@ -405,38 +404,3 @@ exports.getAssociation_studentid = (req, res) => {
       });
     });
 };
-
-//Login
-
-exports.login = (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-
-  const result = User.findAll({
-    where: {
-      username: username,
-    }
-  });
-
-  if (result.length > 0) {
-      bcrypt.compare(password, result[0].password, (error, response) => {
-        if (response) {
-          req.session.user = result;
-          console.log(req.session.user);
-          res.send(result);
-        } else {
-          res.send({ message: "Wrong username/password combination!" });
-        }
-      });
-  } else {
-      res.send({ message: "User doesn't exist" });
-  }
-}
-
-exports.loginStatus = (req, res) => {
-    if (req.session.user) {
-      res.send({ loggedIn: true, user: req.session.user });
-    } else {
-      res.send({ loggedIn: false });
-    }
-  }

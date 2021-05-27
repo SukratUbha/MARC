@@ -8,7 +8,6 @@ import Register from './components/Register';
 import Markers from './components/Markers';
 import sendEmails from './components/SendEmails';
 import Overview  from './components/index';
-import Login from './components/login';
 
 import Modal from 'react-modal'
 
@@ -78,23 +77,19 @@ function App() {
               Markers View (Testing)
             </Link>
           </li>
-          <li className="nav-item">
-          <Link to={"/login"} className="nav-link">
-              Login(Testing)
-          </Link>  
-          </li>
+          <div className="navbar-right">
           <li className="nav-item">
             <Link to={"/register"} className="nav-link">
               Register (Testing)
             </Link>
           </li>
+          </div>
         </div>
       </header>
       {condition}
       <Route path="/markers" component={Markers} />
       <Route path="/register" component={Register} />
       <Route path="/emails" component={sendEmails} />
-      <Route path="/login" component={Login} />
     </ReflexContainer>
   )
 }

@@ -3,8 +3,6 @@ import axios from "axios";
 import DropboxStudent from './DropboxStudent';
 
 //Either redirect to register page/register panel or change to the student list page
-//This code template would be simple to truncate if only one field (such as marker hours) would
-//need to be reassigned. 
 
 export default class AddMarker extends Component {
     constructor(props) {
