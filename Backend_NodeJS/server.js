@@ -7,7 +7,10 @@ const config = require('config');
 //Create an Express object called app.
 const app = Express();
 app.Express=Express;
-
+//Authentication requirements
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const bcrypt = require("bcrypt");
 
 
 //Are we on the production server? (Affects CORS, SSL Cert & TCP port)
@@ -21,10 +24,21 @@ const PORT = isInProduction() ? 8080 : 8080;    //backend always on port 8080
 //CORS
 var corsOptionsJson = {
     origin: isInProduction() ? "http://marcdev.duckdns.org" +PORT : "http://localhost" +PORT,
+    credentials: true,
   };
 app.use(Cors(corsOptionsJson));
-
-
+//Authentication Code
+app.use(
+  session({
+    key: "userId",
+    secret: "br0keP30ple$houlDn3VeRL@uGH!!!",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 86400, //cookie lasts a day. 
+    },
+  })
+);
 
 
 

@@ -14,6 +14,8 @@ module.exports =(app) => {
       
         // Login
         router.post("/login", userController.login);
+
+        router.get("/login", userController.loginStatus);
       
         
         // Retrieve a single Course with id
