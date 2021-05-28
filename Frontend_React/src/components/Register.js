@@ -33,6 +33,7 @@ function Register(props) {
 
     data.append("file", file);
 
+    console.log(data)
     Axios.post("/api/uploadregistrationform", data)
       .then((res) =>{
         console.log(data)
@@ -52,9 +53,27 @@ function Register(props) {
     window.location.reload(true);
   }
 
+  const functionFromDropbox = (retrieved_pref, retrieved_course_id) => {
+    console.log("Hi I have retrieved ",retrieved_pref, retrieved_course_id);
+    if(retrieved_pref === "first"){
+      setFirstPref(retrieved_course_id);
+    } else if (retrieved_pref === "second"){
+      setSecondPref(retrieved_course_id);
+    } else if (retrieved_pref === "third") {
+      setThirdPref(retrieved_course_id);
+    } else {
+      console.log("something has happened in functionFromDropbox with ", retrieved_pref, "and", retrieved_course_id)
+    }
+    
+  }
+
+  const check = () => {
+    console.log(fPref, sPref, tPref)
+  }
+
   return (
     <BoxComponent>
-    <div className="App">
+    <div className="App" style={{background:"white"}}>
       <header className="App-header">
         <form action="#">
           <div className="flex">
@@ -77,29 +96,11 @@ function Register(props) {
               }}
             />
             <label htmlFor="fPref">First Preference</label>
-            <Dropbox id="fPref"
-              
-                // const { value } = event.target;
-                // setFirstPref(value);
-              
-            />
-              {/* <input type="text" id="fPref" onChange={event => {
-                const { value } = event.target;
-                setFirstPref(value);
-              }}
-            /> */}
+            <Dropbox id="fPref" prefFromRegister={"first"} sendToRegister={functionFromDropbox}/>
             <label htmlFor="sPref">Second Preference</label>
-            <input type="text" id="sPref" onChange={event => {
-                const { value } = event.target;
-                setSecondPref(value);
-              }}
-            />
+            <Dropbox id="sPref" prefFromRegister={"second"} sendToRegister={functionFromDropbox}/>
             <label htmlFor="tPref">Third Preference</label>
-            <input type="text" id="tPref" onChange={event => {
-                const { value } = event.target;
-                setThirdPref(value);
-              }}
-            />
+            <Dropbox id="sPref" prefFromRegister={"third"} sendToRegister={functionFromDropbox}/>
             <label htmlFor="hours">Hours</label>
             <input type="text" id="hours" onChange={event => {
                 const { value } = event.target;
@@ -127,6 +128,7 @@ function Register(props) {
           </div>
         </form>
         <button onClick={send}>Register</button>
+        <button onClick={check}>Check</button>
       </header>
     </div>
     </BoxComponent>

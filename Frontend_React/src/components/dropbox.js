@@ -7,9 +7,10 @@ export default class App extends Component {
   constructor(props){
     super(props)
     this.state = {
+      pref:this.props.prefFromRegister,
       selectOptions : [],
-      id: "",
-      name: ''
+      course_id: "",
+      course_name: ''
     }
   }
 
@@ -28,7 +29,8 @@ export default class App extends Component {
   }
 
   handleChange(e){
-   this.setState({id:e.value, name:e.label})
+    this.setState({course_id:e.value, course_name:e.label})
+    this.props.sendToRegister(this.state.pref, e.value) //send current preference and course_id to register.js
   }
 
   componentDidMount(){
@@ -40,7 +42,7 @@ export default class App extends Component {
     return (
       <div>
         <Select options={this.state.selectOptions} onChange={this.handleChange.bind(this)} />
-    <p>You have selected <strong>{this.state.name}</strong> whose id is <strong>{this.state.id}</strong></p>
+    <p>You have selected <strong>{this.state.course_name}</strong> whose id is <strong>{this.state.course_id}</strong></p>
       </div>
     )
   }
