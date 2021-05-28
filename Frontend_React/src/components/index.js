@@ -14,7 +14,7 @@ export default class index extends Component{
             identifier: null,
             value:"",
             assoc:null,
-            courses: [],
+            list: [],
             count: 0
         }
     }
@@ -23,12 +23,13 @@ export default class index extends Component{
     //     console.log("course has updated...", this.state.count)
     // }
 
-    parentFunction=(retrieved_identifier , retrieved_value, retrieved_assoc)=>{
+    parentFunction=(retrieved_identifier , retrieved_value, retrieved_assoc, retrieved_list)=>{
         //trigger from course.js
         this.setState({
             identifier: retrieved_identifier,
             value: retrieved_value,
-            assoc: retrieved_assoc
+            assoc: retrieved_assoc,
+            list: retrieved_list
         });
     }
 
@@ -43,9 +44,9 @@ export default class index extends Component{
         let condition
         
         if (this.state.identifier==="course"){ 
-            condition=<Course_right dataFromParent={this.state.value} dataFromAssoc={this.state.assoc}/>
+            condition=<Course_right dataFromParent={this.state.value} dataFromAssoc={this.state.assoc} dataFromStudents={this.state.list}/>
         } else if (this.state.identifier==="student"){
-            condition=<Course_student dataFromParent={this.state.value} dataFromAssoc={this.state.assoc} functionCallFromStudent={this.updateStudent}/>
+            condition=<Course_student dataFromParent={this.state.value} dataFromAssoc={this.state.assoc} dataFromCourses={this.state.list} functionCallFromStudent={this.updateStudent}/>
         } else {
             condition=<Course_empty/>
         }

@@ -164,14 +164,14 @@ export default class Course extends Component{
                 this.setState({
                     one_assoc: response.data
                 });
-                this.props.functionCallFromParent("course", value, this.state.one_assoc);
+                this.props.functionCallFromParent("course", value, this.state.one_assoc, this.state.students);
             });
         } else {
             axios.get("/api/courses/association/student/" + value.id).then(response =>{
                 this.setState({
                     one_assoc: response.data
                 });
-                this.props.functionCallFromParent("student", value, this.state.one_assoc);
+                this.props.functionCallFromParent("student", value, this.state.one_assoc, this.state.courses);
             });
         }
     }
