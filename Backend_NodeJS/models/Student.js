@@ -5,22 +5,33 @@ class Student extends Model {}
 
 Student.init({
   // Model attributes are defined here
-  firstName: {
+  firstName: { //First name
     type: DataTypes.STRING,
     validate: {
         notEmpty: true
     }
   }, 
-  lastName: {
+  lastName: { //Family name
     type: DataTypes.STRING
   },
-
   //these may be numbers in real life, but we have no use for them as integers in MARC
-  student_number:{
+  student_number:{ //AUID
     type: DataTypes.STRING
   },
   upi:{
     type: DataTypes.STRING
+  },
+  degree:{ //Degree
+    type: DataTypes.STRING
+  },
+  year:{ //Year
+    type: DataTypes.INTEGER
+  },
+  type:{ //Type (PG=postgrad, UG=undergraduate)
+    type: DataTypes.BOOLEAN
+  },
+  gpa:{ 
+    type: DataTypes.INTEGER
   },
 
   //note:
@@ -48,13 +59,24 @@ Student.init({
       notEmpty: true
     },
   },
-  total_hours: {
-    type: DataTypes.INTEGER
-  },
-  description: {
+  courses_marked: { //Courses marked (can by multiple)
     type: DataTypes.STRING
   },
-  
+  bh_training: { //Bullying and harassment training 0-No 1-Yes
+    type: DataTypes.INTEGER
+  },
+  tutor_training: { //Tutor training 0-No 1-Yes
+    type: DataTypes.INTEGER
+  },
+  total_hours: { //Est. hours (total all courses marked)
+    type: DataTypes.INTEGER
+  },
+  description: { //student's comment
+    type: DataTypes.STRING
+  },
+  mc_description: { //marker coordinator's comment
+    type: DataTypes.STRING
+  },
   pdfLocation: {
       type: DataTypes.STRING
   }

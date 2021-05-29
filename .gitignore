@@ -1,5 +1,6 @@
 Backend_NodeJS/package-lock.json
 Backend_NodeJS/node_modules/
+Backend_NodeJS/Uploads
 Backend_NodeJS/marcdatabase.sqlite
 Frontend_React/package-lock.json
 Frontend_React/node_modules/
