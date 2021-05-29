@@ -40,11 +40,11 @@ function Register(props) {
         if(res.data === "Registered"){
           console.log(res.data) 
           alert("Registered")
-          // resetForm()         
+          resetForm()         
         }
         else{
           console.log(res.data)
-          alert("Failed to register")
+          alert("Failed to register: Fill in all your details and upload CV in PDF format")
         }
       })
       .catch(err => console.log(err));
@@ -115,7 +115,7 @@ function Register(props) {
             />
           </div>
           <div className="flex">
-            <label htmlFor="file">CV Upload</label>
+            <label htmlFor="file">CV Upload (PDF)</label>
             <input
               type="file"
               id="file"
@@ -128,7 +128,7 @@ function Register(props) {
           </div>
         </form>
         <button onClick={send}>Register</button>
-        <button onClick={check}>Check</button>
+        {/* <button onClick={check}>Check</button> */}
       </header>
     </div>
     </BoxComponent>

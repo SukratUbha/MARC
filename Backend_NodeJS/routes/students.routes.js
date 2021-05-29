@@ -1,5 +1,4 @@
 module.exports =(app) => {
-
     const register = require("../controllers/register.controller.js"); //instantiating a new object
     var router = require("express").Router();       // a NEW 'Router' object. Gets globally configured to live under '/api/courses'. see blow.
     const multer = require("multer");
@@ -7,12 +6,11 @@ module.exports =(app) => {
     const fs = require("fs");
     const { promisify } = require("util");
     const pipeline = promisify(require("stream").pipeline);
+    var randomstring = require("randomstring");
 
     //used to store registration form file and data
     app.post("/api/uploadregistrationform", upload.single("file"), async function(req, res, next){  //upload form needs to be connected
       try{
-        console.log("IN THE Router STUDENT FUNCITON"); 
-        console.log(req);
         const {
             file,
             body: { firstName,
@@ -25,18 +23,24 @@ module.exports =(app) => {
                     description                    
                   }
           } = req;
-          const fileName = firstName + lastName + file.detectedFileExtension;
-          cvLocation = __dirname + '/../Uploads/'+ fileName
-          console.log(fileName);
-          await pipeline(
-            file.stream,
-            fs.createWriteStream(`${__dirname}/../Uploads/${fileName}`)
-          );
-          
-          let regVal = await register.registerStudent(req,res,cvLocation);
-          res.send("Registered");
-          
+          if(file === null || file.detectedFileExtension != '.pdf' || firstName === 'undefined'||lastName === 'undefined'||email === 'undefined'||
+          fPref=== 'undefined'||sPref === 'undefined'||tPref === 'undefined'|| hours === 'undefined' || description === 'undefined'){
+            res.send("Not Registered");
+          }
+          else{
+                // const fileName = firstName + lastName + file.detectedFileExtension;
+                const randStr = randomstring.generate();
+                const fileName = randStr + file.detectedFileExtension
+                cvLocation = __dirname + '/../Uploads/'+ fileName
+                await pipeline(
+                  file.stream,
+                  fs.createWriteStream(`${__dirname}/../Uploads/${fileName}`)
+                );
+                let regVal = await register.registerStudent(req,res,cvLocation);
+                res.send("Registered");
+              }
       } catch(err){
+        console.log(err);
         res.send("Not Registered");
       }
       });

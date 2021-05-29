@@ -25,6 +25,7 @@
     "express-fileupload": "^1.2.1",
     "multer": "^2.0.0-alpha.7",
     "nodemailer": "^6.6.0",
+    "randomstring": "^1.2.1",
     "sequelize": "^6.6.2",
     "sqlite": "^4.0.19",
     "sqlite3": "^5.0.2"
