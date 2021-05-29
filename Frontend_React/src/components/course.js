@@ -164,14 +164,14 @@ export default class Course extends Component{
                 this.setState({
                     one_assoc: response.data
                 });
-                this.props.functionCallFromParent("course", value, this.state.one_assoc, this.state.students);
+                this.props.functionCallFromParent("course", value, this.state.one_assoc, this.state.courses, this.state.students);
             });
         } else {
             axios.get("/api/courses/association/student/" + value.id).then(response =>{
                 this.setState({
                     one_assoc: response.data
                 });
-                this.props.functionCallFromParent("student", value, this.state.one_assoc, this.state.courses);
+                this.props.functionCallFromParent("student", value, this.state.one_assoc, this.state.courses, this.state.students);
             });
         }
     }
@@ -195,7 +195,7 @@ export default class Course extends Component{
                                     {this.state.students.filter(student => student.id === filtered_assoc.student_id)
                                                         .map((filtered_student)=>
                                         <button key={filtered_student.id} onClick={this.handleClick("student",filtered_student)}>
-                                            {filtered_student.firstName}
+                                            {filtered_student.firstName}: {filtered_student.allocated_hours}/{filtered_student.total_hours}
                                         </button>
                                         
                                     )}

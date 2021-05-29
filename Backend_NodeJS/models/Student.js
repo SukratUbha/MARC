@@ -68,6 +68,9 @@ Student.init({
   tutor_training: { //Tutor training 0-No 1-Yes
     type: DataTypes.INTEGER
   },
+  allocated_hours: { //Allocated Hours by Marker Coordinator
+    type: DataTypes.INTEGER
+  },
   total_hours: { //Est. hours (total all courses marked)
     type: DataTypes.INTEGER
   },

@@ -1,5 +1,20 @@
 import React, {Component} from 'react';
 import axios from "axios";
+import Modal from 'react-modal'
+import Course_right  from './course_right';
+
+const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)',
+      width                 : '70%',
+      height                : '70%'
+    }
+};
 
 export default class course_empty extends Component{
     constructor(props){
@@ -33,8 +48,16 @@ export default class course_empty extends Component{
             //student's association
             assoc: this.props.dataFromAssoc,
             courses: this.props.dataFromCourses,
+            students: this.props.dataFromStudents,
             value: "",
-            isInEditMode: false
+            isInEditMode: false,
+
+            //modal state
+            currentModal: "",
+            modal_value: "" ,
+            course_selected: "", 
+            student_selected: "",
+
         }
     }
 
@@ -69,9 +92,17 @@ export default class course_empty extends Component{
                 assoc: this.props.dataFromAssoc,
                 //list of all courses
                 courses: this.props.dataFromCourses,
+                //list of all students
+                students: this.props.dataFromStudents,
                 
                 //always set Edit Mode to false when different student has changed
-                isInEditMode: false
+                isInEditMode: false,
+                
+                // modal state
+                modalIsOpen: false,
+                modal_value: "" ,
+                course_selected: "", 
+                student_selected: "", 
             })
         }
     }
@@ -425,6 +456,65 @@ export default class course_empty extends Component{
             [{this.state.mc_description}]
         </div>
     }
+
+    //status of an association 
+    render_association_status = (burkhard_proposed, course_proposed, student_proposed, course_blacklist, burkhard_blacklist) => {
+        console.log(burkhard_proposed, course_proposed, student_proposed, course_blacklist, burkhard_blacklist)
+        return <div>
+            []
+        </div>
+    }
+
+    //modal function 
+    SetModalIsOpen = (identifier, value) => {
+        if (identifier === "course"){
+            this.setState({
+                currentModal: identifier,
+                modal_value: value,
+            })
+        } else if (identifier === "assign"){
+            var assoc_course = this.state.courses.find(function(course, index) {
+                if(course.id === value.course_id){
+                    return true;
+                }
+            })
+            var assoc_student = this.state.students.find(function(student, index) {
+                if(student.id === value.student_id){
+                    return true;
+                }
+            })
+            this.setState({
+                currentModal: identifier,
+                modal_value: value,
+                course_selected: assoc_course.Course_name,
+                student_selected: assoc_student.firstName + " " + assoc_student.lastName
+            })
+        } else {
+            console.log("error in SetModalIsOpen")
+        }
+    }
+
+    handleModalCloseRequest = () => {
+        // opportunity to validate something and keep the modal open even if it
+        // requested to be closed
+        this.setState({
+            ...this.state,
+            currentModal: null
+        });
+    }
+
+    toggleModal = key => event => {
+        event.preventDefault();
+        if (this.state.currentModal) {
+          this.handleModalCloseRequest();
+          return;
+        }
+    
+        this.setState({
+          ...this.state,
+          currentModal: key,
+        });
+      }
     render() {
         return (
             <React.Fragment>
@@ -495,19 +585,109 @@ export default class course_empty extends Component{
                         </h6>
                         <table> 
                             <tbody>
+                                <tr>
+                                    <th>Course</th>
+                                    <th>Previously Enrolled</th>
+                                    <th>Previously Marked</th>
+                                    <th>Status</th>
+                                </tr>
                                 {this.state.assoc.map((filtered_assoc)=>
                                     <tr key={filtered_assoc.id}>
                                             {this.state.courses.filter(course => filtered_assoc.course_id === course.id).map((filtered_course)=>
                                                 <td key={filtered_course.id}>
-                                                    <button >
+                                                    <button onClick={ () => this.SetModalIsOpen("course", filtered_course)}>
                                                         {filtered_course.Course_name}
                                                     </button> 
                                                 </td> 
                                             )}
+                                            <td>{filtered_assoc.id}</td>
+                                            <td>{filtered_assoc.id}</td>
+                                            <td>{this.render_association_status(
+                                                filtered_assoc.burkhard_proposed, 
+                                                filtered_assoc.course_proposed, 
+                                                filtered_assoc.student_proposed, 
+                                                filtered_assoc.course_blacklist,
+                                                filtered_assoc.burkhard_blacklist,
+                                                )}
+                                            </td>
+                                            <td>
+                                                <button onClick={() => this.SetModalIsOpen("assign", filtered_assoc)}>
+                                                    assign
+                                                </button>     
+                                            </td>
                                     </tr>
+                                    
                                 )}
                             </tbody>
                         </table> 
+                        <Modal isOpen={this.state.currentModal==="course"} onRequestClose={this.handleModalCloseRequest} style={customStyles}>
+                            <div>
+                                <button onClick={this.handleModalCloseRequest}>X</button>
+                                    <Course_right dataFromParent={this.state.modal_value} 
+                                                    dataFromAssoc={this.state.assoc} 
+                                                    dataFromCourses={this.state.courses} 
+                                                    dataFromStudents={this.state.students}
+                                    />
+                            </div>
+                        </Modal>
+                        <Modal isOpen={this.state.currentModal==="assign"} onRequestClose={this.handleModalCloseRequest} style={customStyles}>
+                            <div>
+                                <button onClick={this.handleModalCloseRequest}>X</button>
+                                <div className="panelTitle" style={{backgroundColor : '#FFB6A4', marginBottom: '10px'}}>
+                                    <h1 className="cRightTitle">
+                                        {this.state.student_selected} - {this.state.course_selected}
+                                    </h1>
+                                </div>
+                                <div className="courseData" style={{backgroundColor :'#E67B8A', marginBottom: '10px'}}>
+                                    <h6>
+                                        Marker Coordinator Proposes: 
+                                        <div style={{display:"inline-block"}}>
+                                            <input
+                                                type="text"
+                                                id="burkhard_proposed"
+                                                // defaultValue={}
+                                                ref="burkhard_proposed"
+                                                name="burkhard_proposed"
+                                                size="5"
+                                            />
+                                        </div>
+                                    </h6>
+                                    <h6>
+                                        Course Coordinator Proposes:
+                                        <div style={{display:"inline-block"}}>
+                                            <input
+                                                type="text"
+                                                id="course_proposed"
+                                                // defaultValue={}
+                                                ref="course_proposed"
+                                                name="course_proposed"
+                                                size="5"
+                                            />
+                                        </div>
+                                    </h6>
+                                    <h6>
+                                        Blacklist this student?: 
+                                    </h6>
+                                    <div style={{display:"inline-block"}}>
+                                        <input 
+                                            type="radio" 
+                                            value="0" 
+                                            name="burkhard_blacklist" 
+                                            style={{display:"inline-block" }} 
+                                            ref="burkhard_blacklist"
+                                            defaultChecked
+                                        />No &nbsp;
+                                        <input 
+                                            type="radio" 
+                                            value="1" 
+                                            name="burkhard_blacklist" 
+                                            ref="burkhard_blacklist"
+                                            style={{display:"inline-block"}}
+                                        />Yes
+                                    </div>
+                                </div>
+                            </div>
+                        </Modal>
                     </div>
                 </div>
             </React.Fragment>

@@ -13,8 +13,9 @@ export default class index extends Component{
         this.state={
             identifier: null,
             value:"",
-            assoc:null,
-            list: [],
+            assoc:[],
+            courses: [],
+            students: [],
             count: 0
         }
     }
@@ -23,13 +24,14 @@ export default class index extends Component{
     //     console.log("course has updated...", this.state.count)
     // }
 
-    parentFunction=(retrieved_identifier , retrieved_value, retrieved_assoc, retrieved_list)=>{
+    parentFunction=(retrieved_identifier , retrieved_value, retrieved_assoc, retrieved_courses, retrieved_students)=>{
         //trigger from course.js
         this.setState({
             identifier: retrieved_identifier,
             value: retrieved_value,
             assoc: retrieved_assoc,
-            list: retrieved_list
+            courses: retrieved_courses,
+            students: retrieved_students,
         });
     }
 
@@ -44,9 +46,9 @@ export default class index extends Component{
         let condition
         
         if (this.state.identifier==="course"){ 
-            condition=<Course_right dataFromParent={this.state.value} dataFromAssoc={this.state.assoc} dataFromStudents={this.state.list}/>
+            condition=<Course_right dataFromParent={this.state.value} dataFromAssoc={this.state.assoc} dataFromCourses={this.state.courses} dataFromStudents={this.state.students}/>
         } else if (this.state.identifier==="student"){
-            condition=<Course_student dataFromParent={this.state.value} dataFromAssoc={this.state.assoc} dataFromCourses={this.state.list} functionCallFromStudent={this.updateStudent}/>
+            condition=<Course_student dataFromParent={this.state.value} dataFromAssoc={this.state.assoc} dataFromCourses={this.state.courses} dataFromStudents={this.state.students} functionCallFromStudent={this.updateStudent}/>
         } else {
             condition=<Course_empty/>
         }
@@ -61,7 +63,7 @@ export default class index extends Component{
                                 </ReflexElement>
                             </ReflexContainer>
                         </ReflexElement>
-                        <ReflexSplitter />
+                        <ReflexSplitter style={{zIndex:"0"}} />
                         <ReflexElement style={{background:"white" ,"overflow": "scroll"}}>
                             {condition}
                         </ReflexElement>
