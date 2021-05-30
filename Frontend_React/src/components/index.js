@@ -16,6 +16,7 @@ export default class index extends Component{
             assoc:[],
             courses: [],
             students: [],
+            all_assoc: [],
             count: 0
         }
     }
@@ -24,7 +25,7 @@ export default class index extends Component{
     //     console.log("course has updated...", this.state.count)
     // }
 
-    parentFunction=(retrieved_identifier , retrieved_value, retrieved_assoc, retrieved_courses, retrieved_students)=>{
+    parentFunction=(retrieved_identifier , retrieved_value, retrieved_assoc, retrieved_courses, retrieved_students, retrieved_all_assoc)=>{
         //trigger from course.js
         this.setState({
             identifier: retrieved_identifier,
@@ -32,6 +33,7 @@ export default class index extends Component{
             assoc: retrieved_assoc,
             courses: retrieved_courses,
             students: retrieved_students,
+            all_assoc: retrieved_all_assoc
         });
     }
 
@@ -46,9 +48,22 @@ export default class index extends Component{
         let condition
         
         if (this.state.identifier==="course"){ 
-            condition=<Course_right dataFromParent={this.state.value} dataFromAssoc={this.state.assoc} dataFromCourses={this.state.courses} dataFromStudents={this.state.students}/>
+            condition=<Course_right 
+                        dataFromParent={this.state.value} 
+                        dataFromAssoc={this.state.assoc} 
+                        dataFromCourses={this.state.courses} 
+                        dataFromStudents={this.state.students} 
+                        dataFromAllAssoc={this.state.all_assoc}
+                    />
         } else if (this.state.identifier==="student"){
-            condition=<Course_student dataFromParent={this.state.value} dataFromAssoc={this.state.assoc} dataFromCourses={this.state.courses} dataFromStudents={this.state.students} functionCallFromStudent={this.updateStudent}/>
+            condition=<Course_student 
+                        dataFromParent={this.state.value} 
+                        dataFromAssoc={this.state.assoc} 
+                        dataFromCourses={this.state.courses} 
+                        dataFromStudents={this.state.students} 
+                        dataFromAllAssoc={this.state.all_assoc} 
+                        functionCallFromStudent={this.updateStudent}
+                    />
         } else {
             condition=<Course_empty/>
         }

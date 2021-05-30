@@ -284,6 +284,44 @@ exports.createCourse = (req, res) => {
 };
 */
 
+exports.createAssociation = (req, res) => {
+
+  // Validate request
+  if (!(req.body.course_id&&req.body.student_id)) {
+    console.log("something has happened")
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+  
+  // Create a Association
+  const assoc = {
+    course_id:req.body.course_id, 
+    student_id:req.body.student_id, 
+    burkhard_proposed:req.body.burkhard_proposed, 
+    course_proposed: req.body.course_proposed, 
+    student_proposed: req.body.student_proposed,
+    course_blacklist: req.body.course_blacklist,
+    burkhard_blacklist: req.body.burkhard_blacklist,
+    marking_hours: req.body.marking_hours, 
+    previously_enrolled:req.body.previously_enrolled,
+    previously_marked:req.body.previously_marked
+  };
+
+  // Save Course in the database
+  Association.create(assoc)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Association."
+      });
+    });
+  
+};
 
 exports.getAssociation_all = (req, res) => {
   Association.findAll()
@@ -311,10 +349,6 @@ exports.getAssociation_courseid = (req, res) => {
         message: "Error retrieving association with id=" + id
       });
     });
-};
-
-exports.getAssociation_studentid = (req, res) => {
-  //ToDO Andrew
 };
 
 exports.getAssociationRelation = (req, res) => {
@@ -389,6 +423,7 @@ exports.addStudentToCourse = (req, res) => {
       });
   }
 };
+
 exports.getAssociation_studentid = (req, res) => {
   const id = req.params.id;
 
@@ -403,4 +438,42 @@ exports.getAssociation_studentid = (req, res) => {
         message: "Error retrieving association with id=" + id
       });
     });
+};
+
+exports.getAssociation = (req, res) => {
+  const id = req.params.id;
+
+  Association.findByPk(id)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving student with id=" + id
+      });
+    });
+};
+
+exports.updateAssociation = (req, res) => {
+  const id = req.params.id;
+
+  Association.update(req.body, {
+    where: { id: id }
+  }).then(num => {
+      if (num == 1) {
+        res.send({
+          message: `Association with id=${id} was updated successfully.`
+        });
+      } else {
+        res.send({
+          message: `Cannot update Association with id=${id}. Maybe Association's details was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Association's Details with id=" + id
+      });
+    });
+
 };
