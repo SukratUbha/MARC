@@ -42,7 +42,7 @@ export default class App extends Component {
     return (
       <div>
         <Select options={this.state.selectOptions} onChange={this.handleChange.bind(this)} />
-    <p>You have selected <strong>{this.state.course_name}</strong> whose id is <strong>{this.state.course_id}</strong></p>
+    {/* <p>You have selected <strong>{this.state.course_name}</strong> whose id is <strong>{this.state.course_id}</strong></p> */}
       </div>
     )
   }
