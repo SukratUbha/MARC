@@ -37,7 +37,7 @@ function App() {
           <img src={logo} style={{width:"200px", paddingRight:"20px"}} alt="marcLogo"/>
         </a>
         <div className="navbar-nav mr-auto">
-          <li className="nav-item" onClick={()=>SetModalIsOpen(true)}>
+          {/* <li className="nav-item" onClick={()=>SetModalIsOpen(true)}>
             <Link to={"#"} className="nav-link">
               Create Course
             </Link>
@@ -47,7 +47,7 @@ function App() {
               <button onClick={() => SetModalIsOpen(false)}>X</button>
             </div>
             <Addcourse/>
-          </Modal>
+          </Modal> */}
           {/* <li className="nav-item">
             <Link to={"/#"} className="nav-link">
               Student List
@@ -73,15 +73,15 @@ function App() {
               Send Emails
             </Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to={"/markers"} className="nav-link">
-              Markers View (Testing)
+              Markers View 
             </Link>
-          </li>
+          </li> */}
           <div className="navbar-right">
           <li className="nav-item">
             <Link to={"/register"} className="nav-link">
-              Register (Testing)
+              Register 
             </Link>
           </li>
           </div>
@@ -91,7 +91,7 @@ function App() {
         </a>
       </header>
       {condition}
-      <Route path="/markers" component={Markers} />
+      {/* <Route path="/markers" component={Markers} /> */}
       <Route path="/register" component={Register} />
       <Route path="/emails" component={sendEmails} />
     </ReflexContainer>
