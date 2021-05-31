@@ -20,14 +20,19 @@ function Register(props) {
   const [hours, setHours] = useState();
   const [UPI, setUPI] = useState();
   const [year, setYear] = useState();
-  const [coursesMarked, setCoursesMarked] = useState();
+  const [coursesMarked, setCoursesMarked] = useState("NONE");
   const [degree, setDegree] = useState();
   const [description, setDescription] = useState();
   const [Training, setTraining] = useState("0");
   const [gradType, setGradType] = useState("0");
   const [tutorTraining, settutorTraining] = useState("0");
   const [prevMarked, setPrevMarked] = useState("0");
-  // const [radio, setRadio] = useState("0");
+  const [prevMarkedSecond, setPrevMarkedSecond] = useState("0");
+  const [prevMarkedThird, setPrevMarkedThird] = useState("0");
+  const [prevEnrolledFirst, setprevEnrolledFirst] = useState("0");
+  const [prevEnrolledSecond, setprevEnrolledSecond] = useState("0");
+  const [prevEnrolledthird, setprevEnrolledThird] = useState("0");
+  
   const [file, setFile] = useState();
 
   const options = [
@@ -45,7 +50,7 @@ function Register(props) {
     data.append("lastName",lname)
     data.append("email",email)
     data.append("studentNumber",sN)
-    data.append("Degree",degree)
+    data.append("degree",degree)
     data.append("fPref",fPref)
     data.append("sPref",sPref)
     data.append("tPref",tPref)
@@ -58,8 +63,12 @@ function Register(props) {
     data.append("GradType",gradType)
     data.append("CoursesMarked",coursesMarked)
     data.append("tutorTraining",tutorTraining)
-    data.append("prevMarked",prevMarked)
-    console.log(GPA);
+    data.append("prevMarkedFirst",prevMarked)
+    data.append("prevMarkedSecond",prevMarkedSecond)
+    data.append("prevMarkedThird",prevMarkedThird)
+    data.append("prevEnrolledFirst",prevEnrolledFirst)
+    data.append("prevEnrolledSecond",prevEnrolledSecond)
+    data.append("prevEnrolledThird",prevEnrolledthird)
     data.append("file", file);
     Axios.post("/api/uploadregistrationform", data)
       .then((res) =>{
@@ -102,7 +111,7 @@ function Register(props) {
 
   return (
     <BoxComponent>
-    <div className="App" style={{background:"white"}}>
+    <div className="App" style={{background:"white", margin: "auto"}}>
       <header className="App-header">
         <form action="#">
           <div className="flex">
@@ -156,10 +165,47 @@ function Register(props) {
             <Select options={options} onChange={onchangeSelect}/>
             <label htmlFor="fPref">First Preference</label>
             <Dropbox id="fPref" prefFromRegister={"first"} sendToRegister={functionFromDropbox}/>
+
+            <label htmlFor="Description">Have you previously marked this course?</label>
+            <div className="form-check">
+            <label><input type = "radio" name = "Pmarked" checked={prevMarked==='1'} value = '1' className="form-check-input" onChange={(e)=>{setPrevMarked(e.target.value)}}/> Yes</label>
+            <label><input type = "radio" name = "Pmarked" checked={prevMarked==='0'} value = '0' className="form-check-input" onChange={(e)=>{setPrevMarked(e.target.value)}}/>No</label>
+            </div> 
+            <label htmlFor="Description">Were you previously enrolled in this course?</label>
+            <div className="form-check">
+            <label><input type = "radio" name = "Penrolled1" checked={prevEnrolledFirst==='1'} value = '1' className="form-check-input" onChange={(e)=>{setprevEnrolledFirst(e.target.value)}}/> Yes</label>
+            <label><input type = "radio" name = "Penrolled1" checked={prevEnrolledFirst==='0'} value = '0' className="form-check-input" onChange={(e)=>{setprevEnrolledFirst(e.target.value)}}/>No</label>
+            </div>
+
             <label htmlFor="sPref">Second Preference</label>
             <Dropbox id="sPref" prefFromRegister={"second"} sendToRegister={functionFromDropbox}/>
+
+            <label htmlFor="Description">Have you previously marked this course?</label>
+            <div className="form-check">
+            <label><input type = "radio" name = "Pmarked2" checked={prevMarkedSecond==='1'} value = '1' className="form-check-input" onChange={(e)=>{setPrevMarkedSecond(e.target.value)}}/> Yes</label>
+            <label><input type = "radio" name = "Pmarked2" checked={prevMarkedSecond==='0'} value = '0' className="form-check-input" onChange={(e)=>{setPrevMarkedSecond(e.target.value)}}/>No</label>
+            </div> 
+            <label htmlFor="Description">Were you previously enrolled in this course?</label>
+            <div className="form-check">
+            <label><input type = "radio" name = "Penrolled2" checked={prevEnrolledSecond==='1'} value = '1' className="form-check-input" onChange={(e)=>{setprevEnrolledSecond(e.target.value)}}/> Yes</label>
+            <label><input type = "radio" name = "Penrolled2" checked={prevEnrolledSecond==='0'} value = '0' className="form-check-input" onChange={(e)=>{setprevEnrolledSecond(e.target.value)}}/>No</label>
+            </div>
+
+
             <label htmlFor="tPref">Third Preference</label>
             <Dropbox id="sPref" prefFromRegister={"third"} sendToRegister={functionFromDropbox}/>
+
+            <label htmlFor="Description">Have you previously marked this course?</label>
+            <div className="form-check">
+            <label><input type = "radio" name = "Pmarked3" checked={prevMarkedThird==='1'} value = '1' className="form-check-input" onChange={(e)=>{setPrevMarkedThird(e.target.value)}}/> Yes</label>
+            <label><input type = "radio" name = "Pmarked3" checked={prevMarkedThird==='0'} value = '0' className="form-check-input" onChange={(e)=>{setPrevMarkedThird(e.target.value)}}/>No</label>
+            </div> 
+            <label htmlFor="Description">Were you previously enrolled in this course?</label>
+            <div className="form-check">
+            <label><input type = "radio" name = "Penrolled3" checked={prevEnrolledthird==='1'} value = '1' className="form-check-input" onChange={(e)=>{setprevEnrolledThird(e.target.value)}}/> Yes</label>
+            <label><input type = "radio" name = "Penrolled3" checked={prevEnrolledthird==='0'} value = '0' className="form-check-input" onChange={(e)=>{setprevEnrolledThird(e.target.value)}}/>No</label>
+            </div>
+
             </div>
             <br></br>
             <label htmlFor="hours">Hours Marked</label>
@@ -168,39 +214,36 @@ function Register(props) {
                 setHours(value);
               }}
             />
-            <label htmlFor="Description">Do You Have Bullying and Harrasment Training?</label>
+            <label htmlFor="Description">Do you have bullying and harrasment training?</label>
             <div className="form-check">
             <label><input type = "radio" checked={Training==='1'} value = '1' className="form-check-input" onChange={(e)=>{setTraining(e.target.value)}}/> Yes</label>
               <label><input type = "radio" checked={Training==='0'} value = '0' className="form-check-input" onChange={(e)=>{setTraining(e.target.value)}}/>No</label>
             </div>
-            <label htmlFor="Description">Are You a Postgrad or an Undergrad?</label>
+            <label htmlFor="Description">Are you a postgraduate or an undergraduate?</label>
             <div className="form-check">
-            <label><input type = "radio" name = "Gradtype" checked={gradType==='1'} value = '1' className="form-check-input" onChange={(e)=>{setGradType(e.target.value)}}/> Undergrad</label>
-            <label><input type = "radio" name = "Gradtype" checked={gradType==='0'} value = '0' className="form-check-input" onChange={(e)=>{setGradType(e.target.value)}}/>Postgrad</label>
+            <label><input type = "radio" name = "Gradtype" checked={gradType==='1'} value = '1' className="form-check-input" onChange={(e)=>{setGradType(e.target.value)}}/> Undergraduate</label>
+            <label><input type = "radio" name = "Gradtype" checked={gradType==='0'} value = '0' className="form-check-input" onChange={(e)=>{setGradType(e.target.value)}}/>Postgraduate</label>
             </div>    
-            <label htmlFor="Description">Do You Have Tutor Training?</label>
+            <label htmlFor="Description">Have you received tutor training?</label>
             <div className="form-check">
             <label><input type = "radio" name = "tutorTraining" checked={tutorTraining==='1'} value = '1' className="form-check-input" onChange={(e)=>{settutorTraining(e.target.value)}}/> Yes</label>
             <label><input type = "radio" name = "tutorTraining" checked={tutorTraining==='0'} value = '0' className="form-check-input" onChange={(e)=>{settutorTraining(e.target.value)}}/>No</label>
             </div>   
-            <label htmlFor="Description">Have You Previously Marked?</label>
-            <div className="form-check">
-            <label><input type = "radio" name = "Pmarked" checked={prevMarked==='1'} value = '1' className="form-check-input" onChange={(e)=>{setPrevMarked(e.target.value)}}/> Yes</label>
-            <label><input type = "radio" name = "Pmarked" checked={prevMarked==='0'} value = '0' className="form-check-input" onChange={(e)=>{setPrevMarked(e.target.value)}}/>No</label>
-            </div> 
-            <label htmlFor="email">If 'Yes' for the above, which courses have you marked? </label>
+            
+            {/* <label htmlFor="email">If 'Yes' for the above, which courses have you marked? </label>
             <input type="courses" id="courses" onChange={event => {
                 const { value } = event.target;
                 setCoursesMarked(value);
               }}
-            />
+            /> */}
             <label htmlFor="Description">What is the nature of your physical availablity to mark on UoA Campus</label>
-            <input type="text" id="description" placeholder = 'Available on City Campus' onChange={event => {
+            <input type="text" id="description" style={{width: '75%', height: '100px'}} placeholder = 'Are you available on city campus?' onChange={event => {
                 const { value } = event.target;
                 setDescription(value);
               }}
             />
           </div>
+          <br></br>
           <div className="flex">
             <label htmlFor="file">Upload CV
             <input

@@ -5,8 +5,8 @@ Student = require(__dirname+'/../models/Student.js');
 const Op = require("sequelize").Op;
 
 exports.registerStudent = (req,res,cvLocation) => {
-  console.log("IN THE REGISTER STUDENT FUNCITON");  
-  // console.log(typeof (req.body.Year));
+  // console.log("IN THE REGISTER STUDENT FUNCITON");  
+  console.log(req.body);
   const student = {
     firstName:req.body.firstName, 
     lastName:req.body.lastName, 
@@ -14,7 +14,7 @@ exports.registerStudent = (req,res,cvLocation) => {
     student_number:req.body.studentNumber, 
     upi:req.body.UPI,
     year: req.body.Year,
-    degree: req.body.Degree,
+    degree: req.body.degree,
     firstPref: req.body.fPref,
     secondPref: req.body.sPref,
     thirdPref: req.body.tPref,
@@ -25,6 +25,12 @@ exports.registerStudent = (req,res,cvLocation) => {
     total_hours: req.body.hours,
     description: req.body.description, 
     courses_marked: req.body.CoursesMarked,
+    previosly_marked_first: req.body.prevMarkedFirst,
+    previosly_marked_second: req.body.prevMarkedSecond,
+    previosly_marked_third: req.body.prevMarkedThird,
+    previosly_enrolled_first: req.body.prevEnrolledFirst,
+    previosly_enrolled_Second: req.body.prevEnrolledSecond,
+    previosly_enrolled_Third: req.body.prevEnrolledThird,
     pdfLocation: cvLocation  
   }
   // console.log(student);
