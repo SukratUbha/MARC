@@ -7,26 +7,20 @@ Course.init({
   // Model attributes are defined here
   Course_name: { // course name 
     type: DataTypes.INTEGER,
-    allowNull: false
   },
-
-  /* REMOVED to replace with owner field
   CC: { //course coordinator name
     type: DataTypes.STRING,
-    allowNull: false
   },
   CC_email: { // course coordinator's email
     type: DataTypes.STRING,
-    allowNull: false
   },
-  */
-  Owner: { //Foreign key User model (id)
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
+  //  REMOVED because no authentication atm
+  // Owner: { //Foreign key User model (id)
+  //   type: DataTypes.INTEGER,
+  //   allowNull: false
+  // },
   Year: { // 1st year course/2nd year etc.
     type: DataTypes.INTEGER,
-    allowNull: false
   },
   Deadline: { // Enrolment Deadline
     type: DataTypes.DATE

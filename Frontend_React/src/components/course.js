@@ -59,7 +59,7 @@ export default class Course extends Component{
                     students: response.data,
                     count: this.props.dataFromStudent
                 });
-                console.log("student has updated in course.js")
+                
             });
 
             axios.get("/api/courses/association/").then(response =>{
@@ -73,8 +73,7 @@ export default class Course extends Component{
                     courses: response.data
                 });
             });
-
-
+            console.log("course.js has updated")
         }
     }
     
@@ -190,6 +189,39 @@ export default class Course extends Component{
         }
     }
 
+    createCourse = () => { //load default value for classes
+        var data = {
+            Course_name: "",
+            CC: "",
+            CC_email: "",
+            Year: 1,
+            Deadline: null,
+            Hours: 0,
+            Total_student: 0,
+            comment_CC: "",
+            comment_MC: "",
+          };
+      
+        axios.post("/api/Courses/create", data)
+        .then(response => {
+            console.log(response.data)
+            console.log("Course has created sucessfully!")
+            this.props.functionCallFromParent("course", response.data, [], this.state.courses, this.state.students, this.state.assoc);
+        })
+        .catch(e => {
+            console.log(e);
+        });
+
+        axios.get("/api/courses/").then(response =>{
+            this.setState({
+                courses: response.data
+            });
+        });
+
+       
+        
+    };
+
     render(){
         // const { currentModal } = this.state;
 
@@ -201,7 +233,7 @@ export default class Course extends Component{
                         <div style={{display:"inline-block"}}>
                             
                             <button onClick={this.handleClick("course", course)}>
-                                {course.Course_name}</button> 
+                                {course.Course_name||"NA"}</button> 
                             
                             
                             {this.state.assoc.filter(assoc => assoc.course_id === course.id).map((filtered_assoc)=>
@@ -209,7 +241,7 @@ export default class Course extends Component{
                                     {this.state.students.filter(student => student.id === filtered_assoc.student_id)
                                                         .map((filtered_student)=>
                                         <button key={filtered_student.id} onClick={this.handleClick("student",filtered_student)}>
-                                            {filtered_student.firstName}: {filtered_student.allocated_hours||0}/{filtered_student.total_hours||0}
+                                            {filtered_student.firstName||"NA"}: {filtered_assoc.marking_hours||0}/{filtered_student.total_hours||0}
                                         </button>
                                         
                                     )}
@@ -224,9 +256,13 @@ export default class Course extends Component{
                     
                 )}
                 <div>
+                    <button type="button" onClick={this.createCourse}>Add Class</button>
+                </div>
+                {/* <br/>
+                <div>
                     <button type="button" className="btn btn-primary" onClick={this.load}>load</button>
                     <button type="button" className="btn btn-primary" onClick={this.loadstudent}>load student</button>
-                </div>
+                </div> */}
             </div>
 
             

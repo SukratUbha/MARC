@@ -20,27 +20,17 @@ const Op = require("sequelize").Op;
 
 
 exports.createCourse = (req, res) => {
-
-  // Validate request
-  if (!(req.body.Course_name&&req.body.CC&&req.body.CC_email)) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-    return;
-  }
-  console.log(req.body.Course_name);
-  
   // Create a Course
   const course = {
     Course_name:req.body.Course_name, 
     CC:req.body.CC, 
     CC_email:req.body.CC_email, 
     Year: req.body.Year, 
-    Deadline: null,
-    Hours: null,
-    Total_student: null, 
-    comment_CC:null,
-    comment_MC:null
+    Deadline: req.body.Deadline,
+    Hours: req.body.Hours,
+    Total_student: req.body.Total_student, 
+    comment_CC: req.body.comment_CC,
+    comment_MC: req.body.comment_MC
   };
   console.log(course);
 

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import axios from "axios";
 import Modal from 'react-modal'
-import Course_right  from './course_right';
+import Course_right  from './course_right_view';
 import './course.css';
 import Select from 'react-select'
+import Email_modal  from './email_modal';
 
 const customStyles = {
     content : {
@@ -60,6 +61,8 @@ export default class course_empty extends Component{
             course_selected: "", 
             student_selected: "",
             assoc_selected: [],
+
+            //create new association
             selectOptions: [],
             assoc_course_id: "",
             valid_course_id: true, 
@@ -67,6 +70,15 @@ export default class course_empty extends Component{
 
         }
     }
+
+    componentDidMount = () => {
+        axios.get("/api/courses/association/student/" + this.state.id).then(response =>{
+            this.setState({
+                assoc: response.data
+            });
+            console.log(this.state.assoc)
+        });
+    };
 
     componentDidUpdate(prevProps, prevState) {
         //trigger when index.js gives different student 
@@ -108,12 +120,14 @@ export default class course_empty extends Component{
                 //always set Edit Mode to false when different student has changed
                 isInEditMode: false,
                 
-                // modal state
-                modalIsOpen: false,
+                //modal state
+                currentModal: "",
                 modal_value: "" ,
                 course_selected: "", 
-                student_selected: "", 
+                student_selected: "",
                 assoc_selected: [],
+
+                //create new association
                 selectOptions: [],
                 assoc_course_id: "",
                 valid_course_id: true, 
@@ -132,10 +146,12 @@ export default class course_empty extends Component{
             year:this.refs.year.value,
             type:(this.refs.type.checked)*1, //postgraduate - 0, undergraduate - 1
             gpa:this.refs.gpa.value,
+            courses_marked:this.refs.courses_marked.value,
             email:this.refs.email.value, 
             bh_training: (this.refs.bh_training.checked)*1, //No - 0, Yes - 1
             tutor_training: (this.refs.tutor_training.checked)*1, //No - 0, Yes - 1
             total_hours:this.refs.total_hours.value,
+            description:this.refs.description.value,
             mc_description:this.refs.mc_description.value,
         })
         var data = {
@@ -147,10 +163,12 @@ export default class course_empty extends Component{
             year:this.refs.year.value,
             type:this.refs.type.checked, //postgraduate - 0, undergraduate - 1
             gpa:this.refs.gpa.value,
+            courses_marked:this.refs.courses_marked.value,
             email:this.refs.email.value, 
             bh_training: this.refs.bh_training.checked, //No - 0, Yes - 1
             tutor_training: this.refs.tutor_training.checked, //No - 0, Yes - 1
             total_hours:this.refs.total_hours.value,
+            description:this.refs.description.value,
             mc_description:this.refs.mc_description.value,
         }
         
@@ -166,8 +184,12 @@ export default class course_empty extends Component{
     }
 
     openCV = () => {
-        console.log("Opening CV")
-        window.open(this.state.pdfLocation);
+        if(this.state.pdfLocation!==null){
+            console.log("Opening CV")
+            window.open(this.state.pdfLocation);
+        } else {
+            console.log("Do not have CV")
+        }
     }
 
     // update textbox
@@ -241,6 +263,7 @@ export default class course_empty extends Component{
                     defaultValue={this.state.email}
                     ref="email"
                     name="Email"
+                    size="30"
                 />
             </div>
         )
@@ -297,13 +320,32 @@ export default class course_empty extends Component{
     renderEditView_gpa = () => {
         return (
             <div style={{display:"inline-block"}}>
+                <select id="gpa" name="gpa" ref="gpa">
+                    <option value="A+">A+</option>
+                    <option value="A">A</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="B-">B-</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="C-">C-</option>
+                    <option value="F">F</option>
+                </select>
+            </div>
+        )
+    }
+    renderEditView_course_marked = () => { 
+        return (
+            <div style={{display:"inline-block"}}>
                 <input
                     type="text"
-                    id="gpa"
-                    defaultValue={this.state.gpa}
-                    ref="gpa"
-                    name="GPA"
-                    size="5"
+                    id="courses_marked"
+                    defaultValue={this.state.courses_marked}
+                    ref="courses_marked"
+                    name="courses_marked"
+                    size= "30"
+                    
                 />
             </div>
         )
@@ -356,19 +398,35 @@ export default class course_empty extends Component{
         return (
             <div style={{display:"inline-block"}}>
                 <input
-                    type="text"
+                    type="number" 
+                    min="0"
+                    defaultValue = {this.state.total_hours||0}
+                    style={{width:"100px"}}
                     id="total_hours"
-                    defaultValue={this.state.total_hours||0}
                     ref="total_hours"
                     name="Hours Offered"
-                    size="5"
+                />
+            </div>
+        )
+    }
+    renderEditView_description = () => { //notes for this student
+        return (
+            <div style={{width:"200px"}}>
+                <input
+                    type="text"
+                    id="description"
+                    defaultValue={this.state.description}
+                    ref="description"
+                    name="description"
+                    size= "45"
+                    
                 />
             </div>
         )
     }
     renderEditView_mc_description = () => { //notes for this student
         return (
-            <div style={{display:"inline-block", width:"200px"}}>
+            <div style={{width:"200px"}}>
                 <input
                     type="text"
                     id="mc_description"
@@ -417,6 +475,11 @@ export default class course_empty extends Component{
             [{this.state.email}]
         </div>
     }
+    renderDefaultView_send_email = () => {
+        return <div style={{display:"inline-block"}}>
+            &nbsp; <button onClick={ () => this.SetModalIsOpen("email", "")}>Send Email</button>
+        </div>
+    }
     renderDefaultView_degree = () => {
         return <div onDoubleClick={this.changeEditMode} style={{display:"inline-block"}}>
             [{this.state.degree}]
@@ -443,6 +506,11 @@ export default class course_empty extends Component{
             [{this.state.gpa}]
         </div>
     }
+    renderDefaultView_courses_marked = () => {
+        return <div onDoubleClick={this.changeEditMode} style={{display:"inline-block"}}>
+            [{this.state.courses_marked}]
+        </div>
+    }
     renderDefaultView_bh_training = () => {
         if (this.state.bh_training === 1){
             return <div onDoubleClick={this.changeEditMode} style={{display:"inline-block"}}>
@@ -465,6 +533,18 @@ export default class course_empty extends Component{
             </div>
         }
     }
+    renderDefaultView_CV = () => {
+        if (this.state.pdfLocation !== null){
+            return <div onClick={this.openCV} style={{textDecoration: "underline", cursor : "pointer", display:"inline-block"}}>
+                View
+            </div>
+        } else {
+            return <div style={{display:"inline-block"}}>
+                NA
+            </div>
+        }
+        
+    }                      
     renderDefaultView_total_hours = () => {
         return <div onDoubleClick={this.changeEditMode} style={{display:"inline-block"}}>
             [{this.state.total_hours||0}]
@@ -475,6 +555,9 @@ export default class course_empty extends Component{
         for (const assoc_index in this.state.assoc){
             hours += (this.state.assoc[assoc_index].marking_hours||0)
         }
+
+        var deficit_hours = this.state.total_hours - hours;
+        
         if (this.state.allocated_hours != hours){
             this.setState({
                 allocated_hours: hours
@@ -495,17 +578,24 @@ export default class course_empty extends Component{
             this.props.functionCallFromStudent(1); //trigger course.js to refresh student details
         }
 
-        return <div style={{display:"inline-block"}}>
-            {this.state.allocated_hours||0}
-        </div>
+        return(
+            <div className="allcHours">
+                <h6 style={{fontWeight:"bold", color:"green"}}>
+                    Total Hours Allocated: {hours}
+                </h6>
+                <h6 style={{fontWeight:"bold", color:"#b02117"}}>
+                    Total Hours Defecit: {deficit_hours}
+                </h6>
+            </div>
+        );
     }
     renderDefaultView_description = () => {
-        return <div style={{display:"inline-block"}}>
-            {this.state.description}
+        return <div onDoubleClick={this.changeEditMode} style={{width:"200px"}}>
+            [{this.state.description}]
         </div>
     }
     renderDefaultView_mc_description = () => {
-        return <div onDoubleClick={this.changeEditMode} style={{display:"inline-block", width:"200px"}}>
+        return <div onDoubleClick={this.changeEditMode} style={{width:"200px"}}>
             [{this.state.mc_description}]
         </div>
     }
@@ -555,6 +645,25 @@ export default class course_empty extends Component{
     }
 
     //modal function 
+    setMessage = () => {
+        var message = "\n Allocated hours \n"
+        for (const assoc_index in this.state.assoc){
+            var assoc = this.state.assoc[assoc_index] 
+            
+            if (this.state.assoc[assoc_index].marking_hours!==0){
+                var assoc_course = ""
+                for (const course_index in this.state.courses){
+                    if (this.state.courses[course_index].id===assoc.course_id){
+                        assoc_course = this.state.courses[course_index].Course_name
+                        break;
+                    }
+                }
+                message += assoc_course + " - " + this.state.assoc[assoc_index].marking_hours + " hours \n"
+            }
+        }  
+        return message
+    }
+
     SetModalIsOpen = (identifier, value) => {
         if (identifier === "course"){
             this.setState({
@@ -590,6 +699,10 @@ export default class course_empty extends Component{
                 currentModal: identifier,
                 selectOptions: options
             })
+        } else if (identifier === "email"){
+            this.setState({
+                currentModal: identifier
+            })
         }else {
             console.log("error in SetModalIsOpen")
         }
@@ -600,7 +713,17 @@ export default class course_empty extends Component{
         // requested to be closed
         this.setState({
             ...this.state,
-            currentModal: null
+            //modal state
+            currentModal: "",
+            modal_value: "" ,
+            course_selected: "", 
+            student_selected: "",
+            assoc_selected: [],
+
+            //create new association
+            selectOptions: [],
+            assoc_course_id: "",
+            valid_course_id: true, 
         });
     }
 
@@ -749,7 +872,14 @@ export default class course_empty extends Component{
                         </h6>
                         <h6>
                             Email: {this.state.isInEditMode ? this.renderEditView_email(): this.renderDefaultView_email()}
+                            {this.state.isInEditMode ? "": this.renderDefaultView_send_email()}
                         </h6>
+                        <Modal isOpen={this.state.currentModal==="email"} onRequestClose={this.handleModalCloseRequest} style={customStyles}>
+                            <div>
+                                <button onClick={this.handleModalCloseRequest}>X</button>
+                                <Email_modal dataFromSubject="Message From Marker Coordinator" dataFromParent={this.state.email} dataFromMessage={this.setMessage()}/>
+                            </div>
+                        </Modal>  
                         <h6>
                             Degree: {this.state.isInEditMode ? this.renderEditView_degree(): this.renderDefaultView_degree()}
                         </h6>
@@ -763,7 +893,7 @@ export default class course_empty extends Component{
                             GPA: {this.state.isInEditMode ? this.renderEditView_gpa(): this.renderDefaultView_gpa()}
                         </h6>
                         <h6>
-                            Course marked: {}
+                            Course marked: {this.state.isInEditMode ? this.renderEditView_course_marked(): this.renderDefaultView_courses_marked()}
                         </h6>
                         <h6>
                             Bullying and harassment training: {this.state.isInEditMode ? this.renderEditView_bh_training(): this.renderDefaultView_bh_training()}
@@ -771,20 +901,15 @@ export default class course_empty extends Component{
                         <h6>
                             Tutor training: {this.state.isInEditMode ? this.renderEditView_tutor_training(): this.renderDefaultView_tutor_training()}
                         </h6>
-                        <div>
-                            CV: 
-                            <h6 onClick={this.openCV} style={{textDecoration: "underline", cursor : "pointer", display:"inline-block"}}>
-                                View
-                            </h6>
-                        </div>
+                        <h6>
+                            CV: {this.renderDefaultView_CV()}
+                        </h6>
                         <h6>
                             Hours Offered: {this.state.isInEditMode ? this.renderEditView_total_hours(): this.renderDefaultView_total_hours()}
                         </h6>
+                        {this.renderDefaultView_allocated_hours()}
                         <h6>
-                            Total Hours Allocated: {this.renderDefaultView_allocated_hours()}
-                        </h6>
-                        <h6>
-                            Notes from Student: {this.renderDefaultView_description()}
+                            Notes from Student: {this.state.isInEditMode ? this.renderEditView_description() : this.renderDefaultView_description()}
                         </h6>
                         <h6>
                             Notes for this Student: {this.state.isInEditMode ? this.renderEditView_mc_description(): this.renderDefaultView_mc_description()}
@@ -811,7 +936,7 @@ export default class course_empty extends Component{
                                             {this.state.courses.filter(course => filtered_assoc.course_id === course.id).map((filtered_course)=>
                                                 <td key={filtered_course.id}>
                                                     <button onClick={ () => this.SetModalIsOpen("course", filtered_course)}>
-                                                        {filtered_course.Course_name}
+                                                        {filtered_course.Course_name||"NA"}
                                                     </button> 
                                                 </td> 
                                             )}
@@ -841,7 +966,6 @@ export default class course_empty extends Component{
                             <div>
                                 <button onClick={this.handleModalCloseRequest}>X</button>
                                     <Course_right dataFromParent={this.state.modal_value} 
-                                                    dataFromAssoc={this.state.assoc} 
                                                     dataFromCourses={this.state.courses} 
                                                     dataFromStudents={this.state.students}
                                     />
@@ -902,12 +1026,13 @@ export default class course_empty extends Component{
                                         Marker Coordinator Proposes: 
                                         <div style={{display:"inline-block"}}>
                                             <input
-                                                type="text"
+                                                type="number" 
+                                                min="0"
+                                                defaultValue = {this.state.assoc_selected.burkhard_proposed||0}
+                                                style={{width:"75px"}}
                                                 id="burkhard_proposed"
-                                                defaultValue={this.state.assoc_selected.burkhard_proposed||0}
                                                 ref="burkhard_proposed"
                                                 name="burkhard_proposed"
-                                                size="5"
                                             />
                                         </div>
                                     </h6>
@@ -915,12 +1040,13 @@ export default class course_empty extends Component{
                                         Course Coordinator Proposes:
                                         <div style={{display:"inline-block"}}>
                                             <input
-                                                type="text"
+                                                type="number" 
+                                                min="0"
+                                                defaultValue = {this.state.assoc_selected.course_proposed||0}
+                                                style={{width:"75px"}}
                                                 id="course_proposed"
-                                                defaultValue={this.state.assoc_selected.course_proposed||0}
                                                 ref="course_proposed"
                                                 name="course_proposed"
-                                                size="5"
                                             />
                                         </div>
                                     </h6>
@@ -928,12 +1054,13 @@ export default class course_empty extends Component{
                                         Allocate Marking Hours:
                                         <div style={{display:"inline-block"}}>
                                             <input
-                                                type="text"
+                                                type="number" 
+                                                min="0"
+                                                defaultValue = {this.state.assoc_selected.marking_hours||0}
+                                                style={{width:"75px"}}
                                                 id="marking_hours"
-                                                defaultValue={this.state.assoc_selected.marking_hours||0}
                                                 ref="marking_hours"
                                                 name="marking_hours"
-                                                size="5"
                                             />
                                         </div>
                                     </h6>
@@ -1033,12 +1160,13 @@ export default class course_empty extends Component{
                                 Marker Coordinator Proposes: 
                                 <div style={{display:"inline-block"}}>
                                     <input
-                                        type="text"
-                                        id="burkhard_proposed"
-                                        defaultValue={0}
-                                        ref="burkhard_proposed"
-                                        name="burkhard_proposed"
-                                        size="5"
+                                         type="number" 
+                                         min="0"
+                                         defaultValue = {0}
+                                         style={{width:"75px"}}
+                                         id="burkhard_proposed"
+                                         ref="burkhard_proposed"
+                                         name="burkhard_proposed"
                                     />
                                 </div>
                             </h6>
@@ -1046,12 +1174,13 @@ export default class course_empty extends Component{
                                 Course Coordinator Proposes:
                                 <div style={{display:"inline-block"}}>
                                     <input
-                                        type="text"
+                                        type="number" 
+                                        min="0"
+                                        defaultValue = {0}
+                                        style={{width:"75px"}}
                                         id="course_proposed"
-                                        defaultValue={0}
                                         ref="course_proposed"
                                         name="course_proposed"
-                                        size="5"
                                     />
                                 </div>
                             </h6>
@@ -1059,12 +1188,13 @@ export default class course_empty extends Component{
                                 Allocate Marking Hours:
                                 <div style={{display:"inline-block"}}>
                                     <input
-                                        type="text"
+                                        type="number" 
+                                        min="0"
+                                        defaultValue = {0}
+                                        style={{width:"75px"}}
                                         id="marking_hours"
-                                        defaultValue={0}
                                         ref="marking_hours"
                                         name="marking_hours"
-                                        size="5"
                                     />
                                 </div>
                             </h6>

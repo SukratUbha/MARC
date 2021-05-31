@@ -7,9 +7,6 @@ Student.init({
   // Model attributes are defined here
   firstName: { //First name
     type: DataTypes.STRING,
-    validate: {
-        notEmpty: true
-    }
   }, 
   lastName: { //Family name
     type: DataTypes.STRING
@@ -43,9 +40,9 @@ Student.init({
   
   firstPref: { //first preference of course_id
       type: DataTypes.INTEGER,
-      validate: {
-          notEmpty: true
-      }
+      // validate: {
+      //     notEmpty: true
+      // }
   },
   secondPref: {
       type: DataTypes.INTEGER
@@ -55,9 +52,6 @@ Student.init({
   },
   email: {
     type: DataTypes.STRING,
-    validate: {
-      notEmpty: true
-    },
   },
   courses_marked: { //Courses marked (can by multiple)
     type: DataTypes.STRING

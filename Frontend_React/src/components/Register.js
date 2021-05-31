@@ -38,10 +38,14 @@ function Register(props) {
   const options = [
     { value: 'A+', label: 'A+' },
     { value: 'A', label: 'A' },
+    { value: 'A-', label: 'A-' },
     { value: 'B+', label: 'B+' },
     { value: 'B', label: 'B' },
+    { value: 'B-', label: 'B-' },
     { value: 'C+', label: 'C+' },
-    { value: 'C', label: 'C' }
+    { value: 'C', label: 'C' },
+    { value: 'C-', label: 'C-' },
+    { value: 'F', label: 'F' },
   ]
 
   const send = event => {
@@ -145,20 +149,25 @@ function Register(props) {
                 setEmail(value);
               }}
             />
-            <label htmlFor="degreeCompleted">Degree Completed</label>
+            <label htmlFor="degreeCompleted">Degree</label>
             <input type="text" id="degreeCompleted" onChange={event => {
                 const { value } = event.target;
                 setDegree(value);
               }}
             />
-            <label htmlFor="year">Year Completed</label>
-            <input type="number" id="year" placeholder = "2019" onChange={event => {
+            <label htmlFor="Description">Are you a postgraduate or an undergraduate?</label>
+            <div className="form-check">
+            <label><input type = "radio" name = "Gradtype" checked={gradType==='1'} value = '1' className="form-check-input" onChange={(e)=>{setGradType(e.target.value)}}/> Undergraduate</label>
+            <label><input type = "radio" name = "Gradtype" checked={gradType==='0'} value = '0' className="form-check-input" onChange={(e)=>{setGradType(e.target.value)}}/>Postgraduate</label>
+            </div>    
+            <label htmlFor="year">Which year are you in?</label>
+            <input type="number" id="year" placeholder = "1,2,3,..., or 7(Postgrad)" onChange={event => {
                 const { value } = event.target;
                 setYear(value);
               }}
             />
             <br></br>
-            <div class="dropdown">
+            <div className="dropdown">
              <label htmlFor="GPA">GPA</label>
              {/* <Select options={options} value = {GPA} onChange={onchangeSelect} getOptionValue={(option) => option.value} 
               getOptionLabel={(option) => option.value}/> */}
@@ -208,7 +217,7 @@ function Register(props) {
 
             </div>
             <br></br>
-            <label htmlFor="hours">Hours Marked</label>
+            <label htmlFor="hours">How many hours do you want to mark?</label>
             <input type="number" id="hours" placeholder = '0' onChange={event => {
                 const { value } = event.target;
                 setHours(value);
@@ -219,11 +228,6 @@ function Register(props) {
             <label><input type = "radio" checked={Training==='1'} value = '1' className="form-check-input" onChange={(e)=>{setTraining(e.target.value)}}/> Yes</label>
               <label><input type = "radio" checked={Training==='0'} value = '0' className="form-check-input" onChange={(e)=>{setTraining(e.target.value)}}/>No</label>
             </div>
-            <label htmlFor="Description">Are you a postgraduate or an undergraduate?</label>
-            <div className="form-check">
-            <label><input type = "radio" name = "Gradtype" checked={gradType==='1'} value = '1' className="form-check-input" onChange={(e)=>{setGradType(e.target.value)}}/> Undergraduate</label>
-            <label><input type = "radio" name = "Gradtype" checked={gradType==='0'} value = '0' className="form-check-input" onChange={(e)=>{setGradType(e.target.value)}}/>Postgraduate</label>
-            </div>    
             <label htmlFor="Description">Have you received tutor training?</label>
             <div className="form-check">
             <label><input type = "radio" name = "tutorTraining" checked={tutorTraining==='1'} value = '1' className="form-check-input" onChange={(e)=>{settutorTraining(e.target.value)}}/> Yes</label>
