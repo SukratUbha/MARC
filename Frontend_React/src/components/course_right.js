@@ -361,11 +361,12 @@ export default class Course extends Component{
     }
 
     updateComponentValue = () => {
+        console.log(this.refs.Deadline.value)
         this.setState({
             isInEditMode: !this.state.isInEditMode,//
             Course_name:this.refs.Course_name.value,
             Year:this.refs.Year.value||1,
-            Deadline:this.refs.Deadline.value,
+            Deadline:this.refs.Deadline.value||null,
             Hours:this.refs.Hours.value||0,
             Total_student:this.refs.Total_student.value||0,
             comment_CC:this.refs.comment_CC.value,
@@ -374,7 +375,7 @@ export default class Course extends Component{
         var data = {
             Course_name:this.refs.Course_name.value,
             Year:this.refs.Year.value||1,
-            Deadline:this.refs.Deadline.value,
+            Deadline:this.refs.Deadline.value+"+0000"||null,
             Hours:this.refs.Hours.value||0,
             Total_student:this.refs.Total_student.value||0,
             comment_CC:this.refs.comment_CC.value,
@@ -426,13 +427,12 @@ export default class Course extends Component{
             <div style={{display:"inline-block"}}>
                 <input
                     type="datetime-local" 
-                    min="1"
-                    defaultValue = {this.state.Deadline}
                     id="Deadline"
                     ref="Deadline"
                     name="Deadline"
                 />
             </div>
+            
         )
     }
     renderEditView_Hours = () => {
@@ -568,7 +568,6 @@ export default class Course extends Component{
                             <h6>
                                 Enrolment Deadline: {this.state.isInEditMode ? this.renderEditView_Deadline(): this.renderDefaultView_Deadline() }
                             </h6>
-                            {this.loadCourseDeadline()}
                             <h6>
                                 Hours to mark one student: {this.state.isInEditMode ? this.renderEditView_Hours(): this.renderDefaultView_Hours() }
                             </h6>
