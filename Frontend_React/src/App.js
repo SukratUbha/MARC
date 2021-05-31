@@ -3,6 +3,7 @@ import './App.css';
 import { Switch, Route, Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "./assets/round_long.png";
+import sponsor_logo from "./assets/SiteHost_Logo_RGB_Vertical_lighttext.png";
 import Addcourse  from './components/add_course.js';
 import Register from './components/Register';
 import Markers from './components/Markers';
@@ -47,7 +48,7 @@ function App() {
             </div>
             <Addcourse/>
           </Modal>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to={"/#"} className="nav-link">
               Student List
             </Link>
@@ -66,7 +67,7 @@ function App() {
             <Link to={"#"} className="nav-link">
               Colourize Late Courses
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item">
             <Link to={"/emails"} className="nav-link">
               Send Emails
@@ -85,6 +86,9 @@ function App() {
           </li>
           </div>
         </div>
+        <a href="https://sitehost.nz/" target="_blank" className="navbar-brand" style={{fontSize: "15px", textAlign:"center"}}>
+          Sponsored by <br/><img src={sponsor_logo} style={{width:"90px", marginRight:"auto", marginLeft:"auto",}} alt="sponsoreLogo"/>
+        </a>
       </header>
       {condition}
       <Route path="/markers" component={Markers} />
