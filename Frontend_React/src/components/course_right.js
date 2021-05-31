@@ -11,10 +11,61 @@ export default class Course extends Component{
         super(props);
 
         this.state = {
-            assoc: this.props.dataFromAssoc,
+            id: this.props.dataFromParent.id,
+            Course_name: this.props.dataFromParent.Course_name,
+            Year: this.props.dataFromParent.Year,
+            Deadline: this.props.dataFromParent.Deadline,
+            Hours: this.props.dataFromParent.Hours,
+            Total_student: this.props.dataFromParent.Total_student,
+            comment_CC: this.props.dataFromParent.comment_CC,
+            comment_MC: this.props.dataFromParent.comment_MC,
+
+                    
             CCUser: [],
             Student: [],
             allocationData: [],
+
+            //course's association
+            assoc: this.props.dataFromAssoc,
+            //list of all courses
+            courses: this.props.dataFromCourses,
+            //list of all students
+            students: this.props.dataFromStudents,
+            //list of all associations
+            all_assoc: this.props.dataFromAllAssoc,
+
+            //always set Edit Mode to false when different student has changed
+            isInEditMode: false,
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        //trigger when index.js gives different courses 
+        if (prevState.id !== this.props.dataFromParent.id) {
+            this.setState({
+                //course details
+                id: this.props.dataFromParent.id,
+                Course_name:this.props.dataFromParent.Course_name,
+                Year: this.props.dataFromParent.Year,
+                Deadline: this.props.dataFromParent.Deadline,
+                Hours: this.props.dataFromParent.Hours,
+                Total_student: this.props.dataFromParent.Total_student,
+                comment_CC: this.props.dataFromParent.comment_CC,
+                comment_MC: this.props.dataFromParent.comment_MC,
+                
+                //course's association
+                assoc: this.props.dataFromAssoc,
+                //list of all courses
+                courses: this.props.dataFromCourses,
+                //list of all students
+                students: this.props.dataFromStudents,
+                //list of all associations
+                all_assoc: this.props.dataFromAllAssoc,
+                
+                //always set Edit Mode to false when different student has changed
+                isInEditMode: false,
+                
+            })
         }
     }
     //reload
@@ -25,18 +76,7 @@ export default class Course extends Component{
 
 
     //Panel header
-    loadModuleTitle() {
-        return(
-            <div>
-                <h1 className="cRightTitle">
-                    {(this.props.dataFromParent || {}).Course_name}: 
-                    {/*Have calculation based on how much has been assigned in table*/}
-                    ({/*Total Hours Defecit*/}{((this.state.allocationData || {}).Hours_defecit_saved) || '0'})
-                    /{this.getTotalHours()}
-                </h1>
-            </div>
-        );
-    }
+    
 
     //Render course data components
     loadCoordinator(){
@@ -86,9 +126,6 @@ export default class Course extends Component{
         return(
             <div className="courseDeadline">
                 <div>
-                    Course Year:{(this.props.dataFromParent || {}).Year}
-                </div>
-                <div>
                     Enrolment Deadline:{(this.props.dataFromParent || {}).Deadline}
                     {this.isDeadlinePassed()}
                 </div>
@@ -99,12 +136,6 @@ export default class Course extends Component{
     loadCourseHours(){
         return(
             <div className="courseHours">
-                <div>
-                    Hours to mark one student:{(this.props.dataFromParent || {}).Hours}
-                </div>
-                <div>
-                    Enrolled Students:{(this.props.dataFromParent || {}).Total_student}
-                </div>
                 <div style={{display: "inline-flex"}}>
                     Student Hours required:
                     <input 
@@ -125,7 +156,7 @@ export default class Course extends Component{
     }
 
     getTotalHours() {
-        return( (this.props.dataFromParent || {}).Total_student * (this.props.dataFromParent || {}).Hours
+        return( this.state.Total_student * this.state.Hours
         );
     }
 
@@ -152,23 +183,6 @@ export default class Course extends Component{
             </div>
         );
     }
-
-    loadComments(){
-        <div className="comments">
-            <div>
-                <label htmlFor="commentCC">Notes (Course Coordinator)</label>
-                    <p id="commentCC">
-                        {(this.props.dataFromParent || {}).comment_CC}
-                    </p>
-            </div>
-            <div>
-                <label htmlFor="commentMC">Notes (Marker Coordinator)</label>
-                <p id="commentMC">
-                    {(this.props.dataFromParent || {}).comment_MC}
-                </p>
-            </div>
-        </div>
-    }
     
     //Course data functionalities
 
@@ -180,6 +194,10 @@ export default class Course extends Component{
         //complete reset password action
         //have marker be able to type in a new password?
         //or send email with temporary password?
+    }
+
+    reAssignHours (elementID) {
+        //in progress,
     }
 
     overrideReqHours(elementId) {
@@ -316,42 +334,261 @@ export default class Course extends Component{
     }
 
     isDeadlinePassed() {
-        //do i need some date calculation?
-        //Used by SO https://stackoverflow.com/questions/11309730/compare-sql-date-to-javascript-date
-        var sqlDateStr = (this.props.dataFromParent || {}).Deadline; // as for MySQL DATETIME
-        sqlDateStr = sqlDateStr.replace(/:| /g,"-");
-        var YMDhms = sqlDateStr.split("-");
-        var deadlineDate = new Date();
-        deadlineDate.setFullYear(parseInt(YMDhms[0]), parseInt(YMDhms[1])-1,
-                                                 parseInt(YMDhms[2]));
-        /*                                         
-        deadlineDate.setHours(parseInt(YMDhms[3]), parseInt(YMDhms[4]), 
-                                              parseInt(YMDhms[5]), 0msValue);
-        also comment out 0msValue*/
+        // //do i need some date calculation?
+        // //Used by SO https://stackoverflow.com/questions/11309730/compare-sql-date-to-javascript-date
+        // var sqlDateStr = (this.props.dataFromParent || {}).Deadline; // as for MySQL DATETIME
+        // sqlDateStr = sqlDateStr.replace(/:| /g,"-");
+        // var YMDhms = sqlDateStr.split("-");
+        // var deadlineDate = new Date();
+        // deadlineDate.setFullYear(parseInt(YMDhms[0]), parseInt(YMDhms[1])-1,
+        //                                          parseInt(YMDhms[2]));
+        // /*                                         
+        // deadlineDate.setHours(parseInt(YMDhms[3]), parseInt(YMDhms[4]), 
+        //                                       parseInt(YMDhms[5]), 0msValue);
+        // also comment out 0msValue*/
         
-        const today = new Date();
-        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        // const today = new Date();
+        // var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
-        return ((deadlineDate <= date) ? <>(late)</> : <></>);
+        // return ((deadlineDate <= date) ? <>(late)</> : <></>);
     }
 
+    // update textbox
+    changeEditMode = () => {
+        this.setState({
+            isInEditMode: !this.state.isInEditMode
+        })
+    }
+
+    updateComponentValue = () => {
+        this.setState({
+            isInEditMode: !this.state.isInEditMode,//
+            Course_name:this.refs.Course_name.value,
+            Year:this.refs.Year.value||1,
+            Deadline:this.refs.Deadline.value,
+            Hours:this.refs.Hours.value||0,
+            Total_student:this.refs.Total_student.value||0,
+            comment_CC:this.refs.comment_CC.value,
+            comment_MC:this.refs.comment_MC.value,
+        })
+        var data = {
+            Course_name:this.refs.Course_name.value,
+            Year:this.refs.Year.value||1,
+            Deadline:this.refs.Deadline.value,
+            Hours:this.refs.Hours.value||0,
+            Total_student:this.refs.Total_student.value||0,
+            comment_CC:this.refs.comment_CC.value,
+            comment_MC:this.refs.comment_MC.value,
+        }
+
+        axios.put("/api/courses/update/"+this.state.id, data)
+            .then(response => {
+              console.log(response.data);
+            })
+            .catch(e => {
+              console.log(e);
+            });
+
+        this.props.functionCallFromCourse(1); //trigger course.js to refresh student details
+    }
+
+    renderEditView_CourseName = () => {
+        return (
+            <div style={{display:"inline-block"}}>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="Course_name"
+                    defaultValue={this.state.Course_name}
+                    ref="Course_name"
+                    name="Course_name"
+                />
+            </div>
+        )
+    }
+    renderEditView_Year = () => {
+        return (
+            <div style={{display:"inline-block"}}>
+                <input
+                    type="number" 
+                    min="1"
+                    defaultValue = {this.state.Year}
+                    style={{width:"75px"}}
+                    id="Year"
+                    ref="Year"
+                    name="Year"
+                />
+            </div>
+        )
+    }
+    renderEditView_Deadline = () => {
+        return (
+            <div style={{display:"inline-block"}}>
+                <input
+                    type="datetime-local" 
+                    min="1"
+                    defaultValue = {this.state.Deadline}
+                    id="Deadline"
+                    ref="Deadline"
+                    name="Deadline"
+                />
+            </div>
+        )
+    }
+    renderEditView_Hours = () => {
+        return (
+            <div style={{display:"inline-block"}}>
+                <input
+                    type="number" 
+                    min="0"
+                    defaultValue = {this.state.Hours}
+                    style={{width:"75px"}}
+                    id="Hours"
+                    ref="Hours"
+                    name="Hours"
+                />
+            </div>
+        )
+    }
+    renderEditView_Total_student = () => {
+        return (
+            <div style={{display:"inline-block"}}>
+                <input
+                    type="number" 
+                    min="0"
+                    defaultValue = {this.state.Total_student}
+                    style={{width:"100px"}}
+                    id="Total_student"
+                    ref="Total_student"
+                    name="Total_student"
+                />
+            </div>
+        )
+    }
+    renderEditView_comment_CC = () => {
+        return (
+            <div>
+                <input
+                    type="text"
+                    id="comment_CC"
+                    defaultValue={this.state.comment_CC}
+                    ref="comment_CC"
+                    name="comment_CC"
+                    size= "45"
+                />
+            </div>
+        )
+    }
+    renderEditView_comment_MC = () => {
+        return (
+            <div>
+                <input
+                    type="text"
+                    id="comment_MC"
+                    defaultValue={this.state.comment_MC}
+                    ref="comment_MC"
+                    name="comment_MC"
+                    size= "45"
+                />
+            </div>
+        )
+    }
+    renderEditView_buttons = () => {
+        if (this.state.isInEditMode === true){
+            return (
+                <div style={{display:"inline-block", width:"400px"}}>
+                    <button onClick={this.changeEditMode}>cancel</button>
+                    <button onClick={this.updateComponentValue}>update</button>
+                </div>
+            )
+        }
+    }
+
+    renderDefaultView_CourseName = () => {
+        return <div onDoubleClick={this.changeEditMode} style={{display:"inline-block"}}>
+            [{this.state.Course_name}] &nbsp;
+        </div>
+    }
+    renderDefaultView_Year = () => {
+        return <div onDoubleClick={this.changeEditMode} style={{display:"inline-block"}}>
+            [{this.state.Year}]
+        </div>
+    }
+    renderDefaultView_Deadline = () => {
+        return <div onDoubleClick={this.changeEditMode} style={{display:"inline-block"}}>
+            [{this.state.Deadline}]
+        </div>
+    }
+    renderDefaultView_Hours = () => {
+        return <div onDoubleClick={this.changeEditMode} style={{display:"inline-block"}}>
+            [{this.state.Hours}]
+        </div>
+    }
+    renderDefaultView_Total_student = () => {
+        return <div onDoubleClick={this.changeEditMode} style={{display:"inline-block"}}>
+            [{this.state.Total_student}]
+        </div>
+    }
+    renderDefaultView_comment_CC = () => {
+        return <div onDoubleClick={this.changeEditMode}>
+            [{this.state.comment_CC}]
+        </div>
+    }
+    renderDefaultView_comment_MC = () => {
+        return <div onDoubleClick={this.changeEditMode}>
+            [{this.state.comment_MC}]
+        </div>
+    }
+    
+    loadModuleTitle() {
+        //Have calculation based on how much has been assigned in table
+        return(
+            <div style={{display:"inline-block"}}>
+                ({/*Total Hours Defecit*/}{((this.state.allocationData || {}).Hours_defecit_saved) || '0'})
+                /{this.getTotalHours()}
+            </div>
+        );
+    }
 
     render() {
             return (
                 <React.Fragment>
-                    <div className="box" style={{padding: '5px'}}>
+                    <div className="box" style={{padding: '5px', width:"750px"}}>
                         <div className="panelTitle" style={{backgroundColor : '#FFB6A4', marginBottom: '10px'}}>
-                            {this.loadModuleTitle()}
+                            <h1 className="cRightTitle">
+                                {this.state.isInEditMode ? this.renderEditView_CourseName(): this.renderDefaultView_CourseName() }
+                                {this.loadModuleTitle()}
+                            </h1>
                         </div>
                         <div className="courseData" style={{backgroundColor :'#E67B8A', marginBottom: '10px'}}>
-                            {this.loadCoordinator()}
+                            {/* {this.loadCoordinator()} */}
+                            <h6>
+                                Year: {this.state.isInEditMode ? this.renderEditView_Year(): this.renderDefaultView_Year() }
+                            </h6>
+                            <h6>
+                                Enrolment Deadline: {this.state.isInEditMode ? this.renderEditView_Deadline(): this.renderDefaultView_Deadline() }
+                            </h6>
                             {this.loadCourseDeadline()}
-                            {this.loadCourseHours()}
-                            {this.loadAllocatedHours()}
-                            {this.loadComments()}
+                            <h6>
+                                Hours to mark one student: {this.state.isInEditMode ? this.renderEditView_Hours(): this.renderDefaultView_Hours() }
+                            </h6>
+                            <h6>
+                                Enrolled Students: {this.state.isInEditMode ? this.renderEditView_Total_student(): this.renderDefaultView_Total_student() }
+                            </h6>
+                            {/* {this.loadCourseHours()}
+                            {this.loadAllocatedHours()} */}
+                            <h6>
+                                Notes (Course Coordinator): {this.state.isInEditMode ? this.renderEditView_comment_CC(): this.renderDefaultView_comment_CC() }
+                            </h6>
+                            <h6>
+                                Notes (Marker Coordinator): {this.state.isInEditMode ? this.renderEditView_comment_MC(): this.renderDefaultView_comment_MC() }
+                            </h6>
+                            <h6>
+                                {this.renderEditView_buttons()}
+                            </h6>
                         </div>
                         <div className="associationData" style={{backgroundColor : '#982D89'}}>
-                            {this.loadMarkerTable()}
+                            {/* {this.loadMarkerTable()} */}
                         </div>
                     </div>
                 </React.Fragment>

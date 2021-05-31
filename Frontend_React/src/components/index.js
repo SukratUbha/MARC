@@ -37,7 +37,7 @@ export default class index extends Component{
         });
     }
 
-    updateStudent=(num)=>{
+    updateLeftPanel=(num)=>{
         //trigger from course_student.js
         this.setState({
             count: this.state.count + num 
@@ -54,6 +54,7 @@ export default class index extends Component{
                         dataFromCourses={this.state.courses} 
                         dataFromStudents={this.state.students} 
                         dataFromAllAssoc={this.state.all_assoc}
+                        functionCallFromCourse={this.updateLeftPanel}
                     />
         } else if (this.state.identifier==="student"){
             condition=<Course_student 
@@ -62,7 +63,7 @@ export default class index extends Component{
                         dataFromCourses={this.state.courses} 
                         dataFromStudents={this.state.students} 
                         dataFromAllAssoc={this.state.all_assoc} 
-                        functionCallFromStudent={this.updateStudent}
+                        functionCallFromStudent={this.updateLeftPanel}
                     />
         } else {
             condition=<Course_empty/>

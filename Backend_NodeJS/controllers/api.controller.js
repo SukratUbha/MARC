@@ -89,7 +89,24 @@ exports.getCourse = (req, res) => {
 
 // Update a Course by the id in the request
 exports.updateCourse = (req, res) => {
-  // Andrew ToDo
+  const id = req.params.id;
+  Course.update(req.body, {
+    where:{id: id}
+  }).then(num=>{
+    if(num==1){
+      res.send({
+        message: 'Course with id='+id+' updated sucessfully.'
+      });
+    }else{
+      res.send({
+        message: 'Cannot update Course with id='+id
+      });
+    }
+  }).catch((err=>{
+    res.status(500).send({
+        message: 'Error update Course with id='+id
+    });
+  }));
 };
 
 exports.loadvalue = (req, res) => {

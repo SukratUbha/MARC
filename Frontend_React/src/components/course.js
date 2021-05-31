@@ -52,7 +52,7 @@ export default class Course extends Component{
     };
 
     componentDidUpdate(prevProps, prevState) {
-        //trigger when dataFromStudent ie. num is incremented by course_student.js
+        //trigger from course_right.js or course_student ie. num is incremented by course_student.js
         if (prevState.count !== this.props.dataFromStudent) {
             axios.get("/api/students/").then(response =>{
                 this.setState({
@@ -68,9 +68,9 @@ export default class Course extends Component{
                 });
             });
 
-            axios.get("/api/students/").then(response =>{
+            axios.get("/api/courses/").then(response =>{
                 this.setState({
-                    students: response.data
+                    courses: response.data
                 });
             });
 

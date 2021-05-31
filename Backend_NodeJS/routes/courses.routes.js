@@ -17,6 +17,9 @@ module.exports =(app) => {
     // Retrieve all Courses
     router.get("/", api.getAllCourses);
 
+    // Update Course with id
+    router.put("/update/:id", api.updateCourse);
+
     // Load value (testing purpose)
     router.get("/load", api.loadvalue);
 
@@ -42,8 +45,7 @@ module.exports =(app) => {
     //Could someone check this? Thank you :)
     // router.get("/association/relation/:course_id-student_id", api.getAssociationRelation)
 
-    // Update Course with id
-    router.put("/update/:id", api.updateCourse);
+    
 
     
 
