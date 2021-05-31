@@ -25,21 +25,21 @@ exports.registerStudent = (req,res,cvLocation) => {
     total_hours: req.body.hours,
     description: req.body.description, 
     courses_marked: req.body.CoursesMarked,
-    previosly_marked_first: req.body.prevMarkedFirst,
-    previosly_marked_second: req.body.prevMarkedSecond,
-    previosly_marked_third: req.body.prevMarkedThird,
-    previosly_enrolled_first: req.body.prevEnrolledFirst,
-    previosly_enrolled_Second: req.body.prevEnrolledSecond,
-    previosly_enrolled_Third: req.body.prevEnrolledThird,
+    // previously_marked_first: req.body.prevMarkedFirst,
+    // previously_marked_second: req.body.prevMarkedSecond,
+    // previously_marked_third: req.body.prevMarkedThird,
+    // previously_enrolled_first: req.body.prevEnrolledFirst,
+    // previously_enrolled_Second: req.body.prevEnrolledSecond,
+    // previously_enrolled_Third: req.body.prevEnrolledThird,
     pdfLocation: cvLocation  
   }
   // console.log(student);
   Student.create(student)
     .then(data => {
       // res.send("OK");
-      createAssociation(data.id, data.firstPref);
-      if (data.secondPref){createAssociation(data.id, data.secondPref)};
-      if (data.thirdPref){createAssociation(data.id, data.thirdPref)}
+      createAssociation(data.id, data.firstPref,req.body.prevEnrolledFirst, req.body.prevMarkedFirst);
+      if (data.secondPref){createAssociation(data.id, data.secondPref, req.body.prevEnrolledSecond, req.body.prevMarkedSecond)};
+      if (data.thirdPref){createAssociation(data.id, data.thirdPref, req.body.prevEnrolledThird, req.body.prevMarkedThird)}
       console.log(data.id)
       Promise.resolve("OK");
     })
@@ -88,14 +88,18 @@ exports.testregisterStudent = (req,res) =>{
 }
 
 //helper function 
-function createAssociation(student_id, course_id){
+function createAssociation(student_id, course_id, previously_enrolled, previously_marked){
   const association = {
     course_id: course_id, 
     student_id: student_id, 
-    request: null, 
-    application: null, 
-    blist: null,
-    marking: null
+    burkhard_proposed: 0,
+    course_proposed: 0,
+    student_proposed: 0,
+    course_blacklist: 0,
+    burkhard_blacklist: 0,
+    marking_hours:0,
+    previously_enrolled: previously_enrolled,
+    previously_marked: previously_marked,
   }
 
   Association.create(association);
