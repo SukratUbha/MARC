@@ -6,15 +6,25 @@ const Op = require("sequelize").Op;
 
 exports.registerStudent = (req,res,cvLocation) => {
   console.log("IN THE REGISTER STUDENT FUNCITON");  
+  // console.log(typeof (req.body.Year));
   const student = {
     firstName:req.body.firstName, 
     lastName:req.body.lastName, 
     email:req.body.email, 
+    student_number:req.body.studentNumber, 
+    upi:req.body.UPI,
+    year: req.body.Year,
+    degree: req.body.Degree,
     firstPref: req.body.fPref,
     secondPref: req.body.sPref,
     thirdPref: req.body.tPref,
+    type:  req.body.GradType,
+    tutor_training: req.body.tutorTraining,
+    bh_training: req.body.Training,
+    gpa: req.body.GPA,
     total_hours: req.body.hours,
     description: req.body.description, 
+    courses_marked: req.body.CoursesMarked,
     pdfLocation: cvLocation  
   }
   // console.log(student);
@@ -30,7 +40,8 @@ exports.registerStudent = (req,res,cvLocation) => {
     .catch(err => {
       // res.status(500).send({
         message:
-          err.message || "Some error occurred while registering the student."
+        console.log(err);
+          // err.message || "Some error occurred while registering the student."
           Promise.reject(new Error('fail'));
       });
     // });

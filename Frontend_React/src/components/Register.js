@@ -11,15 +11,23 @@ import './Register.css';
 function Register(props) {
   const [name, setName] = useState();
   const [lname, setLName] = useState();
+  const [sN, setStudentNumber] = useState();
   const [email, setEmail] = useState();
+  const [GPA, setGPA] = useState();
   const [fPref, setFirstPref] = useState();
   const [sPref, setSecondPref] = useState();
   const [tPref, setThirdPref] = useState();
   const [hours, setHours] = useState();
   const [UPI, setUPI] = useState();
+  const [year, setYear] = useState();
+  const [coursesMarked, setCoursesMarked] = useState();
+  const [degree, setDegree] = useState();
   const [description, setDescription] = useState();
-  const [Training, setTraining] = useState();
-  const [GPA, setGPA] = useState();
+  const [Training, setTraining] = useState("0");
+  const [gradType, setGradType] = useState("0");
+  const [tutorTraining, settutorTraining] = useState("0");
+  const [prevMarked, setPrevMarked] = useState("0");
+  // const [radio, setRadio] = useState("0");
   const [file, setFile] = useState();
 
   const options = [
@@ -36,16 +44,23 @@ function Register(props) {
     data.append("firstName", name);
     data.append("lastName",lname)
     data.append("email",email)
+    data.append("studentNumber",sN)
+    data.append("Degree",degree)
     data.append("fPref",fPref)
     data.append("sPref",sPref)
     data.append("tPref",tPref)
     data.append("hours",hours)
     data.append("description",description)
-    data.append("bTraining",Training)
+    data.append("Training",Training)
     data.append("GPA",GPA)
     data.append("UPI",UPI)
+    data.append("Year",year)
+    data.append("GradType",gradType)
+    data.append("CoursesMarked",coursesMarked)
+    data.append("tutorTraining",tutorTraining)
+    data.append("prevMarked",prevMarked)
+    console.log(GPA);
     data.append("file", file);
-    console.log(Training);
     Axios.post("/api/uploadregistrationform", data)
       .then((res) =>{
         console.log(data)
@@ -109,16 +124,36 @@ function Register(props) {
                 setUPI(value);
               }}
             />
+            <label htmlFor="AUID">AUID</label>
+            <input type="text" id="AUID" onChange={event => {
+                const { value } = event.target;
+                setStudentNumber(value);
+              }}
+            />
             <label htmlFor="email">Email Address</label>
             <input type="email" id="email" onChange={event => {
                 const { value } = event.target;
                 setEmail(value);
               }}
             />
+            <label htmlFor="degreeCompleted">Degree Completed</label>
+            <input type="text" id="degreeCompleted" onChange={event => {
+                const { value } = event.target;
+                setDegree(value);
+              }}
+            />
+            <label htmlFor="year">Year Completed</label>
+            <input type="number" id="year" placeholder = "2019" onChange={event => {
+                const { value } = event.target;
+                setYear(value);
+              }}
+            />
+            <br></br>
             <div class="dropdown">
-            <label htmlFor="GPA">GPA</label>
-             <Select options={options} value = {GPA} onChange={onchangeSelect} getOptionValue={(option) => option.value} 
-                getOptionLabel={(option) => option.value}/>
+             <label htmlFor="GPA">GPA</label>
+             {/* <Select options={options} value = {GPA} onChange={onchangeSelect} getOptionValue={(option) => option.value} 
+              getOptionLabel={(option) => option.value}/> */}
+            <Select options={options} onChange={onchangeSelect}/>
             <label htmlFor="fPref">First Preference</label>
             <Dropbox id="fPref" prefFromRegister={"first"} sendToRegister={functionFromDropbox}/>
             <label htmlFor="sPref">Second Preference</label>
@@ -126,17 +161,39 @@ function Register(props) {
             <label htmlFor="tPref">Third Preference</label>
             <Dropbox id="sPref" prefFromRegister={"third"} sendToRegister={functionFromDropbox}/>
             </div>
+            <br></br>
             <label htmlFor="hours">Hours Marked</label>
             <input type="number" id="hours" placeholder = '0' onChange={event => {
                 const { value } = event.target;
                 setHours(value);
               }}
             />
-            <label htmlFor="Description">Bullying and Harrasment Training</label>
+            <label htmlFor="Description">Do You Have Bullying and Harrasment Training?</label>
             <div className="form-check">
-              <label><input type="radio" value="Trial" name = 'Check' checked={true} className="form-check-input"/>Yes</label>
-              <label><input type="radio" value="Trial2" name = 'Check' checked={true} className="form-check-input"/>No</label>
+            <label><input type = "radio" checked={Training==='1'} value = '1' className="form-check-input" onChange={(e)=>{setTraining(e.target.value)}}/> Yes</label>
+              <label><input type = "radio" checked={Training==='0'} value = '0' className="form-check-input" onChange={(e)=>{setTraining(e.target.value)}}/>No</label>
             </div>
+            <label htmlFor="Description">Are You a Postgrad or an Undergrad?</label>
+            <div className="form-check">
+            <label><input type = "radio" name = "Gradtype" checked={gradType==='1'} value = '1' className="form-check-input" onChange={(e)=>{setGradType(e.target.value)}}/> Undergrad</label>
+            <label><input type = "radio" name = "Gradtype" checked={gradType==='0'} value = '0' className="form-check-input" onChange={(e)=>{setGradType(e.target.value)}}/>Postgrad</label>
+            </div>    
+            <label htmlFor="Description">Do You Have Tutor Training?</label>
+            <div className="form-check">
+            <label><input type = "radio" name = "tutorTraining" checked={tutorTraining==='1'} value = '1' className="form-check-input" onChange={(e)=>{settutorTraining(e.target.value)}}/> Yes</label>
+            <label><input type = "radio" name = "tutorTraining" checked={tutorTraining==='0'} value = '0' className="form-check-input" onChange={(e)=>{settutorTraining(e.target.value)}}/>No</label>
+            </div>   
+            <label htmlFor="Description">Have You Previously Marked?</label>
+            <div className="form-check">
+            <label><input type = "radio" name = "Pmarked" checked={prevMarked==='1'} value = '1' className="form-check-input" onChange={(e)=>{setPrevMarked(e.target.value)}}/> Yes</label>
+            <label><input type = "radio" name = "Pmarked" checked={prevMarked==='0'} value = '0' className="form-check-input" onChange={(e)=>{setPrevMarked(e.target.value)}}/>No</label>
+            </div> 
+            <label htmlFor="email">If 'Yes' for the above, which courses have you marked? </label>
+            <input type="courses" id="courses" onChange={event => {
+                const { value } = event.target;
+                setCoursesMarked(value);
+              }}
+            />
             <label htmlFor="Description">What is the nature of your physical availablity to mark on UoA Campus</label>
             <input type="text" id="description" placeholder = 'Available on City Campus' onChange={event => {
                 const { value } = event.target;

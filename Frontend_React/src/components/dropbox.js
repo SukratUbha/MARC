@@ -38,7 +38,7 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(this.state.selectOptions)
+    // console.log(this.state.selectOptions)
     return (
       <div>
         <Select options={this.state.selectOptions} onChange={this.handleChange.bind(this)} />
