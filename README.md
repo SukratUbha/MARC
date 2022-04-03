@@ -1,7 +1,13 @@
 # M. A. R. C.
 # Marker Allocation Reconciliation Configurator 
 A web-based tool for organizing markers (by Team 6) for Compsci 399
-
+-------------------------------------------------------------------------------
+Made by 5 students,
+MY CONTRIBUTIONS:
+-EMAIL FUNTIONALITY (BACKEND AND FRONTEND)
+-REGISTER FUNCTION (BACKEND AND FRONTEND)
+-SOME DIV DEVELOPMENT FOR HOME PAGE (THIS WAS MOSTLY DONE BY MY TEAM MEMBERS)
+--------------------------------------------------------------------------------
 ## Built using
 + Node.js
 + Express web application framework
